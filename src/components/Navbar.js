@@ -6,7 +6,15 @@ export default function Navbar() {
   const [hovered, setHovered] = useState(null);
   const [shrink, setShrink] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const location = useLocation();
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -42,7 +50,7 @@ export default function Navbar() {
       <nav
         style={{
           ...styles.navbar,
-          padding: shrink ? "10px 40px" : "14px 40px",
+          padding: shrink ? "10px 20px" : "14px 20px",
         }}
       >
         {/* LOGO */}
@@ -60,61 +68,73 @@ export default function Navbar() {
           <span style={styles.logoText}>Print Berry</span>
         </div>
 
-        {/* HAMBURGER */}
-        <button
-          style={styles.menuBtn}
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <FiX /> : <FiMenu />}
-        </button>
+        {/* HAMBURGER (mobile only) */}
+        {isMobile && (
+          <button
+            style={styles.menuBtn}
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <FiX /> : <FiMenu />}
+          </button>
+        )}
 
         {/* MENU */}
-        <ul
-          style={{
-            ...styles.menu,
-            ...(mobileOpen ? styles.menuMobileOpen : {}),
-          }}
-        >
-          {menuItems.map((item) => {
-            const active = location.pathname === item.path;
-            return (
-              <li
-                key={item.name}
-                onMouseEnter={() => setHovered(item.name)}
-                onMouseLeave={() => setHovered(null)}
-                style={{
-                  ...styles.menuItem,
-                  ...(active ? styles.active : {}),
-                }}
-              >
-                <Link to={item.path} style={styles.navLink}>
-                  {item.name}
-                </Link>
-
-                <span
+        {(!isMobile || mobileOpen) && (
+          <ul
+            style={{
+              ...styles.menu,
+              ...(isMobile ? styles.menuMobileOpen : {}),
+            }}
+          >
+            {menuItems.map((item) => {
+              const active = location.pathname === item.path;
+              return (
+                <li
+                  key={item.name}
+                  onMouseEnter={() => setHovered(item.name)}
+                  onMouseLeave={() => setHovered(null)}
                   style={{
-                    ...styles.underline,
-                    width:
-                      hovered === item.name || active ? "100%" : "0%",
+                    ...styles.menuItem,
+                    ...(active ? styles.active : {}),
+                    ...(isMobile ? { margin: "16px 0" } : {}),
                   }}
-                />
-              </li>
-            );
-          })}
+                >
+                  <Link to={item.path} style={styles.navLink}>
+                    {item.name}
+                  </Link>
 
-          {/* MOBILE CTA */}
-          <li style={styles.mobileCall}>
-            <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-              📞 Call Now
-            </a>
-          </li>
-        </ul>
+                  <span
+                    style={{
+                      ...styles.underline,
+                      width:
+                        hovered === item.name || active ? "100%" : "0%",
+                    }}
+                  />
+                </li>
+              );
+            })}
+
+            {/* MOBILE CTA */}
+            {isMobile && (
+              <li style={{ marginTop: "12px" }}>
+                <a
+                  href="tel:+919010099111"
+                  style={styles.mobileCallBtn}
+                >
+                  📞 Call Now
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
 
         {/* DESKTOP CTA */}
-        <div style={styles.actions}>
-          <button style={styles.outlineBtn}>Free Quote</button>
-          <button style={styles.primaryBtn}>Get Started</button>
-        </div>
+        {!isMobile && (
+          <div style={styles.actions}>
+            <button style={styles.outlineBtn}>Free Quote</button>
+            <button style={styles.primaryBtn}>Get Started</button>
+          </div>
+        )}
       </nav>
     </>
   );
@@ -124,7 +144,7 @@ const styles = {
   topBar: {
     background: "#0b0b0b",
     color: "#bbb",
-    padding: "8px 40px",
+    padding: "8px 20px",
     fontSize: "14px",
     display: "flex",
     justifyContent: "space-between",
@@ -177,6 +197,7 @@ const styles = {
     gap: "32px",
     margin: 0,
     padding: 0,
+    alignItems: "center",
   },
 
   menuItem: {
@@ -226,11 +247,11 @@ const styles = {
   },
 
   menuBtn: {
-    display: "none",
     background: "none",
     border: "none",
     fontSize: "28px",
     color: "#fff",
+    cursor: "pointer",
   },
 
   /* MOBILE */
@@ -239,14 +260,10 @@ const styles = {
     top: "100%",
     left: 0,
     width: "100%",
-    background: "#050b14",
     flexDirection: "column",
     alignItems: "center",
     padding: "24px 0",
-  },
-
-  mobileCall: {
-    display: "none",
+    background: "#050b14",
   },
 
   mobileCallBtn: {
