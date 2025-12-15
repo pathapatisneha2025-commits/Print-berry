@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaPrint, FaLightbulb, FaTags } from "react-icons/fa";
 
 export default function ServicesSection() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section style={styles.section}>
       {/* HEADING */}
@@ -11,7 +19,14 @@ export default function ServicesSection() {
       </h2>
 
       {/* SERVICES GRID */}
-      <div style={styles.grid}>
+      <div
+        style={{
+          ...styles.grid,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gap: isMobile ? "30px" : "40px",
+          marginBottom: isMobile ? "50px" : "70px",
+        }}
+      >
         {/* CARD 1 */}
         <div style={styles.card}>
           <div style={styles.iconBox}>
@@ -40,13 +55,22 @@ export default function ServicesSection() {
       </div>
 
       {/* CTA */}
-      <button style={styles.ctaBtn}>View All Services →</button>
+      <button
+        style={{
+          ...styles.ctaBtn,
+          padding: isMobile ? "14px 28px" : "18px 38px",
+          fontSize: isMobile ? "14px" : "16px",
+        }}
+      >
+        View All Services →
+      </button>
     </section>
   );
 }
+
 const styles = {
   section: {
-    padding: "120px 40px",
+    padding: "120px 20px",
     background: "linear-gradient(180deg,#050505,#0c0c0c)",
     textAlign: "center",
     color: "#fff",
@@ -74,8 +98,6 @@ const styles = {
 
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "40px",
     maxWidth: "1200px",
     margin: "0 auto 70px",
   },
@@ -118,13 +140,11 @@ const styles = {
   },
 
   ctaBtn: {
-    padding: "18px 38px",
     borderRadius: "16px",
     border: "none",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     color: "#000",
     fontWeight: "700",
-    fontSize: "16px",
     cursor: "pointer",
     boxShadow: "0 14px 40px rgba(255,183,3,0.35)",
   },
