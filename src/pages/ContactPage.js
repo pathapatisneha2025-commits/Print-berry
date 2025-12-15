@@ -1,64 +1,100 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function ContactPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <section style={styles.page}>
+    <section
+      style={{
+        ...styles.page,
+        padding: isMobile ? "80px 20px 60px" : "120px 40px 80px",
+      }}
+    >
       {/* HEADER */}
       <div style={styles.header}>
         <span style={styles.badge}>📞 Contact Us</span>
-        <h1 style={styles.heading}>
+        <h1
+          style={{
+            ...styles.heading,
+            fontSize: isMobile ? "clamp(28px, 8vw, 38px)" : styles.heading.fontSize,
+          }}
+        >
           Let’s Build Your <span style={styles.brand}>Brand</span>
         </h1>
-        <p style={styles.subText}>
+        <p
+          style={{
+            ...styles.subText,
+            fontSize: isMobile ? "16px" : styles.subText.fontSize,
+          }}
+        >
           Have a project in mind? Reach out to us and let’s create something
           powerful together.
         </p>
       </div>
 
       {/* CONTENT */}
-      <div style={styles.content}>
+      <div
+        style={{
+          ...styles.content,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? "30px" : "60px",
+        }}
+      >
         {/* LEFT INFO */}
         <div style={styles.info}>
-          <div style={styles.infoCard}>
-            <FaPhoneAlt style={styles.icon} />
-            <div>
-              <h4 style={styles.infoTitle}>Call Us</h4>
-              <p style={styles.infoText}>+91 98765 43210</p>
+          {[
+            {
+              icon: <FaPhoneAlt style={styles.icon} />,
+              title: "Call Us",
+              text: "+91 98765 43210",
+            },
+            {
+              icon: <FaEnvelope style={styles.icon} />,
+              title: "Email",
+              text: "info@yourbrand.com",
+            },
+            {
+              icon: <FaMapMarkerAlt style={styles.icon} />,
+              title: "Location",
+              text: "Hyderabad, Telangana, India",
+            },
+          ].map((item) => (
+            <div key={item.title} style={styles.infoCard}>
+              {item.icon}
+              <div>
+                <h4 style={styles.infoTitle}>{item.title}</h4>
+                <p style={styles.infoText}>{item.text}</p>
+              </div>
             </div>
-          </div>
-
-          <div style={styles.infoCard}>
-            <FaEnvelope style={styles.icon} />
-            <div>
-              <h4 style={styles.infoTitle}>Email</h4>
-              <p style={styles.infoText}>info@yourbrand.com</p>
-            </div>
-          </div>
-
-          <div style={styles.infoCard}>
-            <FaMapMarkerAlt style={styles.icon} />
-            <div>
-              <h4 style={styles.infoTitle}>Location</h4>
-              <p style={styles.infoText}>
-                Hyderabad, Telangana, India
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* RIGHT FORM */}
-        <form style={styles.form}>
+        <form style={{ ...styles.form, padding: isMobile ? "24px" : "32px" }}>
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />
           <textarea
             placeholder="Tell us about your project"
-            rows="4"
+            rows={4}
             style={styles.textarea}
           />
-
-          <button style={styles.submitBtn}>Send Message →</button>
+          <button
+            style={{
+              ...styles.submitBtn,
+              padding: isMobile ? "14px" : "16px",
+              fontSize: isMobile ? "14px" : "16px",
+            }}
+          >
+            Send Message →
+          </button>
         </form>
       </div>
     </section>
@@ -68,7 +104,6 @@ export default function ContactPage() {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "120px 40px 80px",
     background: "linear-gradient(180deg, #050505, #0c0c0c)",
     color: "#fff",
     maxWidth: "1300px",
@@ -112,7 +147,6 @@ const styles = {
 
   content: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
     gap: "60px",
   },
 
@@ -153,7 +187,6 @@ const styles = {
     background: "rgba(255,255,255,0.04)",
     border: "1px solid rgba(255,255,255,0.1)",
     borderRadius: "20px",
-    padding: "32px",
     display: "flex",
     flexDirection: "column",
     gap: "18px",
@@ -183,7 +216,6 @@ const styles = {
 
   submitBtn: {
     marginTop: "10px",
-    padding: "16px",
     borderRadius: "14px",
     border: "none",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",

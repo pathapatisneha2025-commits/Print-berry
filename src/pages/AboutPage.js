@@ -1,50 +1,74 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaLightbulb, FaRocket, FaUsers } from "react-icons/fa";
 
 export default function AboutPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <section style={styles.page}>
+    <section
+      style={{
+        ...styles.page,
+        padding: isMobile ? "80px 20px 60px" : styles.page.padding,
+      }}
+    >
       {/* HEADER */}
       <div style={styles.header}>
         <span style={styles.badge}>💡 About Us</span>
-        <h1 style={styles.heading}>
+        <h1
+          style={{
+            ...styles.heading,
+            fontSize: isMobile ? "clamp(28px, 8vw, 38px)" : styles.heading.fontSize,
+          }}
+        >
           We Make Your <span style={styles.brand}>Brand</span> Shine
         </h1>
-        <p style={styles.subText}>
+        <p
+          style={{
+            ...styles.subText,
+            fontSize: isMobile ? "16px" : styles.subText.fontSize,
+          }}
+        >
           At YourBrand, we combine creativity, technology, and passion to help 
           businesses stand out with high-impact visuals and unforgettable experiences.
         </p>
       </div>
 
       {/* CORE VALUES / CARDS */}
-      <div style={styles.cardsContainer}>
-        <div style={styles.card}>
-          <FaLightbulb style={styles.icon} />
-          <h3 style={styles.cardTitle}>Innovative Ideas</h3>
-          <p style={styles.cardText}>
-            We craft unique designs that capture attention and elevate your brand.
-          </p>
-        </div>
-
-        <div style={styles.card}>
-          <FaRocket style={styles.icon} />
-          <h3 style={styles.cardTitle}>Fast Execution</h3>
-          <p style={styles.cardText}>
-            From concept to delivery, we ensure quick turnaround without compromise.
-          </p>
-        </div>
-
-        <div style={styles.card}>
-          <FaUsers style={styles.icon} />
-          <h3 style={styles.cardTitle}>Customer Focus</h3>
-          <p style={styles.cardText}>
-            Your satisfaction is our priority — we work closely with you at every step.
-          </p>
-        </div>
+      <div
+        style={{
+          ...styles.cardsContainer,
+          gridTemplateColumns: isMobile ? "1fr" : styles.cardsContainer.gridTemplateColumns,
+          gap: isMobile ? "20px" : styles.cardsContainer.gap,
+          marginBottom: isMobile ? "40px" : styles.cardsContainer.marginBottom,
+        }}
+      >
+        {[{icon: <FaLightbulb />, title: "Innovative Ideas", text: "We craft unique designs that capture attention and elevate your brand."},
+          {icon: <FaRocket />, title: "Fast Execution", text: "From concept to delivery, we ensure quick turnaround without compromise."},
+          {icon: <FaUsers />, title: "Customer Focus", text: "Your satisfaction is our priority — we work closely with you at every step."}
+        ].map((item, i) => (
+          <div key={i} style={styles.card}>
+            {item.icon}
+            <h3 style={styles.cardTitle}>{item.title}</h3>
+            <p style={styles.cardText}>{item.text}</p>
+          </div>
+        ))}
       </div>
 
       {/* HAPPY CUSTOMERS / STATS */}
-      <div style={styles.statsContainer}>
+      <div
+        style={{
+          ...styles.statsContainer,
+          gridTemplateColumns: isMobile ? "1fr 1fr" : styles.statsContainer.gridTemplateColumns,
+          gap: isMobile ? "20px" : styles.statsContainer.gap,
+          marginBottom: isMobile ? "40px" : styles.statsContainer.marginBottom,
+        }}
+      >
         {[
           { value: "5000+", label: "Projects Completed" },
           { value: "500+", label: "Happy Clients" },
@@ -57,62 +81,61 @@ export default function AboutPage() {
           </div>
         ))}
       </div>
-{/* ================= OUR STORY ================= */}
-<div style={styles.story}>
-  <h2 style={styles.storyTitle}>Our Story</h2>
 
-  <div style={styles.storyContent}>
-    {/* LEFT COLUMN */}
-    <div style={styles.storyLeft}>
-      <div style={styles.storyCard}>
-        <p style={styles.storyText}>
-          <strong style={{ background: "linear-gradient(90deg,#ff006e,#ffb703)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>A Decade of Excellence</strong><br />
-          What started as a small printing shop has grown into one of the most trusted digital printing companies in the region. Our journey has been fueled by a passion for quality and a commitment to helping businesses succeed.
-        </p>
+      {/* OUR STORY */}
+      <div style={styles.story}>
+        <h2 style={{...styles.storyTitle, fontSize: isMobile ? "24px" : "32px"}}>Our Story</h2>
+        <div
+          style={{
+            ...styles.storyContent,
+            flexDirection: isMobile ? "column" : "row",
+            gap: isMobile ? "20px" : styles.storyContent.gap,
+          }}
+        >
+          <div style={styles.storyLeft}>
+            <div style={styles.storyCard}>
+              <p style={styles.storyText}>
+                <strong style={{ background: "linear-gradient(90deg,#ff006e,#ffb703)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  A Decade of Excellence
+                </strong><br />
+                What started as a small printing shop has grown into one of the most trusted digital printing companies in the region. Our journey has been fueled by a passion for quality and a commitment to helping businesses succeed.
+              </p>
+              <p style={styles.storyText}>
+                We combine cutting-edge technology with creative expertise to deliver stunning visual solutions that help businesses make a lasting impression. Every project is handled with care, precision, and attention to detail.
+              </p>
+            </div>
+          </div>
 
-        <p style={styles.storyText}>
-          We combine cutting-edge technology with creative expertise to deliver stunning visual solutions that help businesses make a lasting impression. Every project is handled with care, precision, and attention to detail.
-        </p>
+          <div style={styles.storyRight}>
+            <div style={styles.storyCard}>
+              <ul style={styles.storyList}>
+                {[
+                  "Premium quality materials and inks",
+                  "State-of-the-art printing technology",
+                  "Expert design consultation",
+                  "Fast turnaround times",
+                  "Competitive pricing"
+                ].map((item, index) => (
+                  <li key={index} style={styles.storyListItem}>
+                    <span style={styles.tickCircle}>✔</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p style={{ ...styles.storyText, fontWeight: "700", marginTop: "16px" }}>
+                100% Customer Satisfaction
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    {/* RIGHT COLUMN */}
-    <div style={styles.storyRight}>
-      <div style={styles.storyCard}>
-        <ul style={styles.storyList}>
-          {[
-            "Premium quality materials and inks",
-            "State-of-the-art printing technology",
-            "Expert design consultation",
-            "Fast turnaround times",
-            "Competitive pricing"
-          ].map((item, index) => (
-            <li key={index} style={styles.storyListItem}>
-              <span style={styles.tickCircle}>✔</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <p style={{ ...styles.storyText, fontWeight: "700", marginTop: "16px" }}>
-          100% Customer Satisfaction
-        </p>
+      {/* WORK WITH US */}
+      <div style={styles.workSection}>
+        <h2 style={{...styles.workTitle, fontSize: isMobile ? "24px" : "32px"}}>Ready to Work Together?</h2>
+        <p style={{...styles.workText, fontSize: isMobile ? "14px" : "16px"}}>Let's discuss your project and create something amazing together.</p>
+        <button style={{...styles.primaryBtn, padding: isMobile ? "12px 28px" : "16px 36px", fontSize: isMobile ? "14px" : "16px"}}>Get In Touch →</button>
       </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-     {/* ================= WORK WITH US ================= */}
-<div style={styles.workSection}>
-  <h2 style={styles.workTitle}>Ready to Work Together?</h2>
-  <p style={styles.workText}>
-    Let's discuss your project and create something amazing together.
-  </p>
-  <button style={styles.primaryBtn}>Get In Touch →</button>
-</div>
-
     </section>
   );
 }
