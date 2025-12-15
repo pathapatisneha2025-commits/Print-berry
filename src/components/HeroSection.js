@@ -1,40 +1,71 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section style={styles.hero}>
-      
       {/* TOP CONTENT */}
-      <div style={styles.heroTop}>
+      <div
+        style={{
+          ...styles.heroTop,
+          flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? "40px" : "60px",
+        }}
+      >
         {/* LEFT CONTENT */}
         <div style={styles.left}>
           <div style={styles.badge}>✨ Trusted Printing Experts</div>
 
-          <h1 style={styles.heading}>
+          <h1
+            style={{
+              ...styles.heading,
+              fontSize: isMobile ? "clamp(28px,6vw,42px)" : styles.heading.fontSize,
+            }}
+          >
             Make Your <span style={styles.brand}>Brand</span>
             <br />
             Impossible to <span style={styles.visibility}>Ignore</span>
           </h1>
 
-          <p style={styles.description}>
+          <p
+            style={{
+              ...styles.description,
+              fontSize: isMobile ? "16px" : styles.description.fontSize,
+              maxWidth: isMobile ? "100%" : styles.description.maxWidth,
+            }}
+          >
             We design and print high-impact visuals that turn attention into
             customers — from storefront branding to premium indoor displays.
           </p>
 
-          <div style={styles.buttons}>
+          <div style={{ ...styles.buttons, justifyContent: isMobile ? "center" : "flex-start" }}>
             <button style={styles.primaryBtn}>Explore Services →</button>
             <button style={styles.outlineBtn}>Get Free Quote</button>
           </div>
         </div>
 
         {/* RIGHT VISUAL CARDS */}
-        <div style={styles.right}>
+        <div
+          style={{
+            ...styles.right,
+            width: isMobile ? "100%" : "auto",
+            alignItems: isMobile ? "center" : "flex-start",
+          }}
+        >
           {["Flex Printing", "LED Signage", "Brand Boards"].map((item, i) => (
             <div
               key={item}
               style={{
                 ...styles.card,
-                transform: `translateY(${i * 20}px)`,
+                transform: isMobile ? "translateY(0)" : `translateY(${i * 20}px)`,
+                width: isMobile ? "90%" : "auto",
               }}
             >
               <span style={styles.cardIcon}>✦</span>
@@ -50,14 +81,19 @@ export default function HeroSection() {
       {/* DIVIDER */}
       <div style={styles.divider} />
 
-      {/* HERO STATS – FULL WIDTH */}
-      <div style={styles.heroStats}>
+      {/* HERO STATS */}
+      <div
+        style={{
+          ...styles.heroStats,
+          gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)",
+          gap: isMobile ? "20px" : "30px",
+        }}
+      >
         <Stat value="10+" label="Years Experience" />
         <Stat value="5000+" label="Projects Completed" />
         <Stat value="500+" label="Happy Clients" />
         <Stat value="24/7" label="Support Available" />
       </div>
-
     </section>
   );
 }
@@ -73,7 +109,7 @@ const Stat = ({ value, label }) => (
 const styles = {
   hero: {
     minHeight: "100vh",
-    padding: "120px 40px 80px",
+    padding: "120px 20px 80px",
     background: "linear-gradient(180deg, #050505, #0c0c0c)",
     color: "#fff",
     maxWidth: "1300px",
@@ -83,7 +119,6 @@ const styles = {
   heroTop: {
     display: "flex",
     alignItems: "center",
-    gap: "60px",
   },
 
   left: { flex: 1 },
@@ -103,9 +138,7 @@ const styles = {
 
   heroStats: {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
     textAlign: "center",
-    gap: "30px",
   },
 
   statItem: {},
@@ -123,7 +156,6 @@ const styles = {
     fontSize: "14px",
     color: "#aaa",
   },
-
 
   badge: {
     display: "inline-block",
@@ -168,21 +200,6 @@ const styles = {
     gap: "20px",
     flexWrap: "wrap",
   },
-
- 
-
-  stats: {
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "30px",
-  },
-
- 
-
-
-  
-
-  
 
   primaryBtn: {
     padding: "16px 32px",
