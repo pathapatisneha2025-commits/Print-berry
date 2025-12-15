@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+// COMPONENT IMPORTS
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import ServicesSection from "./components/ServiceSection";
+import CTASection from "./components/CtaSection";
+import Footer from "./components/FooterSection";
+import ServicesPage from "./pages/ServicePage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+
+
+// OPTIONAL PAGES (if you create them later)
+// import AboutPage from "./pages/AboutPage";
+// import ServicesPage from "./pages/ServicesPage";
+// import ContactPage from "./pages/ContactPage";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <>
+        {/* COMMON NAVBAR */}
+        <Navbar />
+
+        <Routes>
+          {/* HOME PAGE */}
+          <Route
+            path="/"
+            element={
+              <>
+                <HeroSection />
+                <ServicesSection/>
+                
+                <CTASection />
+                <Footer/>  
+              </>
+            }
+          />
+
+          {/* OPTIONAL ROUTES */}
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+        <Footer/>
+      </>
+    </Router>
   );
 }
-
-export default App;
