@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -7,9 +7,23 @@ import {
 } from "react-icons/fa";
 
 export default function Footer() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <footer style={styles.footer}>
-      <div style={styles.container}>
+      <div
+        style={{
+          ...styles.container,
+          gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr 1fr 1fr",
+          gap: isMobile ? "40px" : "60px",
+        }}
+      >
         {/* BRAND */}
         <div style={styles.brand}>
           <img
@@ -76,10 +90,10 @@ export default function Footer() {
 const SocialIcon = ({ icon }) => (
   <div style={styles.icon}>{icon}</div>
 );
+
 const styles = {
   footer: {
-    background:
-      "linear-gradient(180deg, #050505, #0b0b0b)",
+    background: "linear-gradient(180deg, #050505, #0b0b0b)",
     color: "#d1d5db",
     paddingTop: "100px",
   },
@@ -89,8 +103,6 @@ const styles = {
     margin: "0 auto",
     padding: "0 40px 80px",
     display: "grid",
-    gridTemplateColumns: "2fr 1fr 1fr 1fr",
-    gap: "60px",
   },
 
   brand: {
