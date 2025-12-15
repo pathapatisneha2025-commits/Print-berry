@@ -13,7 +13,7 @@ export default function Footer() {
         {/* BRAND */}
         <div style={styles.brand}>
           <img
-            src="/logo.png"
+            src="/logoimage.jpeg"
             alt="Print Berry"
             style={styles.logo}
           />
