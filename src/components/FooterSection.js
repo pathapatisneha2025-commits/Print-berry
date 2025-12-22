@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaTwitter,
@@ -26,15 +27,12 @@ export default function Footer() {
       >
         {/* BRAND */}
         <div style={styles.brand}>
-          <img
-            src="/logoimage.jpeg"
-            alt="Print Berry"
-            style={styles.logo}
-          />
+          <img src="/logoimage.jpeg" alt="Print Berry" style={styles.logo} />
+
           <p style={styles.text}>
-            Your trusted partner for premium digital printing and
-            signage solutions. We bring your brand vision to life
-            with quality and creativity.
+            Your trusted partner for premium digital printing and signage
+            solutions. We bring your brand vision to life with quality and
+            creativity.
           </p>
 
           <div style={styles.socials}>
@@ -49,11 +47,11 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Services</h4>
           <ul style={styles.list}>
-            <li>Flex Printing</li>
-            <li>LED Signage</li>
-            <li>Vinyl Printing</li>
-            <li>3D Signage</li>
-            <li>ACP Boards</li>
+            <li><Link to="/services" style={styles.link}>Flex Printing</Link></li>
+            <li><Link to="/services" style={styles.link}>LED Signage</Link></li>
+            <li><Link to="/services" style={styles.link}>Vinyl Printing</Link></li>
+            <li><Link to="/services" style={styles.link}>3D Signage</Link></li>
+            <li><Link to="/services" style={styles.link}>ACP Boards</Link></li>
           </ul>
         </div>
 
@@ -61,8 +59,9 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Company</h4>
           <ul style={styles.list}>
-            <li>About Us</li>
-            <li>Contact</li>
+            <li><Link to="/about" style={styles.link}>About Us</Link></li>
+            <li><Link to="/contact" style={styles.link}>Contact</Link></li>
+            <li><Link to="/services" style={styles.link}>Our Services</Link></li>
           </ul>
         </div>
 
@@ -70,10 +69,10 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Support</h4>
           <ul style={styles.list}>
-            <li>Get Quote</li>
-            <li>FAQs</li>
-            <li>Privacy Policy</li>
-            <li>Terms of Service</li>
+            <li><Link to="/contact" style={styles.link}>Get Quote</Link></li>
+            <li><Link to="/faq" style={styles.link}>FAQs</Link></li>
+            <li><Link to="/privacy-policy" style={styles.link}>Privacy Policy</Link></li>
+            <li><Link to="/terms" style={styles.link}>Terms of Service</Link></li>
           </ul>
         </div>
       </div>
@@ -153,7 +152,12 @@ const styles = {
     flexDirection: "column",
     gap: "14px",
     fontSize: "15px",
+  },
+
+  link: {
+    textDecoration: "none",
     color: "#9ca3af",
+    transition: "color 0.3s ease",
   },
 
   bottom: {
