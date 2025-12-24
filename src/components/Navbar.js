@@ -6,19 +6,23 @@ export default function Navbar() {
   const [hovered, setHovered] = useState(null);
   const [shrink, setShrink] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
+  /* ===== Mobile detection (FIXED) ===== */
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  /* ===== Close menu on page change ===== */
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
+  /* ===== Navbar shrink on scroll ===== */
   useEffect(() => {
     const onScroll = () => setShrink(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
@@ -34,14 +38,16 @@ export default function Navbar() {
 
   return (
     <>
-      {/* TOP INFO BAR */}
-      <div style={styles.topBar}>
-        <span>✨ For All Your Digital Needs</span>
-        <div style={styles.topRight}>
-          <span>📞 +91 9010099111</span>
-          <span>✉️ printberry.in@gmail.com</span>
+      {/* TOP BAR */}
+      {!isMobile && (
+        <div style={styles.topBar}>
+          <span>✨ For All Your Digital Needs</span>
+          <div style={styles.topRight}>
+            <span>📞 +91 9010099111</span>
+            <span>✉️ printberry.in@gmail.com</span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* NAVBAR */}
       <nav
@@ -66,63 +72,71 @@ export default function Navbar() {
         {isMobile && (
           <button
             style={styles.menuBtn}
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((p) => !p)}
           >
             {mobileOpen ? <FiX /> : <FiMenu />}
           </button>
         )}
 
-        {/* MENU */}
-        {(!isMobile || mobileOpen) && (
-          <ul
-            style={{
-              ...styles.menu,
-              ...(isMobile ? styles.menuMobileOpen : {}),
-            }}
-          >
-            {menuItems.map((item) => {
-              const active = location.pathname === item.path;
-              return (
-                <li
-                  key={item.name}
-                  onMouseEnter={() => setHovered(item.name)}
-                  onMouseLeave={() => setHovered(null)}
-                  style={{
-                    ...styles.menuItem,
-                    ...(active ? styles.active : {}),
-                    ...(isMobile ? { margin: "14px 0" } : {}),
-                  }}
-                >
-                  <Link to={item.path} style={styles.navLink}>
-                    {item.name}
-                  </Link>
-                  <span
+        {/* DESKTOP MENU */}
+        {!isMobile && (
+          <>
+            <ul style={styles.menu}>
+              {menuItems.map((item) => {
+                const active = location.pathname === item.path;
+                return (
+                  <li
+                    key={item.name}
+                    onMouseEnter={() => setHovered(item.name)}
+                    onMouseLeave={() => setHovered(null)}
                     style={{
-                      ...styles.underline,
-                      width:
-                        hovered === item.name || active ? "100%" : "0%",
+                      ...styles.menuItem,
+                      ...(active ? styles.active : {}),
                     }}
-                  />
-                </li>
-              );
-            })}
+                  >
+                    <Link to={item.path} style={styles.navLink}>
+                      {item.name}
+                    </Link>
+                    <span
+                      style={{
+                        ...styles.underline,
+                        width:
+                          hovered === item.name || active ? "100%" : "0%",
+                      }}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
 
-            {isMobile && (
-              <li style={{ marginTop: "16px" }}>
-                <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-                  📞 Call Now
-                </a>
-              </li>
-            )}
-          </ul>
+            <div style={styles.actions}>
+              <button style={styles.outlineBtn}>Free Quote</button>
+              <button style={styles.primaryBtn}>Get Started</button>
+            </div>
+          </>
         )}
 
-        {/* DESKTOP CTA */}
-        {!isMobile && (
-          <div style={styles.actions}>
-            <button style={styles.outlineBtn}>Free Quote</button>
-            <button style={styles.primaryBtn}>Get Started</button>
-          </div>
+        {/* MOBILE MENU */}
+        {isMobile && mobileOpen && (
+          <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
+            {menuItems.map((item) => (
+              <li key={item.name} style={styles.mobileItem}>
+                <Link
+                  to={item.path}
+                  style={styles.navLink}
+                  onClick={() => setMobileOpen(false)} // 🔥 CLOSE ON CLICK
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+
+            <li style={{ marginTop: "16px" }}>
+              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+                📞 Call Now
+              </a>
+            </li>
+          </ul>
         )}
       </nav>
     </>
@@ -141,14 +155,12 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     borderBottom: "1px solid #1f1f1f",
-    maxWidth: "100vw",
-    overflow: "hidden",
+    flexWrap: "wrap",
   },
 
   topRight: {
     display: "flex",
     gap: "12px",
-    flexWrap: "wrap",
   },
 
   navbar: {
@@ -160,16 +172,13 @@ const styles = {
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: "100vw",
     boxSizing: "border-box",
-    overflow: "hidden",
     boxShadow: "0 10px 40px rgba(255,183,3,0.08)",
   },
 
   logoWrap: {
     display: "flex",
     alignItems: "center",
-    flexShrink: 0,
   },
 
   logoImg: {
@@ -186,13 +195,16 @@ const styles = {
     margin: 0,
     padding: 0,
     alignItems: "center",
-    whiteSpace: "nowrap",
   },
 
   menuItem: {
     position: "relative",
     fontSize: "15px",
-    cursor: "pointer",
+  },
+
+  mobileItem: {
+    margin: "14px 0",
+    fontSize: "18px",
   },
 
   navLink: {
@@ -216,7 +228,6 @@ const styles = {
   actions: {
     display: "flex",
     gap: "10px",
-    flexShrink: 0,
   },
 
   outlineBtn: {
@@ -239,10 +250,10 @@ const styles = {
   menuBtn: {
     background: "none",
     border: "none",
-    fontSize: "26px",
+    fontSize: "28px",
     color: "#fff",
     cursor: "pointer",
-    flexShrink: 0,
+    zIndex: 1100,
   },
 
   menuMobileOpen: {
@@ -250,13 +261,10 @@ const styles = {
     top: "100%",
     left: 0,
     right: 0,
-    width: "100%",
-    display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    padding: "20px 0",
     background: "#050b14",
-    overflowX: "hidden",
+    padding: "20px 0",
+    textAlign: "center",
   },
 
   mobileCallBtn: {
