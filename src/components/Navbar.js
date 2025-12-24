@@ -9,19 +9,16 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const location = useLocation();
 
-  // Handle window resize
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  // Shrink on scroll
   useEffect(() => {
     const onScroll = () => setShrink(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
@@ -50,25 +47,22 @@ export default function Navbar() {
       <nav
         style={{
           ...styles.navbar,
-          padding: shrink ? "10px 20px" : "14px 20px",
+          padding: shrink ? "10px 16px" : "14px 16px",
         }}
       >
         {/* LOGO */}
-        <div style={styles.logo}>
-          <Link to="/" style={styles.logoLink}>
-            <img
-              src="/logoimage.jpeg"
-              alt="Print Berry"
-              style={{
-                ...styles.logoImg,
-                height: shrink ? "32px" : "38px",
-              }}
-            />
-          </Link>
-          <span style={styles.logoText}>Print Berry</span>
-        </div>
+        <Link to="/" style={styles.logoWrap}>
+          <img
+            src="/logoimage.jpeg"
+            alt="Print Berry"
+            style={{
+              ...styles.logoImg,
+              transform: shrink ? "scale(1)" : "scale(1.15)",
+            }}
+          />
+        </Link>
 
-        {/* HAMBURGER (mobile only) */}
+        {/* HAMBURGER */}
         {isMobile && (
           <button
             style={styles.menuBtn}
@@ -96,13 +90,12 @@ export default function Navbar() {
                   style={{
                     ...styles.menuItem,
                     ...(active ? styles.active : {}),
-                    ...(isMobile ? { margin: "16px 0" } : {}),
+                    ...(isMobile ? { margin: "14px 0" } : {}),
                   }}
                 >
                   <Link to={item.path} style={styles.navLink}>
                     {item.name}
                   </Link>
-
                   <span
                     style={{
                       ...styles.underline,
@@ -114,13 +107,9 @@ export default function Navbar() {
               );
             })}
 
-            {/* MOBILE CTA */}
             {isMobile && (
-              <li style={{ marginTop: "12px" }}>
-                <a
-                  href="tel:+919010099111"
-                  style={styles.mobileCallBtn}
-                >
+              <li style={{ marginTop: "16px" }}>
+                <a href="tel:+919010099111" style={styles.mobileCallBtn}>
                   📞 Call Now
                 </a>
               </li>
@@ -140,21 +129,26 @@ export default function Navbar() {
   );
 }
 
+/* ================= STYLES ================= */
+
 const styles = {
   topBar: {
     background: "#0b0b0b",
     color: "#bbb",
-    padding: "8px 20px",
+    padding: "8px 16px",
     fontSize: "14px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottom: "1px solid #1f1f1f",
+    maxWidth: "100vw",
+    overflow: "hidden",
   },
 
   topRight: {
     display: "flex",
-    gap: "20px",
+    gap: "12px",
+    flexWrap: "wrap",
   },
 
   navbar: {
@@ -165,44 +159,39 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    width: "100%",
+    maxWidth: "100vw",
+    boxSizing: "border-box",
+    overflow: "hidden",
     boxShadow: "0 10px 40px rgba(255,183,3,0.08)",
   },
 
-  logo: {
+  logoWrap: {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
-  },
-
-  logoLink: {
-    display: "flex",
-    alignItems: "center",
+    flexShrink: 0,
   },
 
   logoImg: {
-    height: "38px",
-    width: "auto",
-    borderRadius: "6px",
-    transition: "0.3s",
-  },
-
-  logoText: {
-    color: "#ffb703",
-    fontWeight: 700,
+    height: "80px",
+    maxWidth: "160px",
+    objectFit: "contain",
+    transition: "transform 0.3s",
   },
 
   menu: {
     display: "flex",
     listStyle: "none",
-    gap: "32px",
+    gap: "24px",
     margin: 0,
     padding: 0,
     alignItems: "center",
+    whiteSpace: "nowrap",
   },
 
   menuItem: {
     position: "relative",
-    fontSize: "16px",
+    fontSize: "15px",
     cursor: "pointer",
   },
 
@@ -226,7 +215,8 @@ const styles = {
 
   actions: {
     display: "flex",
-    gap: "14px",
+    gap: "10px",
+    flexShrink: 0,
   },
 
   outlineBtn: {
@@ -249,21 +239,24 @@ const styles = {
   menuBtn: {
     background: "none",
     border: "none",
-    fontSize: "28px",
+    fontSize: "26px",
     color: "#fff",
     cursor: "pointer",
+    flexShrink: 0,
   },
 
-  /* MOBILE */
   menuMobileOpen: {
     position: "absolute",
     top: "100%",
     left: 0,
+    right: 0,
     width: "100%",
+    display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "24px 0",
+    padding: "20px 0",
     background: "#050b14",
+    overflowX: "hidden",
   },
 
   mobileCallBtn: {

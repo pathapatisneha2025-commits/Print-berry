@@ -14,66 +14,84 @@ export default function AboutPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "80px 20px 60px" : styles.page.padding,
+        padding: isMobile ? "90px 20px 70px" : styles.page.padding,
       }}
     >
       {/* HEADER */}
       <div style={styles.header}>
         <span style={styles.badge}>💡 About Us</span>
+
         <h1
           style={{
             ...styles.heading,
-            fontSize: isMobile ? "clamp(28px, 8vw, 38px)" : styles.heading.fontSize,
+            fontSize: isMobile
+              ? "clamp(30px, 8vw, 40px)"
+              : styles.heading.fontSize,
           }}
         >
           We Make Your <span style={styles.brand}>Brand</span> Shine
         </h1>
+
         <p
           style={{
             ...styles.subText,
             fontSize: isMobile ? "16px" : styles.subText.fontSize,
           }}
         >
-          At YourBrand, we combine creativity, technology, and passion to help 
-          businesses stand out with high-impact visuals and unforgettable experiences.
+          We blend creativity, technology, and strategy to help brands stand out
+          with stunning visuals and memorable experiences.
         </p>
       </div>
 
-      {/* CORE VALUES / CARDS */}
+      {/* VALUES */}
       <div
         style={{
           ...styles.cardsContainer,
           gridTemplateColumns: isMobile ? "1fr" : styles.cardsContainer.gridTemplateColumns,
-          gap: isMobile ? "20px" : styles.cardsContainer.gap,
-          marginBottom: isMobile ? "40px" : styles.cardsContainer.marginBottom,
         }}
       >
-        {[{icon: <FaLightbulb />, title: "Innovative Ideas", text: "We craft unique designs that capture attention and elevate your brand."},
-          {icon: <FaRocket />, title: "Fast Execution", text: "From concept to delivery, we ensure quick turnaround without compromise."},
-          {icon: <FaUsers />, title: "Customer Focus", text: "Your satisfaction is our priority — we work closely with you at every step."}
+        {[
+          {
+            icon: <FaLightbulb />,
+            title: "Innovative Ideas",
+            text: "Fresh, bold concepts that make your brand unforgettable.",
+          },
+          {
+            icon: <FaRocket />,
+            title: "Fast Execution",
+            text: "Quick turnarounds without ever sacrificing quality.",
+          },
+          {
+            icon: <FaUsers />,
+            title: "Customer Focus",
+            text: "Collaborative approach with results you can trust.",
+          },
         ].map((item, i) => (
-          <div key={i} style={styles.card}>
-            {item.icon}
+          <div
+            key={i}
+            style={styles.card}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-10px)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+          >
+            <div style={styles.iconWrap}>{item.icon}</div>
             <h3 style={styles.cardTitle}>{item.title}</h3>
             <p style={styles.cardText}>{item.text}</p>
           </div>
         ))}
       </div>
 
-      {/* HAPPY CUSTOMERS / STATS */}
+      {/* STATS */}
       <div
         style={{
           ...styles.statsContainer,
           gridTemplateColumns: isMobile ? "1fr 1fr" : styles.statsContainer.gridTemplateColumns,
-          gap: isMobile ? "20px" : styles.statsContainer.gap,
-          marginBottom: isMobile ? "40px" : styles.statsContainer.marginBottom,
         }}
       >
         {[
-          { value: "5000+", label: "Projects Completed" },
-          { value: "500+", label: "Happy Clients" },
-          { value: "10+", label: "Years Experience" },
-          { value: "24/7", label: "Support Available" },
+          { value: "5000+", label: "Projects" },
+          { value: "500+", label: "Clients" },
+          { value: "10+", label: "Years" },
+          { value: "24/7", label: "Support" },
         ].map((stat) => (
           <div key={stat.label} style={styles.statItem}>
             <h3 style={styles.statValue}>{stat.value}</h3>
@@ -82,59 +100,57 @@ export default function AboutPage() {
         ))}
       </div>
 
-      {/* OUR STORY */}
+      {/* STORY */}
       <div style={styles.story}>
-        <h2 style={{...styles.storyTitle, fontSize: isMobile ? "24px" : "32px"}}>Our Story</h2>
+        <h2 style={styles.storyTitle}>Our Story</h2>
+
         <div
           style={{
             ...styles.storyContent,
             flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? "20px" : styles.storyContent.gap,
           }}
         >
-          <div style={styles.storyLeft}>
-            <div style={styles.storyCard}>
-              <p style={styles.storyText}>
-                <strong style={{ background: "linear-gradient(90deg,#ff006e,#ffb703)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  A Decade of Excellence
-                </strong><br />
-                What started as a small printing shop has grown into one of the most trusted digital printing companies in the region. Our journey has been fueled by a passion for quality and a commitment to helping businesses succeed.
-              </p>
-              <p style={styles.storyText}>
-                We combine cutting-edge technology with creative expertise to deliver stunning visual solutions that help businesses make a lasting impression. Every project is handled with care, precision, and attention to detail.
-              </p>
-            </div>
+          <div style={styles.storyCard}>
+            <p style={styles.storyText}>
+              <strong style={styles.gradientText}>A Decade of Excellence</strong>
+              <br />
+              From humble beginnings to becoming a trusted name in digital
+              printing — our journey is powered by passion and precision.
+            </p>
+            <p style={styles.storyText}>
+              We deliver visual solutions that elevate brands and leave lasting
+              impressions.
+            </p>
           </div>
 
-          <div style={styles.storyRight}>
-            <div style={styles.storyCard}>
-              <ul style={styles.storyList}>
-                {[
-                  "Premium quality materials and inks",
-                  "State-of-the-art printing technology",
-                  "Expert design consultation",
-                  "Fast turnaround times",
-                  "Competitive pricing"
-                ].map((item, index) => (
-                  <li key={index} style={styles.storyListItem}>
-                    <span style={styles.tickCircle}>✔</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p style={{ ...styles.storyText, fontWeight: "700", marginTop: "16px" }}>
-                100% Customer Satisfaction
-              </p>
-            </div>
+          <div style={styles.storyCard}>
+            <ul style={styles.storyList}>
+              {[
+                "Premium materials & inks",
+                "Modern printing technology",
+                "Expert design support",
+                "Fast delivery timelines",
+                "Affordable pricing",
+              ].map((item, index) => (
+                <li key={index} style={styles.storyListItem}>
+                  <span style={styles.tickCircle}>✔</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <p style={styles.highlightText}>100% Customer Satisfaction</p>
           </div>
         </div>
       </div>
 
-      {/* WORK WITH US */}
+      {/* CTA */}
       <div style={styles.workSection}>
-        <h2 style={{...styles.workTitle, fontSize: isMobile ? "24px" : "32px"}}>Ready to Work Together?</h2>
-        <p style={{...styles.workText, fontSize: isMobile ? "14px" : "16px"}}>Let's discuss your project and create something amazing together.</p>
-        <button style={{...styles.primaryBtn, padding: isMobile ? "12px 28px" : "16px 36px", fontSize: isMobile ? "14px" : "16px"}}>Get In Touch →</button>
+        <h2 style={styles.workTitle}>Ready to Work Together?</h2>
+        <p style={styles.workText}>
+          Let’s turn your ideas into impactful visuals.
+        </p>
+        <button style={styles.primaryBtn}>Get In Touch →</button>
       </div>
     </section>
   );
@@ -152,23 +168,22 @@ const styles = {
 
   header: {
     textAlign: "center",
-    maxWidth: "800px",
-    margin: "0 auto 80px",
+    maxWidth: "820px",
+    margin: "0 auto 90px",
   },
 
   badge: {
-    display: "inline-block",
     padding: "10px 18px",
     borderRadius: "999px",
     background: "rgba(255,255,255,0.06)",
     border: "1px solid rgba(255,255,255,0.12)",
     fontSize: "14px",
     marginBottom: "24px",
-    backdropFilter: "blur(8px)",
+    display: "inline-block",
   },
 
   heading: {
-    fontSize: "clamp(38px, 5vw, 56px)",
+    fontSize: "clamp(40px, 5vw, 58px)",
     fontWeight: "800",
     marginBottom: "18px",
   },
@@ -182,30 +197,37 @@ const styles = {
   subText: {
     fontSize: "18px",
     color: "#cfcfcf",
-    lineHeight: "1.6",
+    lineHeight: "1.7",
   },
 
   cardsContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "30px",
-    marginBottom: "60px",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "32px",
+    marginBottom: "70px",
   },
 
   card: {
     background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "18px",
-    padding: "30px 24px",
-    backdropFilter: "blur(10px)",
+    border: "1px solid rgba(255,255,255,0.12)",
+    borderRadius: "22px",
+    padding: "36px 28px",
     textAlign: "center",
-    transition: "transform 0.3s",
+    transition: "all 0.35s ease",
+    backdropFilter: "blur(10px)",
   },
 
-  icon: {
-    fontSize: "32px",
+  iconWrap: {
+    width: "64px",
+    height: "64px",
+    margin: "0 auto 18px",
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "rgba(255,183,3,0.15)",
+    fontSize: "28px",
     color: "#ffb703",
-    marginBottom: "16px",
   },
 
   cardTitle: {
@@ -215,7 +237,7 @@ const styles = {
   },
 
   cardText: {
-    fontSize: "14px",
+    fontSize: "15px",
     color: "#cfcfcf",
     lineHeight: "1.6",
   },
@@ -223,15 +245,13 @@ const styles = {
   statsContainer: {
     display: "grid",
     gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "32px",
+    marginBottom: "80px",
     textAlign: "center",
-    gap: "30px",
-    marginBottom: "60px",
   },
 
-  statItem: {},
-
   statValue: {
-    fontSize: "32px",
+    fontSize: "34px",
     fontWeight: "800",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     WebkitBackgroundClip: "text",
@@ -244,112 +264,103 @@ const styles = {
     color: "#aaa",
   },
 
-  explanation: {
-    maxWidth: "900px",
-    margin: "0 auto 60px",
+  story: {
+    marginBottom: "80px",
+  },
+
+  storyTitle: {
+    textAlign: "center",
+    fontSize: "32px",
+    marginBottom: "40px",
+    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+
+  storyContent: {
+    display: "flex",
+    gap: "40px",
+  },
+
+  storyCard: {
+    flex: 1,
+    background: "rgba(255,255,255,0.05)",
+    border: "1px solid rgba(255,255,255,0.12)",
+    borderRadius: "22px",
+    padding: "32px",
+    backdropFilter: "blur(10px)",
+  },
+
+  storyText: {
+    color: "#cfcfcf",
+    fontSize: "16px",
+    lineHeight: "1.7",
+    marginBottom: "14px",
+  },
+
+  gradientText: {
+    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    fontWeight: "700",
+  },
+
+  storyList: {
+    listStyle: "none",
+    padding: 0,
+  },
+
+  storyListItem: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "12px",
+    color: "#cfcfcf",
+  },
+
+  tickCircle: {
+    width: "22px",
+    height: "22px",
+    borderRadius: "50%",
+    background: "#ff006e",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: "12px",
+    fontSize: "12px",
+  },
+
+  highlightText: {
+    marginTop: "16px",
+    fontWeight: "700",
+    color: "#ffb703",
+  },
+
+  workSection: {
     textAlign: "center",
   },
 
-  explanationText: {
+  workTitle: {
+    fontSize: "32px",
+    marginBottom: "14px",
+    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+
+  workText: {
     fontSize: "16px",
     color: "#cfcfcf",
-    lineHeight: "1.8",
-  },
-
-  cta: {
-    textAlign: "center",
+    marginBottom: "26px",
   },
 
   primaryBtn: {
-    padding: "16px 36px",
-    borderRadius: "14px",
+    padding: "16px 38px",
+    borderRadius: "16px",
     border: "none",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    color: "#000",
     fontWeight: "700",
     cursor: "pointer",
-    boxShadow: "0 12px 40px rgba(255,183,3,0.35)",
-    fontSize: "16px",
+    boxShadow: "0 16px 40px rgba(255,183,3,0.35)",
   },
- storyCard: {
-  background: "rgba(255,255,255,0.05)",
-  border: "1px solid rgba(255,255,255,0.12)",
-  borderRadius: "20px",
-  padding: "30px",
-  backdropFilter: "blur(10px)",
-  transition: "transform 0.3s, box-shadow 0.3s",
-},
-storyCardHover: {
-  transform: "translateY(-5px)",
-  boxShadow: "0 20px 40px rgba(255,183,3,0.3)",
-},
-storyListItem: {
-  display: "flex",
-  alignItems: "center",
-  fontSize: "16px",
-  color: "#cfcfcf",
-  lineHeight: "1.8",
-  transition: "color 0.3s",
-},
-storyListItemHover: {
-  color: "#ffb703",
-},
-storyContent: {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  gap: "40px",
-  justifyContent: "space-between", // makes left and right align properly
-  alignItems: "flex-start",
-  marginTop: "20px",
-},
-storyLeft: {
-  flex: "1 1 48%", // take roughly half width
-  minWidth: "300px",
-},
-
-storyRight: {
-  flex: "1 1 48%",
-  minWidth: "300px",
-},
-
-
-tickCircle: {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "24px",
-  height: "24px",
-  minWidth: "24px",
-  borderRadius: "50%",
-  backgroundColor: "#ff006e",
-  color: "#fff",
-  fontSize: "14px",
-  fontWeight: "700",
-  marginRight: "12px",
-},
-
-
-workSection: {
-  textAlign: "center",
-  marginTop: "60px",
-},
-
-workTitle: {
-  fontSize: "32px",
-  fontWeight: "700",
-  marginBottom: "16px",
-  background: "linear-gradient(90deg,#ff006e,#ffb703)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-},
-
-workText: {
-  fontSize: "16px",
-  color: "#cfcfcf",
-  marginBottom: "24px",
-  lineHeight: "1.6",
-},
-
-
 };

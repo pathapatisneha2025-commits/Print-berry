@@ -47,27 +47,56 @@ export default function ContactPage() {
           gap: isMobile ? "30px" : "60px",
         }}
       >
-        {/* LEFT INFO */}
+        {/* LEFT INFO – UNIQUE CARD DESIGN */}
         <div style={styles.info}>
           {[
             {
-              icon: <FaPhoneAlt style={styles.icon} />,
+              icon: <FaPhoneAlt />,
               title: "Call Us",
               text: "+91 98765 43210",
+              accent: "#ff006e",
             },
             {
-              icon: <FaEnvelope style={styles.icon} />,
+              icon: <FaEnvelope />,
               title: "Email",
               text: "info@yourbrand.com",
+              accent: "#ffb703",
             },
             {
-              icon: <FaMapMarkerAlt style={styles.icon} />,
+              icon: <FaMapMarkerAlt />,
               title: "Location",
               text: "Hyderabad, Telangana, India",
+              accent: "#ff6f91",
             },
           ].map((item) => (
-            <div key={item.title} style={styles.infoCard}>
-              {item.icon}
+            <div
+              key={item.title}
+              style={{
+                ...styles.infoCard,
+                boxShadow: `0 20px 60px ${item.accent}25`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-6px)";
+                e.currentTarget.style.borderColor =
+                  "rgba(255,255,255,0.25)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.borderColor =
+                  "rgba(255,255,255,0.12)";
+              }}
+            >
+              <div
+                style={{
+                  ...styles.iconWrap,
+                  background: `linear-gradient(135deg, ${item.accent}55, transparent)`,
+                }}
+              >
+                <span style={{ ...styles.icon, color: item.accent }}>
+                  {item.icon}
+                </span>
+              </div>
+
               <div>
                 <h4 style={styles.infoTitle}>{item.title}</h4>
                 <p style={styles.infoText}>{item.text}</p>
@@ -153,34 +182,48 @@ const styles = {
   info: {
     display: "flex",
     flexDirection: "column",
-    gap: "24px",
+    gap: "26px",
   },
 
   infoCard: {
     display: "flex",
     alignItems: "center",
-    gap: "18px",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "18px",
-    padding: "22px",
-    backdropFilter: "blur(10px)",
+    gap: "20px",
+    padding: "26px",
+    borderRadius: "22px",
+    background:
+      "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+    border: "1px solid rgba(255,255,255,0.12)",
+    backdropFilter: "blur(14px)",
+    transition: "all 0.35s ease",
+    cursor: "pointer",
+  },
+
+  iconWrap: {
+    width: "56px",
+    height: "56px",
+    borderRadius: "16px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
   },
 
   icon: {
     fontSize: "22px",
-    color: "#ffb703",
   },
 
   infoTitle: {
     margin: 0,
-    fontSize: "16px",
+    fontSize: "17px",
+    fontWeight: "600",
   },
 
   infoText: {
-    marginTop: "4px",
-    color: "#cfcfcf",
+    marginTop: "6px",
     fontSize: "14px",
+    color: "#cfcfcf",
+    lineHeight: "1.5",
   },
 
   form: {

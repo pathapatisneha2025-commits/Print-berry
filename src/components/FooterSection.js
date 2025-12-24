@@ -107,11 +107,12 @@ const styles = {
   brand: {
     maxWidth: "420px",
   },
+logo: {
+  width: "150px",   // ⬅ increased from 70px
+  height: "auto",
+  marginBottom: "24px",
+},
 
-  logo: {
-    width: "70px",
-    marginBottom: "20px",
-  },
 
   text: {
     fontSize: "15px",

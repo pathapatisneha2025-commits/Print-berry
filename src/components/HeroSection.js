@@ -51,31 +51,46 @@ export default function HeroSection() {
           </div>
         </div>
 
+      
         {/* RIGHT VISUAL CARDS */}
-        <div
-          style={{
-            ...styles.right,
-            width: isMobile ? "100%" : "auto",
-            alignItems: isMobile ? "center" : "flex-start",
-          }}
-        >
-          {["Flex Printing", "LED Signage", "Brand Boards"].map((item, i) => (
-            <div
-              key={item}
-              style={{
-                ...styles.card,
-                transform: isMobile ? "translateY(0)" : `translateY(${i * 20}px)`,
-                width: isMobile ? "90%" : "auto",
-              }}
-            >
-              <span style={styles.cardIcon}>✦</span>
-              <h4 style={styles.cardTitle}>{item}</h4>
-              <p style={styles.cardText}>
-                Premium quality with long-lasting impact.
-              </p>
-            </div>
-          ))}
-        </div>
+{/* RIGHT VISUAL CARDS */}
+<div
+  style={{
+    ...styles.right,
+    width: isMobile ? "100%" : "auto",
+    alignItems: isMobile ? "center" : "flex-end",
+  }}
+>
+  {[
+    { title: "Flex Printing", tag: "Outdoor", color: "#ff006e", icon: "💎" },
+    { title: "LED Signage", tag: "Premium", color: "#ffb703", icon: "✨" },
+    { title: "Brand Boards", tag: "Corporate", color: "#00f5ff", icon: "🚀" },
+  ].map((item, i) => (
+    <div
+      key={item.title}
+      className="premium-card"
+      style={{
+        ...styles.card,
+        transform: isMobile 
+          ? "translateY(0)" 
+          : `translateX(${i * -25}px) translateY(${i * 10}px)`,
+        zIndex: 3 - i,
+      }}
+    >
+      <div style={{...styles.cardHeader}}>
+        <span style={{...styles.cardTag, border: `1px solid ${item.color}`, color: item.color}}>
+          {item.tag}
+        </span>
+        <span style={styles.cardIcon}>{item.icon}</span>
+      </div>
+      <h4 style={styles.cardTitle}>{item.title}</h4>
+      <p style={styles.cardText}>
+        Enhance visibility with our industry-leading {item.title.toLowerCase()} solutions.
+      </p>
+      <div style={styles.cardFooter}>View Project →</div>
+    </div>
+  ))}
+</div>
       </div>
 
       {/* DIVIDER */}
@@ -222,27 +237,57 @@ const styles = {
     cursor: "pointer",
   },
 
-  card: {
-    background: "rgba(255,255,255,0.05)",
+ card: {
+    background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
     border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "18px",
+    borderRadius: "24px",
     padding: "24px",
-    backdropFilter: "blur(10px)",
+    backdropFilter: "blur(16px)",
+    width: "300px",
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+    transition: "all 0.4s ease",
+    cursor: "pointer",
+    position: "relative",
+  },
+
+  cardHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "20px",
+  },
+
+  cardTag: {
+    fontSize: "10px",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+    padding: "4px 8px",
+    borderRadius: "6px",
+    fontWeight: "700",
   },
 
   cardIcon: {
-    fontSize: "22px",
-    color: "#ffb703",
+    fontSize: "24px",
   },
 
   cardTitle: {
-    marginTop: "12px",
+    fontSize: "20px",
+    fontWeight: "700",
     marginBottom: "8px",
-    fontSize: "18px",
+    color: "#fff",
   },
 
   cardText: {
-    color: "#cfcfcf",
+    color: "#9ca3af",
     fontSize: "14px",
+    lineHeight: "1.6",
+    marginBottom: "16px",
   },
+
+  cardFooter: {
+    fontSize: "13px",
+    fontWeight: "600",
+    color: "#ffb703",
+    opacity: 0.8,
+  }
 };

@@ -234,7 +234,7 @@ export default function ServicesPage() {
 
           <div className="service-card">
             <div className="service-image">
-              <img src="/services/promotional-items.png" alt="Promotional Items" />
+              <img src="/promotional.jpeg" alt="Promotional Items" />
             </div>
             <h3>Promotional Items</h3>
             <p>Custom branded merchandise for business promotion.</p>
