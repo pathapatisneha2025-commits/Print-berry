@@ -10,6 +10,7 @@ import Footer from "./components/FooterSection";
 import ServicesPage from "./pages/ServicePage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
+import FeaturedClients from "./components/FeaturedClients";
 
 
 // OPTIONAL PAGES (if you create them later)
@@ -32,6 +33,7 @@ export default function App() {
               <>
                 <HeroSection />
                 <ServicesSection/>
+                <FeaturedClients/>
                 
                 <CTASection />
              

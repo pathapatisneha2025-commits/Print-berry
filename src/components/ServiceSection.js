@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 /* ================= SERVICES DATA ================= */
 const SERVICES = [
-  { id: "flex-printing", title: "Flex Printing", image: "/flexprinting.jpeg" },
-  { id: "led-signage", title: "LED Signage", image: "/ledsignage.jpeg" },
-  { id: "vinyl-printing", title: "Vinyl Printing", image: "/vinlylettering.jpeg" },
-  { id: "3d-signage", title: "3D Signage", image: "/3Dsignage.jpeg" },
-  { id: "acp-boards", title: "ACP Boards", image: "/brandboard.jpeg" },
+  { id: "flex-printing", title: "Flex Printing", image: "/flexprinting.jpg" },
+  { id: "led-signage", title: "LED Signage", image: "/ledsignage.jpg" },
+  { id: "vinyl-printing", title: "Vinyl Printing", image: "/vinylbranding.jpg" },
+  { id: "led-signage", title: "3D Signage", image: "/ledsignage.jpg" },
+  { id: "acp-boards", title: "ACP Boards", image: "/acpboards.jpg" },
 ];
 
 /* ================= COMPONENT ================= */
@@ -147,6 +147,5 @@ const styles = {
     color: "#000",
     fontWeight: "800",
     textDecoration: "none",
-    boxShadow: "0 10px 30px rgba(255,183,3,0.35)",
   },
 };

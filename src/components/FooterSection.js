@@ -180,7 +180,7 @@ export default function Footer() {
 
       {/* COPYRIGHT */}
       <div style={styles.bottom}>
-        © 2024 Print Berry. All rights reserved. For All Your Digital Needs.
+        © 2025 Print Berry. All rights reserved. For All Your Digital Needs.
       </div>
     </footer>
   );

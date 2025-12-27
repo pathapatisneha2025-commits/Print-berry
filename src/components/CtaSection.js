@@ -61,7 +61,6 @@ export default function CTASection() {
     fontSize: "17px",
     fontWeight: "700",
     cursor: "pointer",
-    boxShadow: "0 16px 45px rgba(255,183,3,0.35)",
     transition: "0.3s ease",
   },
 };
