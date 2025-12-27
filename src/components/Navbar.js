@@ -9,7 +9,7 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
-  /* ===== Mobile detection (FIXED) ===== */
+  /* ===== Mobile detection ===== */
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
@@ -17,14 +17,14 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  /* ===== Close menu on page change ===== */
+  /* ===== Close mobile menu on route change ===== */
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
   /* ===== Navbar shrink on scroll ===== */
   useEffect(() => {
-    const onScroll = () => setShrink(window.scrollY > 50);
+    const onScroll = () => setShrink(window.scrollY > 60);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* TOP BAR */}
+      {/* ===== TOP BAR (Desktop only) ===== */}
       {!isMobile && (
         <div style={styles.topBar}>
           <span>✨ For All Your Digital Needs</span>
@@ -49,7 +49,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* NAVBAR */}
+      {/* ===== NAVBAR ===== */}
       <nav
         style={{
           ...styles.navbar,
@@ -63,12 +63,13 @@ export default function Navbar() {
             alt="Print Berry"
             style={{
               ...styles.logoImg,
-              transform: shrink ? "scale(1)" : "scale(1.15)",
+              height: isMobile ? "72px" : shrink ? "80px" : "96px",
+              transform: shrink ? "scale(1)" : "scale(1.1)",
             }}
           />
         </Link>
 
-        {/* HAMBURGER */}
+        {/* HAMBURGER (Mobile) */}
         {isMobile && (
           <button
             style={styles.menuBtn}
@@ -78,7 +79,7 @@ export default function Navbar() {
           </button>
         )}
 
-        {/* DESKTOP MENU */}
+        {/* ===== DESKTOP MENU ===== */}
         {!isMobile && (
           <>
             <ul style={styles.menu}>
@@ -116,7 +117,7 @@ export default function Navbar() {
           </>
         )}
 
-        {/* MOBILE MENU */}
+        {/* ===== MOBILE MENU ===== */}
         {isMobile && mobileOpen && (
           <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
             {menuItems.map((item) => (
@@ -124,14 +125,14 @@ export default function Navbar() {
                 <Link
                   to={item.path}
                   style={styles.navLink}
-                  onClick={() => setMobileOpen(false)} // 🔥 CLOSE ON CLICK
+                  onClick={() => setMobileOpen(false)}
                 >
                   {item.name}
                 </Link>
               </li>
             ))}
 
-            <li style={{ marginTop: "16px" }}>
+            <li style={{ marginTop: "18px" }}>
               <a href="tel:+919010099111" style={styles.mobileCallBtn}>
                 📞 Call Now
               </a>
@@ -171,6 +172,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    minHeight: "90px",
     width: "100%",
     boxSizing: "border-box",
     boxShadow: "0 10px 40px rgba(255,183,3,0.08)",
@@ -182,16 +184,15 @@ const styles = {
   },
 
   logoImg: {
-    height: "80px",
-    maxWidth: "160px",
+    maxWidth: "220px",
     objectFit: "contain",
-    transition: "transform 0.3s",
+    transition: "all 0.3s ease",
   },
 
   menu: {
     display: "flex",
     listStyle: "none",
-    gap: "24px",
+    gap: "26px",
     margin: 0,
     padding: 0,
     alignItems: "center",
@@ -200,16 +201,20 @@ const styles = {
   menuItem: {
     position: "relative",
     fontSize: "15px",
+    fontWeight: 500,
   },
 
   mobileItem: {
-    margin: "14px 0",
+    margin: "16px 0",
     fontSize: "18px",
+    fontWeight: 600,
   },
 
   navLink: {
-    color: "#ddd",
+    color: "#fff",
     textDecoration: "none",
+    padding: "8px 0",
+    display: "inline-block",
   },
 
   underline: {
@@ -218,7 +223,7 @@ const styles = {
     left: 0,
     height: "2px",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    transition: "width 0.3s",
+    transition: "width 0.3s ease",
   },
 
   active: {
@@ -237,6 +242,7 @@ const styles = {
     border: "1px solid #ffb703",
     color: "#ffb703",
     fontWeight: 600,
+    cursor: "pointer",
   },
 
   primaryBtn: {
@@ -245,12 +251,13 @@ const styles = {
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     border: "none",
     fontWeight: 700,
+    cursor: "pointer",
   },
 
   menuBtn: {
     background: "none",
     border: "none",
-    fontSize: "28px",
+    fontSize: "30px",
     color: "#fff",
     cursor: "pointer",
     zIndex: 1100,
@@ -262,17 +269,18 @@ const styles = {
     left: 0,
     right: 0,
     flexDirection: "column",
-    background: "#050b14",
-    padding: "20px 0",
+    background: "linear-gradient(180deg, #050b14, #000)",
+    padding: "24px 0",
     textAlign: "center",
   },
 
   mobileCallBtn: {
     background: "#ffb703",
     color: "#000",
-    padding: "12px 26px",
+    padding: "12px 28px",
     borderRadius: "30px",
     fontWeight: 700,
     textDecoration: "none",
+    display: "inline-block",
   },
 };
