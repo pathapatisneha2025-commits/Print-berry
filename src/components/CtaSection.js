@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function CTASection() {
   return (
@@ -14,8 +15,9 @@ export default function CTASection() {
         expert team.
       </p>
 
-      <button style={styles.ctaBtn}>Start Your Project →</button>
-    </section>
+ <Link to="/contact" style={styles.link}>
+        <button style={styles.ctaBtn}>Start Your Project →</button>
+      </Link>    </section>
   );
 }
     const styles = {
