@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
+const BRAND_COLOR = "#ff006e";
+
 export default function ContactPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -47,33 +49,30 @@ export default function ContactPage() {
           gap: isMobile ? "30px" : "60px",
         }}
       >
-        {/* LEFT INFO – UNIQUE CARD DESIGN */}
+        {/* LEFT INFO */}
         <div style={styles.info}>
           {[
             {
               icon: <FaPhoneAlt />,
               title: "Call Us",
               text: "+91 98765 43210",
-              accent: "#ff006e",
             },
             {
               icon: <FaEnvelope />,
               title: "Email",
               text: "info@yourbrand.com",
-              accent: "#ffb703",
             },
             {
               icon: <FaMapMarkerAlt />,
               title: "Location",
               text: "Hyderabad, Telangana, India",
-              accent: "#ff6f91",
             },
           ].map((item) => (
             <div
               key={item.title}
               style={{
                 ...styles.infoCard,
-                boxShadow: `0 20px 60px ${item.accent}25`,
+                boxShadow: "0 14px 40px rgba(255,0,110,0.18)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-6px)";
@@ -89,10 +88,11 @@ export default function ContactPage() {
               <div
                 style={{
                   ...styles.iconWrap,
-                  background: `linear-gradient(135deg, ${item.accent}55, transparent)`,
+                  background:
+                    "linear-gradient(135deg, rgba(255,0,110,0.25), transparent)",
                 }}
               >
-                <span style={{ ...styles.icon, color: item.accent }}>
+                <span style={{ ...styles.icon, color: BRAND_COLOR }}>
                   {item.icon}
                 </span>
               </div>
@@ -120,6 +120,16 @@ export default function ContactPage() {
               ...styles.submitBtn,
               padding: isMobile ? "14px" : "16px",
               fontSize: isMobile ? "14px" : "16px",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 8px 20px rgba(255,183,3,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow =
+                "0 6px 16px rgba(255,183,3,0.25)";
             }}
           >
             Send Message →
@@ -265,6 +275,6 @@ const styles = {
     color: "#000",
     fontWeight: "700",
     cursor: "pointer",
-    boxShadow: "0 12px 40px rgba(255,183,3,0.35)",
+    transition: "transform 0.25s ease, box-shadow 0.25s ease",
   },
 };

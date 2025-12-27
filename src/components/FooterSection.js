@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [activeLink, setActiveLink] = useState(""); // track active link
+  const location = useLocation(); // optional: track current route
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
+
+  const getLinkStyle = (link) => ({
+    ...styles.link,
+    color: activeLink === link ? "#fff" : "#9ca3af", // highlight color
+    fontWeight: activeLink === link ? "700" : "400",
+  });
 
   return (
     <footer style={styles.footer}>
@@ -28,13 +35,11 @@ export default function Footer() {
         {/* BRAND */}
         <div style={styles.brand}>
           <img src="/logoimage.jpeg" alt="Print Berry" style={styles.logo} />
-
           <p style={styles.text}>
             Your trusted partner for premium digital printing and signage
             solutions. We bring your brand vision to life with quality and
             creativity.
           </p>
-
           <div style={styles.socials}>
             <SocialIcon icon={<FaFacebookF />} />
             <SocialIcon icon={<FaTwitter />} />
@@ -47,11 +52,51 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Services</h4>
           <ul style={styles.list}>
-            <li><Link to="/services" style={styles.link}>Flex Printing</Link></li>
-            <li><Link to="/services" style={styles.link}>LED Signage</Link></li>
-            <li><Link to="/services" style={styles.link}>Vinyl Printing</Link></li>
-            <li><Link to="/services" style={styles.link}>3D Signage</Link></li>
-            <li><Link to="/services" style={styles.link}>ACP Boards</Link></li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("Flex Printing")}
+                onClick={() => handleLinkClick("Flex Printing")}
+              >
+                Flex Printing
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("LED Signage")}
+                onClick={() => handleLinkClick("LED Signage")}
+              >
+                LED Signage
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("Vinyl Printing")}
+                onClick={() => handleLinkClick("Vinyl Printing")}
+              >
+                Vinyl Printing
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("3D Signage")}
+                onClick={() => handleLinkClick("3D Signage")}
+              >
+                3D Signage
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("ACP Boards")}
+                onClick={() => handleLinkClick("ACP Boards")}
+              >
+                ACP Boards
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -59,9 +104,33 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Company</h4>
           <ul style={styles.list}>
-            <li><Link to="/about" style={styles.link}>About Us</Link></li>
-            <li><Link to="/contact" style={styles.link}>Contact</Link></li>
-            <li><Link to="/services" style={styles.link}>Our Services</Link></li>
+            <li>
+              <Link
+                to="/about"
+                style={getLinkStyle("About Us")}
+                onClick={() => handleLinkClick("About Us")}
+              >
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                style={getLinkStyle("Contact")}
+                onClick={() => handleLinkClick("Contact")}
+              >
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                style={getLinkStyle("Our Services")}
+                onClick={() => handleLinkClick("Our Services")}
+              >
+                Our Services
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -69,10 +138,42 @@ export default function Footer() {
         <div>
           <h4 style={styles.heading}>Support</h4>
           <ul style={styles.list}>
-            <li><Link to="/contact" style={styles.link}>Get Quote</Link></li>
-            <li><Link to="/faq" style={styles.link}>FAQs</Link></li>
-            <li><Link to="/privacy-policy" style={styles.link}>Privacy Policy</Link></li>
-            <li><Link to="/terms" style={styles.link}>Terms of Service</Link></li>
+            <li>
+              <Link
+                to="/contact"
+                style={getLinkStyle("Get Quote")}
+                onClick={() => handleLinkClick("Get Quote")}
+              >
+                Get Quote
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/faq"
+                style={getLinkStyle("FAQs")}
+                onClick={() => handleLinkClick("FAQs")}
+              >
+                FAQs
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/privacy-policy"
+                style={getLinkStyle("Privacy Policy")}
+                onClick={() => handleLinkClick("Privacy Policy")}
+              >
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/terms"
+                style={getLinkStyle("Terms of Service")}
+                onClick={() => handleLinkClick("Terms of Service")}
+              >
+                Terms of Service
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -96,36 +197,30 @@ const styles = {
     color: "#d1d5db",
     paddingTop: "100px",
   },
-
   container: {
     maxWidth: "1300px",
     margin: "0 auto",
     padding: "0 40px 80px",
     display: "grid",
   },
-
   brand: {
     maxWidth: "420px",
   },
-logo: {
-  width: "150px",   // ⬅ increased from 70px
-  height: "auto",
-  marginBottom: "24px",
-},
-
-
+  logo: {
+    width: "150px",
+    height: "auto",
+    marginBottom: "24px",
+  },
   text: {
     fontSize: "15px",
     lineHeight: "1.7",
     color: "#9ca3af",
     marginBottom: "24px",
   },
-
   socials: {
     display: "flex",
     gap: "14px",
   },
-
   icon: {
     width: "38px",
     height: "38px",
@@ -137,14 +232,12 @@ logo: {
     color: "#fff",
     cursor: "pointer",
   },
-
   heading: {
     fontSize: "16px",
     fontWeight: "700",
     marginBottom: "18px",
     color: "#fff",
   },
-
   list: {
     listStyle: "none",
     padding: 0,
@@ -154,13 +247,11 @@ logo: {
     gap: "14px",
     fontSize: "15px",
   },
-
   link: {
     textDecoration: "none",
     color: "#9ca3af",
-    transition: "color 0.3s ease",
+    transition: "color 0.3s ease, font-weight 0.3s ease",
   },
-
   bottom: {
     borderTop: "1px solid rgba(255,255,255,0.08)",
     textAlign: "center",

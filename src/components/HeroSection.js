@@ -15,14 +15,14 @@ export default function HeroSection() {
       tag: "Outdoor",
       color: "#ff006e",
       icon: "💎",
-      image: "/flexprinting.jpeg",
+      image: "/flexprinting.jpg",
     },
     {
       title: "LED Signage",
       tag: "Premium",
       color: "#ffb703",
       icon: "✨",
-      image: "/ledsignage.jpeg",
+      image: "/ledsignage.jpg",
     },
     {
       title: "Brand Boards",

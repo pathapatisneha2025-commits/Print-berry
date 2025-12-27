@@ -361,6 +361,5 @@ const styles = {
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     fontWeight: "700",
     cursor: "pointer",
-    boxShadow: "0 16px 40px rgba(255,183,3,0.35)",
   },
 };
