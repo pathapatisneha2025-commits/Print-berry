@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 export default function HeroSection() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -39,19 +40,19 @@ export default function HeroSection() {
         style={{
           ...styles.heroTop,
           flexDirection: isMobile ? "column" : "row",
-          gap: isMobile ? "70px" : "50px",
+          gap: isMobile ? "64px" : "60px",
         }}
       >
-        {/* LEFT CONTENT */}
+        {/* LEFT */}
         <div style={{ ...styles.left, textAlign: isMobile ? "center" : "left" }}>
-          <div style={styles.badge}>✨ Trusted Printing Experts</div>
+          <span style={styles.badge}>✨ Trusted Printing Experts</span>
 
           <h1
             style={{
               ...styles.heading,
               fontSize: isMobile
-                ? "clamp(32px, 8vw, 48px)"
-                : styles.heading.fontSize,
+                ? "clamp(30px, 8vw, 46px)"
+                : "clamp(42px,6vw,68px)",
             }}
           >
             Make Your <span style={styles.brand}>Brand</span>
@@ -62,7 +63,7 @@ export default function HeroSection() {
           <p
             style={{
               ...styles.description,
-              margin: isMobile ? "0 auto 40px" : "0 0 40px",
+              margin: isMobile ? "0 auto 36px" : "0 0 40px",
             }}
           >
             We design and print high-impact visuals that turn attention into
@@ -80,18 +81,12 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT CONTENT */}
-        <div
-          style={{
-            ...styles.rightContainer,
-            width: isMobile ? "100%" : "55%",
-          }}
-        >
+        {/* RIGHT */}
+        <div style={{ ...styles.rightContainer, width: "100%" }}>
           <div
             style={{
               ...styles.bentoGrid,
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-              padding: isMobile ? "0 10px" : "0",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2,1fr)",
             }}
           >
             {services.map((item, i) => (
@@ -99,25 +94,15 @@ export default function HeroSection() {
                 key={item.title}
                 style={{
                   ...styles.card,
-                  gridColumn: !isMobile && i === 2 ? "1 / span 2" : "auto",
+                  gridColumn: !isMobile && i === 2 ? "1 / -1" : "auto",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "translateY(-6px)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "translateY(0)")
-                }
               >
-                <div
-                  style={{
-                    ...styles.cardImageWrapper,
-                    height: isMobile ? "180px" : "160px",
-                  }}
-                >
+                <div style={styles.cardImageWrapper}>
                   <img
                     src={item.image}
                     alt={item.title}
                     style={styles.cardImage}
+                    loading="lazy"
                   />
                   <div style={styles.imageOverlay} />
                 </div>
@@ -126,9 +111,9 @@ export default function HeroSection() {
                   <span
                     style={{
                       ...styles.cardTag,
-                      border: `1px solid ${item.color}66`,
                       color: item.color,
-                      backgroundColor: `${item.color}15`,
+                      border: `1px solid ${item.color}55`,
+                      background: `${item.color}18`,
                     }}
                   >
                     {item.tag}
@@ -140,6 +125,7 @@ export default function HeroSection() {
                 <p style={styles.cardText}>
                   Premium {item.title.toLowerCase()} for maximum brand visibility.
                 </p>
+
                 <div style={styles.cardFooter}>View Project →</div>
               </div>
             ))}
@@ -168,7 +154,7 @@ export default function HeroSection() {
 }
 
 const Stat = ({ value, label }) => (
-  <div style={styles.statItem}>
+  <div>
     <h3 style={styles.statValue}>{value}</h3>
     <p style={styles.statLabel}>{label}</p>
   </div>
@@ -187,34 +173,41 @@ const styles = {
   heroTop: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
   },
 
   left: { flex: 1 },
 
   rightContainer: {
     flex: 1.2,
-    paddingLeft: "20px",
+    padding: "28px",
+    borderRadius: "32px",
+    background:
+      "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01))",
+    border: "1px solid rgba(255,255,255,0.14)",
+    boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
+    display: "flex",
+    justifyContent: "center",
   },
 
   bentoGrid: {
     display: "grid",
-    gap: "28px",
+    gap: "26px",
+    width: "100%",
+    maxWidth: "520px",
   },
 
   badge: {
-    display: "inline-block",
     padding: "10px 18px",
     borderRadius: "999px",
-    background: "rgba(255,255,255,0.06)",
     border: "1px solid rgba(255,255,255,0.12)",
-    marginBottom: "30px",
+    background: "rgba(255,255,255,0.06)",
+    marginBottom: "28px",
     fontSize: "14px",
     color: "#ffb703",
+    display: "inline-block",
   },
 
   heading: {
-    fontSize: "clamp(42px,6vw,68px)",
     fontWeight: "800",
     lineHeight: "1.1",
     marginBottom: "24px",
@@ -241,12 +234,12 @@ const styles = {
 
   buttons: {
     display: "flex",
-    gap: "20px",
+    gap: "18px",
     flexWrap: "wrap",
   },
 
   primaryBtn: {
-    padding: "18px 36px",
+    padding: "16px 34px",
     borderRadius: "14px",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     border: "none",
@@ -256,7 +249,7 @@ const styles = {
   },
 
   outlineBtn: {
-    padding: "18px 36px",
+    padding: "16px 34px",
     borderRadius: "14px",
     border: "2px solid #ffb703",
     background: "transparent",
@@ -266,20 +259,18 @@ const styles = {
   },
 
   card: {
+    borderRadius: "22px",
+    padding: "22px",
     background:
       "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-    border: "1px solid rgba(255,255,255,0.14)",
-    borderRadius: "24px",
-    padding: "22px",
-    backdropFilter: "blur(18px)",
-    boxShadow: "0 12px 30px rgba(0,0,0,0.35)",
-    transition: "all 0.35s ease",
+    border: "1px solid rgba(255,255,255,0.16)",
   },
 
   cardImageWrapper: {
     borderRadius: "16px",
     overflow: "hidden",
-    marginBottom: "18px",
+    height: "160px",
+    marginBottom: "16px",
     position: "relative",
   },
 
@@ -298,34 +289,32 @@ const styles = {
   cardHeader: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: "12px",
+    marginBottom: "10px",
   },
 
   cardTag: {
     fontSize: "10px",
     padding: "4px 10px",
-    borderRadius: "100px",
+    borderRadius: "999px",
     fontWeight: "700",
     textTransform: "uppercase",
   },
 
-  cardIcon: { fontSize: "24px" },
+  cardIcon: { fontSize: "22px" },
 
   cardTitle: {
     fontSize: "22px",
     fontWeight: "700",
-    marginBottom: "8px",
+    marginBottom: "6px",
   },
 
   cardText: {
     fontSize: "14px",
-    color: "#6b7280",
-    lineHeight: "1.5",
-    marginBottom: "16px",
+    color: "#9ca3af",
+    marginBottom: "14px",
   },
 
   cardFooter: {
-    fontSize: "14px",
     color: "#ffb703",
     fontWeight: "600",
   },
@@ -343,7 +332,7 @@ const styles = {
   },
 
   statValue: {
-    fontSize: "40px",
+    fontSize: "38px",
     fontWeight: "900",
     background: "linear-gradient(90deg,#ff006e,#ffb703)",
     WebkitBackgroundClip: "text",
@@ -352,7 +341,7 @@ const styles = {
 
   statLabel: {
     fontSize: "12px",
-    color: "#4b5563",
+    color: "#6b7280",
     textTransform: "uppercase",
     letterSpacing: "1px",
     fontWeight: "700",
