@@ -8,7 +8,6 @@ const SERVICES = [
   { id: "vinyl-printing", title: "Vinyl Printing", image: "/vinlylettering.jpeg" },
   { id: "3d-signage", title: "3D Signage", image: "/3Dsignage.jpeg" },
   { id: "acp-boards", title: "ACP Boards", image: "/brandboard.jpeg" },
-  { id: "promotional", title: "Promotional Items", image: "/promotional.jpeg" },
 ];
 
 /* ================= COMPONENT ================= */
