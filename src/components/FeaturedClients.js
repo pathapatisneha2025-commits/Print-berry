@@ -2,11 +2,11 @@ import React from 'react';
 
 const FeaturedClients = () => {
   const clients = [
-    { name: 'Yamaha', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Yamaha_Motor_Corporation_logo.svg/512px-Yamaha_Motor_Corporation_logo.svg.png' },
-    { name: 'Toni & Guy', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Toni_%26_Guy_Logo.svg/512px-Toni_%26_Guy_Logo.svg.png' },
-    { name: 'Lenskart', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Lenskart_logo.svg/512px-Lenskart_logo.svg.png' },
-    { name: 'KIMS', logo: 'https://www.kimshospitals.com/images/logo.png' },
-    { name: 'Kidzee', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Kidzee_Logo.png/512px-Kidzee_Logo.png' },
+    { name: 'Yamaha', logo: 'yamaha.png' },
+    { name: 'Toni & Guy', logo: 'tonyguy.jpeg' },
+    { name: 'Lenskart', logo: 'Lenskart.png' },
+    { name: 'KIMS', logo: 'kims.png' },
+    { name: 'Kidzee', logo: 'Kidzee.jpeg' },
   ];
 
   return (
