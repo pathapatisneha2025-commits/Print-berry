@@ -1,21 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [hoveredLink, setHoveredLink] = useState(null);
+  const [activeLink, setActiveLink] = useState(null);
+  const linkRefs = useRef([]);
 
+  /* MOBILE CHECK */
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getLinkStyle = (link) => ({
+  /* 🔥 Scroll highlight for mobile */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveLink(entry.target.dataset.label);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    linkRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const getLinkStyle = (label) => ({
     ...styles.link,
-    color: hoveredLink === link ? "#fff" : "#9ca3af",
-    fontWeight: hoveredLink === link ? "700" : "400",
+    color: activeLink === label ? "#fff" : "#9ca3af",
+    fontWeight: activeLink === label ? "700" : "400",
   });
 
   return (
@@ -35,6 +59,7 @@ export default function Footer() {
             solutions. We bring your brand vision to life with quality and
             creativity.
           </p>
+
           <div style={styles.socials}>
             <SocialIcon icon={<FaFacebookF />} />
             <SocialIcon icon={<FaTwitter />} />
@@ -43,7 +68,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* SERVICES */}
         <FooterLinks
           title="Services"
           links={[
@@ -53,12 +77,11 @@ export default function Footer() {
             ["3D Signage", "/services"],
             ["ACP Boards", "/services"],
           ]}
-          hoveredLink={hoveredLink}
-          setHoveredLink={setHoveredLink}
           getLinkStyle={getLinkStyle}
+          setActiveLink={setActiveLink}
+          linkRefs={linkRefs}
         />
 
-        {/* COMPANY */}
         <FooterLinks
           title="Company"
           links={[
@@ -66,12 +89,11 @@ export default function Footer() {
             ["Contact", "/contact"],
             ["Our Services", "/services"],
           ]}
-          hoveredLink={hoveredLink}
-          setHoveredLink={setHoveredLink}
           getLinkStyle={getLinkStyle}
+          setActiveLink={setActiveLink}
+          linkRefs={linkRefs}
         />
 
-        {/* SUPPORT */}
         <FooterLinks
           title="Support"
           links={[
@@ -80,13 +102,12 @@ export default function Footer() {
             ["Privacy Policy", "/privacy-policy"],
             ["Terms of Service", "/terms"],
           ]}
-          hoveredLink={hoveredLink}
-          setHoveredLink={setHoveredLink}
           getLinkStyle={getLinkStyle}
+          setActiveLink={setActiveLink}
+          linkRefs={linkRefs}
         />
       </div>
 
-      {/* COPYRIGHT */}
       <div style={styles.bottom}>
         © 2025 Print Berry. All rights reserved. For All Your Digital Needs.
       </div>
@@ -98,20 +119,22 @@ export default function Footer() {
 const FooterLinks = ({
   title,
   links,
-  hoveredLink,
-  setHoveredLink,
   getLinkStyle,
+  setActiveLink,
+  linkRefs,
 }) => (
   <div>
     <h4 style={styles.heading}>{title}</h4>
     <ul style={styles.list}>
-      {links.map(([label, path]) => (
+      {links.map(([label, path], index) => (
         <li key={label}>
           <Link
             to={path}
+            ref={(el) => linkRefs.current.push(el)}
+            data-label={label}
             style={getLinkStyle(label)}
-            onMouseEnter={() => setHoveredLink(label)}
-            onMouseLeave={() => setHoveredLink(null)}
+            onMouseEnter={() => setActiveLink(label)}
+            onMouseLeave={() => setActiveLink(null)}
           >
             {label}
           </Link>
@@ -126,6 +149,7 @@ const SocialIcon = ({ icon }) => (
   <div style={styles.icon}>{icon}</div>
 );
 
+/* STYLES */
 const styles = {
   footer: {
     background: "linear-gradient(180deg, #050505, #0b0b0b)",
@@ -183,7 +207,6 @@ const styles = {
   },
   link: {
     textDecoration: "none",
-    color: "#9ca3af",
     transition: "color 0.25s ease, font-weight 0.25s ease",
     cursor: "pointer",
   },
