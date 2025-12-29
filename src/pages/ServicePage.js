@@ -91,11 +91,12 @@ export default function ServicesPage() {
           margin-bottom: 16px;
         }
 
+        /* Updated features to single horizontal line */
         .features {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 8px 16px;
+          display: flex;
+          gap: 16px;
           margin-bottom: 22px;
+          flex-wrap: wrap; /* optional: allows wrapping on small screens */
         }
 
         .feature { font-size: 14px; }

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [activeLink, setActiveLink] = useState(""); // track active link
-  const location = useLocation(); // optional: track current route
+  const [hoveredLink, setHoveredLink] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -13,14 +12,10 @@ export default function Footer() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-  };
-
   const getLinkStyle = (link) => ({
     ...styles.link,
-    color: activeLink === link ? "#fff" : "#9ca3af", // highlight color
-    fontWeight: activeLink === link ? "700" : "400",
+    color: hoveredLink === link ? "#fff" : "#9ca3af",
+    fontWeight: hoveredLink === link ? "700" : "400",
   });
 
   return (
@@ -49,133 +44,46 @@ export default function Footer() {
         </div>
 
         {/* SERVICES */}
-        <div>
-          <h4 style={styles.heading}>Services</h4>
-          <ul style={styles.list}>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("Flex Printing")}
-                onClick={() => handleLinkClick("Flex Printing")}
-              >
-                Flex Printing
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("LED Signage")}
-                onClick={() => handleLinkClick("LED Signage")}
-              >
-                LED Signage
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("Vinyl Printing")}
-                onClick={() => handleLinkClick("Vinyl Printing")}
-              >
-                Vinyl Printing
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("3D Signage")}
-                onClick={() => handleLinkClick("3D Signage")}
-              >
-                3D Signage
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("ACP Boards")}
-                onClick={() => handleLinkClick("ACP Boards")}
-              >
-                ACP Boards
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <FooterLinks
+          title="Services"
+          links={[
+            ["Flex Printing", "/services"],
+            ["LED Signage", "/services"],
+            ["Vinyl Printing", "/services"],
+            ["3D Signage", "/services"],
+            ["ACP Boards", "/services"],
+          ]}
+          hoveredLink={hoveredLink}
+          setHoveredLink={setHoveredLink}
+          getLinkStyle={getLinkStyle}
+        />
 
         {/* COMPANY */}
-        <div>
-          <h4 style={styles.heading}>Company</h4>
-          <ul style={styles.list}>
-            <li>
-              <Link
-                to="/about"
-                style={getLinkStyle("About Us")}
-                onClick={() => handleLinkClick("About Us")}
-              >
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                style={getLinkStyle("Contact")}
-                onClick={() => handleLinkClick("Contact")}
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                style={getLinkStyle("Our Services")}
-                onClick={() => handleLinkClick("Our Services")}
-              >
-                Our Services
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <FooterLinks
+          title="Company"
+          links={[
+            ["About Us", "/about"],
+            ["Contact", "/contact"],
+            ["Our Services", "/services"],
+          ]}
+          hoveredLink={hoveredLink}
+          setHoveredLink={setHoveredLink}
+          getLinkStyle={getLinkStyle}
+        />
 
         {/* SUPPORT */}
-        <div>
-          <h4 style={styles.heading}>Support</h4>
-          <ul style={styles.list}>
-            <li>
-              <Link
-                to="/contact"
-                style={getLinkStyle("Get Quote")}
-                onClick={() => handleLinkClick("Get Quote")}
-              >
-                Get Quote
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/faq"
-                style={getLinkStyle("FAQs")}
-                onClick={() => handleLinkClick("FAQs")}
-              >
-                FAQs
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/privacy-policy"
-                style={getLinkStyle("Privacy Policy")}
-                onClick={() => handleLinkClick("Privacy Policy")}
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/terms"
-                style={getLinkStyle("Terms of Service")}
-                onClick={() => handleLinkClick("Terms of Service")}
-              >
-                Terms of Service
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <FooterLinks
+          title="Support"
+          links={[
+            ["Get Quote", "/contact"],
+            ["FAQs", "/faq"],
+            ["Privacy Policy", "/privacy-policy"],
+            ["Terms of Service", "/terms"],
+          ]}
+          hoveredLink={hoveredLink}
+          setHoveredLink={setHoveredLink}
+          getLinkStyle={getLinkStyle}
+        />
       </div>
 
       {/* COPYRIGHT */}
@@ -185,6 +93,33 @@ export default function Footer() {
     </footer>
   );
 }
+
+/* LINKS COLUMN */
+const FooterLinks = ({
+  title,
+  links,
+  hoveredLink,
+  setHoveredLink,
+  getLinkStyle,
+}) => (
+  <div>
+    <h4 style={styles.heading}>{title}</h4>
+    <ul style={styles.list}>
+      {links.map(([label, path]) => (
+        <li key={label}>
+          <Link
+            to={path}
+            style={getLinkStyle(label)}
+            onMouseEnter={() => setHoveredLink(label)}
+            onMouseLeave={() => setHoveredLink(null)}
+          >
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 /* SOCIAL ICON */
 const SocialIcon = ({ icon }) => (
@@ -208,7 +143,6 @@ const styles = {
   },
   logo: {
     width: "150px",
-    height: "auto",
     marginBottom: "24px",
   },
   text: {
@@ -250,7 +184,8 @@ const styles = {
   link: {
     textDecoration: "none",
     color: "#9ca3af",
-    transition: "color 0.3s ease, font-weight 0.3s ease",
+    transition: "color 0.25s ease, font-weight 0.25s ease",
+    cursor: "pointer",
   },
   bottom: {
     borderTop: "1px solid rgba(255,255,255,0.08)",

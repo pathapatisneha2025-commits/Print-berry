@@ -4,7 +4,6 @@ import { FiMenu, FiX } from "react-icons/fi";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState(null);
-  const [shrink, setShrink] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
@@ -21,13 +20,6 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
-
-  /* ===== Navbar shrink on scroll ===== */
-  useEffect(() => {
-    const onScroll = () => setShrink(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -50,12 +42,7 @@ export default function Navbar() {
       )}
 
       {/* ===== NAVBAR ===== */}
-      <nav
-        style={{
-          ...styles.navbar,
-          padding: shrink ? "10px 16px" : "14px 16px",
-        }}
-      >
+      <nav style={styles.navbar}>
         {/* LOGO */}
         <Link to="/" style={styles.logoWrap}>
           <img
@@ -63,8 +50,7 @@ export default function Navbar() {
             alt="Print Berry"
             style={{
               ...styles.logoImg,
-              height: isMobile ? "72px" : shrink ? "80px" : "96px",
-              transform: shrink ? "scale(1)" : "scale(1.1)",
+              height: isMobile ? "88px" : "110px", // BIG logo always
             }}
           />
         </Link>
@@ -90,12 +76,15 @@ export default function Navbar() {
                     key={item.name}
                     onMouseEnter={() => setHovered(item.name)}
                     onMouseLeave={() => setHovered(null)}
-                    style={{
-                      ...styles.menuItem,
-                      ...(active ? styles.active : {}),
-                    }}
+                    style={styles.menuItem}
                   >
-                    <Link to={item.path} style={styles.navLink}>
+                    <Link
+                      to={item.path}
+                      style={{
+                        ...styles.navLink,
+                        color: active ? "#ffb703" : "#fff",
+                      }}
+                    >
                       {item.name}
                     </Link>
                     <span
@@ -132,7 +121,7 @@ export default function Navbar() {
               </li>
             ))}
 
-            <li style={{ marginTop: "18px" }}>
+            <li style={{ marginTop: "20px" }}>
               <a href="tel:+919010099111" style={styles.mobileCallBtn}>
                 📞 Call Now
               </a>
@@ -172,7 +161,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    minHeight: "90px",
+    minHeight: "120px",
+    padding: "16px 20px",
     width: "100%",
     boxSizing: "border-box",
     boxShadow: "0 10px 40px rgba(255,183,3,0.08)",
@@ -184,9 +174,8 @@ const styles = {
   },
 
   logoImg: {
-    maxWidth: "220px",
+    maxWidth: "260px",
     objectFit: "contain",
-    transition: "all 0.3s ease",
   },
 
   menu: {
@@ -226,10 +215,6 @@ const styles = {
     transition: "width 0.3s ease",
   },
 
-  active: {
-    color: "#ffb703",
-  },
-
   actions: {
     display: "flex",
     gap: "10px",
@@ -257,10 +242,9 @@ const styles = {
   menuBtn: {
     background: "none",
     border: "none",
-    fontSize: "30px",
+    fontSize: "32px",
     color: "#fff",
     cursor: "pointer",
-    zIndex: 1100,
   },
 
   menuMobileOpen: {
@@ -270,7 +254,7 @@ const styles = {
     right: 0,
     flexDirection: "column",
     background: "linear-gradient(180deg, #050b14, #000)",
-    padding: "24px 0",
+    padding: "28px 0",
     textAlign: "center",
   },
 
