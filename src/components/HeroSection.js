@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -12,75 +14,48 @@ export default function HeroSection() {
   }, []);
 
   const services = [
-    {
-      title: "Flex Printing",
-      tag: "Outdoor",
-      color: "#ff006e",
-      icon: "💎",
-      image: "/flexprinting.jpg",
-    },
-    {
-      title: "LED Signage",
-      tag: "Premium",
-      color: "#ffb703",
-      icon: "✨",
-      image: "/ledsignage.jpg",
-    },
-    {
-      title: "Brand Boards",
-      tag: "Corporate",
-      color: "#00f5ff",
-      icon: "🚀",
-      image: "/brandboard.jpeg",
-    },
+    { title: "Flex Printing", tag: "Outdoor", color: "#ff006e", icon: "💎", image: "/flexprinting.jpg" },
+    { title: "LED Signage", tag: "Premium", color: "#ffb703", icon: "✨", image: "/ledsignage.jpg" },
+    { title: "Brand Boards", tag: "Corporate", color: "#00f5ff", icon: "🚀", image: "/brandboard.jpeg" },
   ];
+
+  // IntersectionObserver for scroll highlight
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveIndex(Number(entry.target.dataset.index));
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    cardRefs.current.forEach(card => card && observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   return (
     <section style={styles.hero}>
-      <div
-        style={{
-          ...styles.heroTop,
-          flexDirection: isMobile ? "column" : "row",
-          gap: isMobile ? "64px" : "60px",
-        }}
-      >
+      <div style={{ ...styles.heroTop, flexDirection: isMobile ? "column" : "row", gap: isMobile ? "64px" : "60px" }}>
         {/* LEFT */}
         <div style={{ ...styles.left, textAlign: isMobile ? "center" : "left" }}>
           <span style={styles.badge}>✨ Trusted Printing Experts</span>
-
-          <h1
-            style={{
-              ...styles.heading,
-              fontSize: isMobile
-                ? "clamp(30px, 8vw, 46px)"
-                : "clamp(42px,6vw,68px)",
-            }}
-          >
-            Make Your <span style={styles.brand}>Brand</span>
-            <br />
+          <h1 style={{ ...styles.heading, fontSize: isMobile ? "clamp(30px, 8vw, 46px)" : "clamp(42px,6vw,68px)" }}>
+            Make Your <span style={styles.brand}>Brand</span><br />
             Impossible to <span style={styles.visibility}>Ignore</span>
           </h1>
-
-          <p
-            style={{
-              ...styles.description,
-              margin: isMobile ? "0 auto 36px" : "0 0 40px",
-            }}
-          >
-            We design and print high-impact visuals that turn attention into
-            customers — from storefront branding to premium indoor displays.
+          <p style={{ ...styles.description, margin: isMobile ? "0 auto 36px" : "0 0 40px" }}>
+            We design and print high-impact visuals that turn attention into customers — from storefront branding to premium indoor displays.
           </p>
-
-          <div
-            style={{
-              ...styles.buttons,
-              justifyContent: isMobile ? "center" : "flex-start",
-            }}
-          >
+          <div style={{ ...styles.buttons, justifyContent: isMobile ? "center" : "flex-start" }}>
             <Link to="/services" style={{ textDecoration: "none" }}>
               <button style={styles.primaryBtn}>Explore Services →</button>
             </Link>
-
             <Link to="/contact" style={{ textDecoration: "none" }}>
               <button style={styles.outlineBtn}>Get Free Quote</button>
             </Link>
@@ -89,52 +64,49 @@ export default function HeroSection() {
 
         {/* RIGHT */}
         <div style={{ ...styles.rightContainer, width: "100%" }}>
-          <div
-            style={{
-              ...styles.bentoGrid,
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(2,1fr)",
-            }}
-          >
-            {services.map((item, i) => (
-              <div
-                key={item.title}
-                style={{
-                  ...styles.card,
-                  gridColumn: !isMobile && i === 2 ? "1 / -1" : "auto",
-                }}
-              >
-                <div style={styles.cardImageWrapper}>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    style={styles.cardImage}
-                    loading="lazy"
-                  />
-                  <div style={styles.imageOverlay} />
-                </div>
+          <div style={{ ...styles.bentoGrid, gridTemplateColumns: isMobile ? "1fr" : "repeat(2,1fr)" }}>
+            {services.map((item, i) => {
+              const isActive = activeIndex === i;
+              return (
+                <div
+                  key={item.title}
+                  ref={el => cardRefs.current[i] = el}
+                  data-index={i}
+                  onMouseEnter={() => !isMobile && setActiveIndex(i)}
+                  onMouseLeave={() => !isMobile && setActiveIndex(null)}
+                  style={{
+                    ...styles.card,
+                    gridColumn: !isMobile && i === 2 ? "1 / -1" : "auto",
+                    border: isActive ? `2px solid ${item.color}` : styles.card.border,
+                    boxShadow: isActive ? `0 0 24px ${item.color}55` : "none",
+                  }}
+                >
+                  <div style={styles.cardImageWrapper}>
+                    <img src={item.image} alt={item.title} style={styles.cardImage} loading="lazy" />
+                    <div style={styles.imageOverlay} />
+                  </div>
 
-                <div style={styles.cardHeader}>
-                  <span
-                    style={{
+                  <div style={styles.cardHeader}>
+                    <span style={{
                       ...styles.cardTag,
                       color: item.color,
                       border: `1px solid ${item.color}55`,
-                      background: `${item.color}18`,
-                    }}
-                  >
-                    {item.tag}
-                  </span>
-                  <span style={styles.cardIcon}>{item.icon}</span>
+                      background: isActive ? `${item.color}33` : `${item.color}18`,
+                    }}>
+                      {item.tag}
+                    </span>
+                    <span style={styles.cardIcon}>{item.icon}</span>
+                  </div>
+
+                  <h4 style={styles.cardTitle}>{item.title}</h4>
+                  <p style={styles.cardText}>
+                    Premium {item.title.toLowerCase()} for maximum brand visibility.
+                  </p>
+
+                  <div style={styles.cardFooter}>View Project →</div>
                 </div>
-
-                <h4 style={styles.cardTitle}>{item.title}</h4>
-                <p style={styles.cardText}>
-                  Premium {item.title.toLowerCase()} for maximum brand visibility.
-                </p>
-
-                <div style={styles.cardFooter}>View Project →</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -142,14 +114,7 @@ export default function HeroSection() {
       <div style={styles.divider} />
 
       {/* STATS */}
-      <div
-        style={{
-          ...styles.heroStats,
-          gridTemplateColumns: isMobile
-            ? "repeat(2,1fr)"
-            : "repeat(4,1fr)",
-        }}
-      >
+      <div style={{ ...styles.heroStats, gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)" }}>
         <Stat value="10+" label="Years Experience" />
         <Stat value="5000+" label="Projects Completed" />
         <Stat value="500+" label="Happy Clients" />
@@ -165,6 +130,8 @@ const Stat = ({ value, label }) => (
     <p style={styles.statLabel}>{label}</p>
   </div>
 );
+
+/* styles remain exactly the same as your original HeroSection */
 
 /* styles object remains exactly the same */
 

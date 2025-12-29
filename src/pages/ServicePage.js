@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function ServicesPage() {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const cardRefs = useRef([]);
+
+  /* 🔥 Scroll highlight (mobile-friendly) */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveIndex(Number(entry.target.dataset.index));
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    cardRefs.current.forEach((card) => card && observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <style>{`
@@ -64,6 +84,7 @@ export default function ServicesPage() {
 
         .service-card.highlight {
           border: 1px solid rgba(250,204,21,0.6);
+          box-shadow: 0 0 24px rgba(250,204,21,0.25);
         }
 
         .service-image {
@@ -91,12 +112,11 @@ export default function ServicesPage() {
           margin-bottom: 16px;
         }
 
-        /* Updated features to single horizontal line */
         .features {
           display: flex;
           gap: 16px;
           margin-bottom: 22px;
-          flex-wrap: wrap; /* optional: allows wrapping on small screens */
+          flex-wrap: wrap;
         }
 
         .feature { font-size: 14px; }
@@ -121,75 +141,74 @@ export default function ServicesPage() {
       {/* SERVICES */}
       <section className="services-page">
         <div className="services-grid">
+          {[
+            {
+              title: "LED Signage",
+              img: "/ledsignage.jpg",
+              desc:
+                "Premium glow sign boards that give your brand maximum visibility.",
+              features: ["✔ Long life LEDs", "✔ Professional installation"],
+            },
+            {
+              title: "Outdoor LED Signage",
+              img: "/outdoorled.jpg",
+              desc: "Weather-resistant LED signboards for outdoor branding.",
+            },
+            {
+              title: "ACP Boards",
+              img: "/acpboards.jpg",
+              desc: "High-quality ACP panels for premium outdoor signage.",
+              features: ["✔ Weather proof", "✔ Premium finish"],
+            },
+            {
+              title: "Flex Printing",
+              img: "/flexprinting.jpg",
+              desc: "Cost-effective flex banners with vibrant colors.",
+            },
+            {
+              title: "Vinyl Printing",
+              img: "/vinylbranding.jpg",
+              desc: "Durable vinyl graphics and sticker branding.",
+            },
+            {
+              title: "Instore Branding",
+              img: "/instorebranding.jpg",
+              desc: "Creative branding solutions for interiors & retail spaces.",
+            },
+          ].map((service, index) => {
+            const isActive = activeIndex === index;
 
-          {/* 1. LED SIGNAGE (HIGHLIGHT) */}
-          <div className="service-card highlight">
-            <div className="service-image">
-              <img src="/ledsignage.jpg" alt="LED Signage" />
-            </div>
-            <h3 style={{ color: "#facc15" }}>LED Signage</h3>
-            <p>Premium glow sign boards that give your brand maximum visibility.</p>
-            <div className="features">
-              <div className="feature">✔ Long life LEDs</div>
-              <div className="feature">✔ Professional installation</div>
-            </div>
-            <span className="quote">Get Quote →</span>
-          </div>
+            return (
+              <div
+                key={index}
+                ref={(el) => (cardRefs.current[index] = el)}
+                data-index={index}
+                className={`service-card ${isActive ? "highlight" : ""}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+              >
+                <div className="service-image">
+                  <img src={service.img} alt={service.title} />
+                </div>
+                <h3 style={isActive ? { color: "#facc15" } : {}}>
+                  {service.title}
+                </h3>
+                <p>{service.desc}</p>
 
-          {/* 2. OUTDOOR LED SIGNAGE */}
-          <div className="service-card">
-            <div className="service-image">
-              <img src="/outdoorled.jpg" alt="Outdoor LED Signage" />
-            </div>
-            <h3>Outdoor LED Signage</h3>
-            <p>Weather-resistant LED signboards for outdoor branding.</p>
-            <span className="quote">Get Quote →</span>
-          </div>
+                {service.features && (
+                  <div className="features">
+                    {service.features.map((f) => (
+                      <div key={f} className="feature">
+                        {f}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-          {/* 3. ACP BOARDS */}
-          <div className="service-card">
-            <div className="service-image">
-              <img src="/acpboards.jpg" alt="ACP Boards" />
-            </div>
-            <h3>ACP Boards</h3>
-            <p>High-quality ACP panels for premium outdoor signage.</p>
-            <div className="features">
-              <div className="feature">✔ Weather proof</div>
-              <div className="feature">✔ Premium finish</div>
-            </div>
-            <span className="quote">Get Quote →</span>
-          </div>
-
-          {/* 4. FLEX */}
-          <div className="service-card">
-            <div className="service-image">
-              <img src="/flexprinting.jpg" alt="Flex Printing" />
-            </div>
-            <h3>Flex Printing</h3>
-            <p>Cost-effective flex banners with vibrant colors.</p>
-            <span className="quote">Get Quote →</span>
-          </div>
-
-          {/* 5. VINYL */}
-          <div className="service-card">
-            <div className="service-image">
-              <img src="/vinylbranding.jpg" alt="Vinyl Printing" />
-            </div>
-            <h3>Vinyl Printing</h3>
-            <p>Durable vinyl graphics and sticker branding.</p>
-            <span className="quote">Get Quote →</span>
-          </div>
-
-          {/* 6. INSTORE BRANDING */}
-          <div className="service-card">
-            <div className="service-image">
-              <img src="/instorebranding.jpg" alt="Instore Branding" />
-            </div>
-            <h3>Instore Branding</h3>
-            <p>Creative branding solutions for interiors & retail spaces.</p>
-            <span className="quote">Get Quote →</span>
-          </div>
-
+                <span className="quote">Get Quote →</span>
+              </div>
+            );
+          })}
         </div>
       </section>
     </>
