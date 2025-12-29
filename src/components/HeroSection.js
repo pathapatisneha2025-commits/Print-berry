@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -76,8 +77,13 @@ export default function HeroSection() {
               justifyContent: isMobile ? "center" : "flex-start",
             }}
           >
-            <button style={styles.primaryBtn}>Explore Services →</button>
-            <button style={styles.outlineBtn}>Get Free Quote</button>
+            <Link to="/services" style={{ textDecoration: "none" }}>
+              <button style={styles.primaryBtn}>Explore Services →</button>
+            </Link>
+
+            <Link to="/contact" style={{ textDecoration: "none" }}>
+              <button style={styles.outlineBtn}>Get Free Quote</button>
+            </Link>
           </div>
         </div>
 
@@ -159,6 +165,8 @@ const Stat = ({ value, label }) => (
     <p style={styles.statLabel}>{label}</p>
   </div>
 );
+
+/* styles object remains exactly the same */
 
 const styles = {
   hero: {

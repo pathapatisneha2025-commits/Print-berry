@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const FeaturedClients = () => {
   const clients = [
@@ -9,7 +9,30 @@ const FeaturedClients = () => {
     { name: "Kidzee", logo: "Kidzee.png" },
   ];
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const cardRefs = useRef([]);
+
+  /* 🔥 Scroll highlight for mobile */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveIndex(Number(entry.target.dataset.index));
+          }
+        });
+      },
+      {
+        threshold: 0.6, // highlight when 60% visible
+      }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -40,25 +63,27 @@ const FeaturedClients = () => {
         }}
       >
         {clients.map((client, index) => {
-          const isHovered = hoveredIndex === index;
+          const isActive = activeIndex === index;
 
           return (
             <div
               key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              ref={(el) => (cardRefs.current[index] = el)}
+              data-index={index}
+              onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
               style={{
                 width: "200px",
                 height: "140px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: isHovered ? "1px solid #FFC107" : "1px solid #333",
+                border: isActive ? "1px solid #FFC107" : "1px solid #333",
                 padding: "20px",
                 background: "#1a1a1a",
-                transform: isHovered ? "scale(1.08)" : "scale(1)",
-                boxShadow: isHovered
-                  ? "0 0 20px rgba(255,193,7,0.6)"
+                transform: isActive ? "scale(1.08)" : "scale(1)",
+                boxShadow: isActive
+                  ? "0 0 22px rgba(255,193,7,0.6)"
                   : "none",
                 transition: "all 0.3s ease",
                 cursor: "pointer",
@@ -71,7 +96,7 @@ const FeaturedClients = () => {
                   maxWidth: "100%",
                   maxHeight: "100%",
                   objectFit: "contain",
-                  filter: isHovered ? "brightness(1.2)" : "brightness(0.85)",
+                  filter: isActive ? "brightness(1.2)" : "brightness(0.85)",
                   transition: "0.3s",
                 }}
               />

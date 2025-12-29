@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 /* ================= SERVICES DATA ================= */
@@ -6,12 +6,32 @@ const SERVICES = [
   { id: "flex-printing", title: "Flex Printing", image: "/flexprinting.jpg" },
   { id: "led-signage", title: "LED Signage", image: "/ledsignage.jpg" },
   { id: "vinyl-printing", title: "Vinyl Printing", image: "/vinylbranding.jpg" },
-  { id: "led-signage", title: "3D Signage", image: "/ledsignage.jpg" },
+  { id: "3d-signage", title: "3D Signage", image: "/ledsignage.jpg" },
   { id: "acp-boards", title: "ACP Boards", image: "/acpboards.jpg" },
 ];
 
 /* ================= COMPONENT ================= */
 export default function ServicesSection() {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const cardRefs = useRef([]);
+
+  /* 🔥 Scroll highlight (mobile friendly) */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveIndex(Number(entry.target.dataset.index));
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    cardRefs.current.forEach((card) => card && observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section style={styles.section}>
       <p style={styles.subTitle}>WHAT WE OFFER</p>
@@ -23,22 +43,43 @@ export default function ServicesSection() {
       {/* CONTINUOUS CAROUSEL */}
       <div style={styles.carouselWrapper}>
         <div style={styles.carouselTrack}>
-          {[...SERVICES, ...SERVICES].map((service, index) => (
-            <Link
-              key={index}
-              to={`/services#${service.id}`}
-              style={styles.card}
-            >
-              <img
-                src={service.image}
-                alt={service.title}
-                style={styles.image}
-              />
-              <div style={styles.overlay}>
-                <h3 style={styles.cardTitle}>{service.title}</h3>
-              </div>
-            </Link>
-          ))}
+          {[...SERVICES, ...SERVICES].map((service, index) => {
+            const isActive = activeIndex === index;
+
+            return (
+              <Link
+                key={index}
+                ref={(el) => (cardRefs.current[index] = el)}
+                data-index={index}
+                to={`/services#${service.id}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+                style={{
+                  ...styles.card,
+                  border: isActive
+                    ? "1px solid #ffb703"
+                    : "1px solid rgba(255,255,255,0.1)",
+                  transform: isActive ? "scale(1.08)" : "scale(1)",
+                  boxShadow: isActive
+                    ? "0 0 28px rgba(255,183,3,0.6)"
+                    : "none",
+                }}
+              >
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  style={{
+                    ...styles.image,
+                    transform: isActive ? "scale(1.12)" : "scale(1)",
+                  }}
+                />
+
+                <div style={styles.overlay}>
+                  <h3 style={styles.cardTitle}>{service.title}</h3>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -90,7 +131,6 @@ const styles = {
     WebkitTextFillColor: "transparent",
   },
 
-  /* CAROUSEL */
   carouselWrapper: {
     width: "100%",
     overflow: "hidden",
@@ -110,9 +150,9 @@ const styles = {
     borderRadius: "22px",
     overflow: "hidden",
     position: "relative",
-    border: "1px solid rgba(255,255,255,0.1)",
     textDecoration: "none",
     flexShrink: 0,
+    transition: "all 0.35s ease",
   },
 
   image: {
