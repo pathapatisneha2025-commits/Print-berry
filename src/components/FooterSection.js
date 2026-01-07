@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -19,7 +14,7 @@ export default function Footer() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  /* 🔥 Scroll highlight for mobile */
+  /* Scroll highlight for mobile */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -38,7 +33,7 @@ export default function Footer() {
 
   const getLinkStyle = (label) => ({
     ...styles.link,
-    color: activeLink === label ? "#fff" : "#9ca3af",
+    color: activeLink === label ? "#ec4899" : "#6b7280", // pink active, gray inactive
     fontWeight: activeLink === label ? "700" : "400",
   });
 
@@ -53,7 +48,7 @@ export default function Footer() {
       >
         {/* BRAND */}
         <div style={styles.brand}>
-          <img src="/logoimage.jpeg" alt="Print Berry" style={styles.logo} />
+          <img src="/printberry.png" alt="Print Berry" style={styles.logo} />
           <p style={styles.text}>
             Your trusted partner for premium digital printing and signage
             solutions. We bring your brand vision to life with quality and
@@ -116,13 +111,7 @@ export default function Footer() {
 }
 
 /* LINKS COLUMN */
-const FooterLinks = ({
-  title,
-  links,
-  getLinkStyle,
-  setActiveLink,
-  linkRefs,
-}) => (
+const FooterLinks = ({ title, links, getLinkStyle, setActiveLink, linkRefs }) => (
   <div>
     <h4 style={styles.heading}>{title}</h4>
     <ul style={styles.list}>
@@ -152,8 +141,8 @@ const SocialIcon = ({ icon }) => (
 /* STYLES */
 const styles = {
   footer: {
-    background: "linear-gradient(180deg, #050505, #0b0b0b)",
-    color: "#d1d5db",
+    background: "#fff", // white footer
+    color: "#111",
     paddingTop: "100px",
   },
   container: {
@@ -172,7 +161,7 @@ const styles = {
   text: {
     fontSize: "15px",
     lineHeight: "1.7",
-    color: "#9ca3af",
+    color: "#6b7280", // dark gray
     marginBottom: "24px",
   },
   socials: {
@@ -183,18 +172,18 @@ const styles = {
     width: "38px",
     height: "38px",
     borderRadius: "50%",
-    background: "rgba(255,255,255,0.08)",
+    background: "rgba(236,72,153,0.1)", // pink transparent
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "#fff",
+    color: "#ec4899", // pink icon
     cursor: "pointer",
+    transition: "0.3s",
   },
   heading: {
     fontSize: "16px",
     fontWeight: "700",
     marginBottom: "18px",
-    color: "#fff",
   },
   list: {
     listStyle: "none",
@@ -211,10 +200,10 @@ const styles = {
     cursor: "pointer",
   },
   bottom: {
-    borderTop: "1px solid rgba(255,255,255,0.08)",
+    borderTop: "1px solid #ec4899", // pink separator
     textAlign: "center",
     padding: "22px 20px",
     fontSize: "14px",
-    color: "#9ca3af",
+    color: "#6b7280",
   },
 };

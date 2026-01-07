@@ -33,7 +33,7 @@ export default function Navbar() {
       {/* ===== TOP BAR (Desktop only) ===== */}
       {!isMobile && (
         <div style={styles.topBar}>
-          <span>✨ For All Your Digital Needs</span>
+          <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
           <div style={styles.topRight}>
             <span>📞 +91 9010099111</span>
             <span>✉️ printberry.in@gmail.com</span>
@@ -45,14 +45,15 @@ export default function Navbar() {
       <nav style={styles.navbar}>
         {/* LOGO */}
         <Link to="/" style={styles.logoWrap}>
-          <img
-            src="/logoimage.jpeg"
-            alt="Print Berry"
-            style={{
-              ...styles.logoImg,
-              height: isMobile ? "88px" : "110px", // BIG logo always
-            }}
-          />
+<img
+  src="/printberry.png"
+  alt="Print Berry"
+  style={{
+    ...styles.logoImg,
+    height: isMobile ? "80px" : "110px", // ⬅ increased
+  }}
+/>
+
         </Link>
 
         {/* HAMBURGER (Mobile) */}
@@ -82,7 +83,7 @@ export default function Navbar() {
                       to={item.path}
                       style={{
                         ...styles.navLink,
-                        color: active ? "#ffb703" : "#fff",
+                        color: active ? "#ed4285" : "#4b5563", // Magenta if active, Grey if not
                       }}
                     >
                       {item.name}
@@ -136,52 +137,61 @@ export default function Navbar() {
 /* ================= STYLES ================= */
 
 const styles = {
+  /* ===== TOP BAR ===== */
   topBar: {
-    background: "#0b0b0b",
-    color: "#bbb",
-    padding: "8px 16px",
+    background: "#ffffff",
+    color: "#6b7280",
+    padding: "10px 40px",
     fontSize: "14px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottom: "1px solid #1f1f1f",
-    flexWrap: "wrap",
+    fontWeight: 500,
+    borderBottom: "1px solid #f3f4f6",
   },
 
   topRight: {
     display: "flex",
-    gap: "12px",
+    gap: "24px",
   },
 
-  navbar: {
-    position: "sticky",
-    top: 0,
-    zIndex: 1000,
-    background: "linear-gradient(180deg, #000, #111)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    minHeight: "120px",
-    padding: "16px 20px",
-    width: "100%",
-    boxSizing: "border-box",
-    boxShadow: "0 10px 40px rgba(255,183,3,0.08)",
-  },
+ /* ===== NAVBAR ===== */
+navbar: {
+  position: "sticky",
+  top: 0,
+  zIndex: 1000,
+  background: "#ffffff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  // 1. REMOVE minHeight: "120px" and use a smaller height or let padding decide
+  padding: "10px 40px", 
+  width: "100%",
+  boxSizing: "border-box",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
+  // Ensure there is no bottom margin
+  margin: 0, 
+},
+
+logoImg: {
+  height: "90px",        // base fallback
+  maxWidth: "260px",     // ⬅ allow wider logo
+  objectFit: "contain",
+  display: "block",
+},
+
 
   logoWrap: {
     display: "flex",
     alignItems: "center",
   },
 
-  logoImg: {
-    maxWidth: "260px",
-    objectFit: "contain",
-  },
-
+ 
+  /* ===== MENU ===== */
   menu: {
     display: "flex",
     listStyle: "none",
-    gap: "26px",
+    gap: "35px",
     margin: 0,
     padding: 0,
     alignItems: "center",
@@ -189,61 +199,66 @@ const styles = {
 
   menuItem: {
     position: "relative",
-    fontSize: "15px",
+    fontSize: "16px",
     fontWeight: 500,
   },
 
   mobileItem: {
-    margin: "16px 0",
+    margin: "18px 0",
     fontSize: "18px",
     fontWeight: 600,
   },
 
   navLink: {
-    color: "#fff",
     textDecoration: "none",
     padding: "8px 0",
     display: "inline-block",
+    transition: "color 0.2s ease",
   },
 
   underline: {
     position: "absolute",
-    bottom: "-4px",
+    bottom: "2px",
     left: 0,
     height: "2px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "#ed4285", // Magenta underline
     transition: "width 0.3s ease",
   },
 
+  /* ===== ACTION BUTTONS ===== */
   actions: {
     display: "flex",
-    gap: "10px",
+    gap: "12px",
   },
 
   outlineBtn: {
-    padding: "10px 18px",
-    borderRadius: "12px",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid #ffb703",
-    color: "#ffb703",
+    padding: "10px 24px",
+    borderRadius: "10px",
+    background: "transparent",
+    border: "1.5px solid #ed4285",
+    color: "#ed4285",
     fontWeight: 600,
     cursor: "pointer",
+    transition: "all 0.3s ease",
   },
 
   primaryBtn: {
-    padding: "10px 22px",
-    borderRadius: "12px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    padding: "10px 24px",
+    borderRadius: "10px",
+    background: "linear-gradient(90deg, #ed4285, #ff9d2e)", // Magenta to Orange gradient
     border: "none",
-    fontWeight: 700,
+    color: "#ffffff",
+    fontWeight: 600,
     cursor: "pointer",
+    boxShadow: "0 4px 15px rgba(237, 66, 133, 0.2)",
   },
 
+  /* ===== MOBILE ===== */
   menuBtn: {
     background: "none",
     border: "none",
-    fontSize: "32px",
-    color: "#fff",
+    fontSize: "30px",
+    color: "#333",
     cursor: "pointer",
   },
 
@@ -253,17 +268,18 @@ const styles = {
     left: 0,
     right: 0,
     flexDirection: "column",
-    background: "linear-gradient(180deg, #050b14, #000)",
-    padding: "28px 0",
+    background: "#ffffff",
+    padding: "30px 0",
     textAlign: "center",
+    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
   },
 
   mobileCallBtn: {
-    background: "#ffb703",
-    color: "#000",
-    padding: "12px 28px",
-    borderRadius: "30px",
-    fontWeight: 700,
+    background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
+    color: "#ffffff",
+    padding: "12px 30px",
+    borderRadius: "10px",
+    fontWeight: 600,
     textDecoration: "none",
     display: "inline-block",
   },

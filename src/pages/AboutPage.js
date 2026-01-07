@@ -19,27 +19,16 @@ export default function AboutPage() {
     >
       {/* HEADER */}
       <div style={styles.header}>
-        <span style={styles.badge}>💡 About Us</span>
+        <span style={styles.badge}>About Us</span>
 
-        <h1
-          style={{
-            ...styles.heading,
-            fontSize: isMobile
-              ? "clamp(30px, 8vw, 40px)"
-              : styles.heading.fontSize,
-          }}
-        >
-          We Make Your <span style={styles.brand}>Brand</span> Shine
+        <h1 style={styles.heading}>
+          We Make Your <span style={styles.brand}>Brand</span>{" "}
+          <span style={styles.shine}>Shine</span>
         </h1>
 
-        <p
-          style={{
-            ...styles.subText,
-            fontSize: isMobile ? "16px" : styles.subText.fontSize,
-          }}
-        >
-          We blend creativity, technology, and strategy to help brands stand out
-          with stunning visuals and memorable experiences.
+        <p style={styles.subText}>
+          We combine creativity, technology, and precision printing to help
+          brands stand out with powerful visuals.
         </p>
       </div>
 
@@ -54,23 +43,23 @@ export default function AboutPage() {
           {
             icon: <FaLightbulb />,
             title: "Innovative Ideas",
-            text: "Fresh, bold concepts that make your brand unforgettable.",
+            text: "Fresh, bold concepts that elevate your brand presence.",
           },
           {
             icon: <FaRocket />,
             title: "Fast Execution",
-            text: "Quick turnarounds without ever sacrificing quality.",
+            text: "Quick turnarounds with uncompromised print quality.",
           },
           {
             icon: <FaUsers />,
-            title: "Customer Focus",
-            text: "Collaborative approach with results you can trust.",
+            title: "Customer First",
+            text: "Transparent process and results you can trust.",
           },
         ].map((item, i) => (
           <div
             key={i}
             style={styles.card}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-10px)")}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
           >
             <div style={styles.iconWrap}>{item.icon}</div>
@@ -114,12 +103,11 @@ export default function AboutPage() {
             <p style={styles.storyText}>
               <strong style={styles.gradientText}>A Decade of Excellence</strong>
               <br />
-              From humble beginnings to becoming a trusted name in digital
-              printing — our journey is powered by passion and precision.
+              From small beginnings to a trusted printing partner — our journey
+              is built on passion and precision.
             </p>
             <p style={styles.storyText}>
-              We deliver visual solutions that elevate brands and leave lasting
-              impressions.
+              We create visual solutions that leave lasting impressions.
             </p>
           </div>
 
@@ -157,14 +145,27 @@ export default function AboutPage() {
 }
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    padding: "120px 40px 80px",
-    background: "linear-gradient(180deg, #050505, #0c0c0c)",
-    color: "#fff",
-    maxWidth: "1300px",
-    margin: "0 auto",
-  },
+ page: {
+  minHeight: "100vh",
+  padding: "120px 40px 80px",
+  maxWidth: "1300px",
+  margin: "0 auto",
+  color: "#111",
+
+  /* Same style as Contact Us */
+  background: `
+    linear-gradient(
+      rgba(255,255,255,0.92),
+      rgba(255,255,255,0.92)
+    ),
+url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1950&q=80")
+  `,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+},
+
+
 
   header: {
     textAlign: "center",
@@ -173,30 +174,38 @@ const styles = {
   },
 
   badge: {
-    padding: "10px 18px",
-    borderRadius: "999px",
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.12)",
-    fontSize: "14px",
-    marginBottom: "24px",
-    display: "inline-block",
-  },
+  padding: "12px 28px",          // ⬅ bigger pill
+  borderRadius: "999px",
+  background: "rgba(236,72,153,0.12)",
+  color: "#ec4899",
+  fontSize: "16px",              // ⬅ increased text size
+  fontWeight: "700",
+  letterSpacing: "0.6px",        // ⬅ premium feel
+  marginBottom: "30px",
+  display: "inline-block",
+  boxShadow: "0 6px 18px rgba(236,72,153,0.18)", // ⬅ soft glow
+},
+
 
   heading: {
-    fontSize: "clamp(40px, 5vw, 58px)",
+    fontSize: "clamp(38px, 5vw, 56px)",
     fontWeight: "800",
     marginBottom: "18px",
   },
 
   brand: {
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    color: "#ec4899",
+  },
+
+  shine: {
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 
   subText: {
     fontSize: "18px",
-    color: "#cfcfcf",
+    color: "#555",
     lineHeight: "1.7",
   },
 
@@ -208,13 +217,13 @@ const styles = {
   },
 
   card: {
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.12)",
+    background: "#fff",
+    border: "1px solid #eee",
     borderRadius: "22px",
     padding: "36px 28px",
     textAlign: "center",
     transition: "all 0.35s ease",
-    backdropFilter: "blur(10px)",
+    boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
   },
 
   iconWrap: {
@@ -225,9 +234,9 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "rgba(255,183,3,0.15)",
-    fontSize: "28px",
-    color: "#ffb703",
+    background: "rgba(236,72,153,0.12)",
+    fontSize: "26px",
+    color: "#ec4899",
   },
 
   cardTitle: {
@@ -238,7 +247,7 @@ const styles = {
 
   cardText: {
     fontSize: "15px",
-    color: "#cfcfcf",
+    color: "#666",
     lineHeight: "1.6",
   },
 
@@ -253,7 +262,7 @@ const styles = {
   statValue: {
     fontSize: "34px",
     fontWeight: "800",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
@@ -261,67 +270,58 @@ const styles = {
   statLabel: {
     marginTop: "6px",
     fontSize: "14px",
-    color: "#aaa",
+    color: "#777",
   },
 
-  story: {
-    marginBottom: "80px",
-  },
+  story: { marginBottom: "80px" },
 
   storyTitle: {
     textAlign: "center",
     fontSize: "32px",
     marginBottom: "40px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 
-  storyContent: {
-    display: "flex",
-    gap: "40px",
-  },
+  storyContent: { display: "flex", gap: "40px" },
 
   storyCard: {
     flex: 1,
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.12)",
+    background: "#fff",
     borderRadius: "22px",
     padding: "32px",
-    backdropFilter: "blur(10px)",
+    boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
   },
 
   storyText: {
-    color: "#cfcfcf",
+    color: "#555",
     fontSize: "16px",
     lineHeight: "1.7",
     marginBottom: "14px",
   },
 
   gradientText: {
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     fontWeight: "700",
   },
 
-  storyList: {
-    listStyle: "none",
-    padding: 0,
-  },
+  storyList: { listStyle: "none", padding: 0 },
 
   storyListItem: {
     display: "flex",
     alignItems: "center",
     marginBottom: "12px",
-    color: "#cfcfcf",
+    color: "#555",
   },
 
   tickCircle: {
     width: "22px",
     height: "22px",
     borderRadius: "50%",
-    background: "#ff006e",
+    background: "#ec4899",
     color: "#fff",
     display: "flex",
     alignItems: "center",
@@ -333,24 +333,22 @@ const styles = {
   highlightText: {
     marginTop: "16px",
     fontWeight: "700",
-    color: "#ffb703",
+    color: "#f97316",
   },
 
-  workSection: {
-    textAlign: "center",
-  },
+  workSection: { textAlign: "center" },
 
   workTitle: {
     fontSize: "32px",
     marginBottom: "14px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 
   workText: {
     fontSize: "16px",
-    color: "#cfcfcf",
+    color: "#666",
     marginBottom: "26px",
   },
 
@@ -358,7 +356,8 @@ const styles = {
     padding: "16px 38px",
     borderRadius: "16px",
     border: "none",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
+    color: "#fff",
     fontWeight: "700",
     cursor: "pointer",
   },

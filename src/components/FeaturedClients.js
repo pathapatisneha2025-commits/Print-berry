@@ -12,7 +12,7 @@ const FeaturedClients = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const cardRefs = useRef([]);
 
-  /* 🔥 Scroll highlight for mobile */
+  /* Scroll highlight for mobile */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -23,7 +23,7 @@ const FeaturedClients = () => {
         });
       },
       {
-        threshold: 0.6, // highlight when 60% visible
+        threshold: 0.6,
       }
     );
 
@@ -34,22 +34,33 @@ const FeaturedClients = () => {
     return () => observer.disconnect();
   }, []);
 
+  const gradientColor = "linear-gradient(90deg,#ec4899,#f97316,#facc15)";
+
   return (
     <div
       style={{
         padding: "80px 20px",
         textAlign: "center",
-        background: "#111",
-        color: "#fff",
+        background: "#fff",
+        color: "#111",
         fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
       }}
     >
       <h2 style={{ fontSize: "42px", fontWeight: 600, marginBottom: 8 }}>
-        Featured <span style={{ color: "#FFC107" }}>Clients</span>
+        Featured{" "}
+        <span
+          style={{
+            background: gradientColor,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Clients
+        </span>
       </h2>
 
-      <p style={{ color: "#aaa", fontSize: "18px", marginBottom: "50px" }}>
-        Some of the brands that we have worked for.
+      <p style={{ color: "#555", fontSize: "18px", marginBottom: "50px" }}>
+        Some of the brands that we have worked with.
       </p>
 
       <div
@@ -78,15 +89,18 @@ const FeaturedClients = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: isActive ? "1px solid #FFC107" : "1px solid #333",
+                border: isActive
+                  ? "2px solid #ec4899"
+                  : "1px solid #E5E7EB",
                 padding: "20px",
-                background: "#1a1a1a",
+                background: "#F9FAFB",
                 transform: isActive ? "scale(1.08)" : "scale(1)",
                 boxShadow: isActive
-                  ? "0 0 22px rgba(255,193,7,0.6)"
-                  : "none",
+                  ? "0 0 22px rgba(236,72,153,0.4)"
+                  : "0 4px 12px rgba(0,0,0,0.05)",
                 transition: "all 0.3s ease",
                 cursor: "pointer",
+                borderRadius: "12px",
               }}
             >
               <img
@@ -96,7 +110,7 @@ const FeaturedClients = () => {
                   maxWidth: "100%",
                   maxHeight: "100%",
                   objectFit: "contain",
-                  filter: isActive ? "brightness(1.2)" : "brightness(0.85)",
+                  filter: isActive ? "brightness(1.15)" : "brightness(0.95)",
                   transition: "0.3s",
                 }}
               />

@@ -7,318 +7,286 @@ export default function HeroSection() {
   const cardRefs = useRef([]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const resize = () => setIsMobile(window.innerWidth < 1024);
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
   const services = [
-    { title: "Flex Printing", tag: "Outdoor", color: "#ff006e", icon: "💎", image: "/flexprinting.jpg" },
-    { title: "LED Signage", tag: "Premium", color: "#ffb703", icon: "✨", image: "/ledsignage.jpg" },
-    { title: "Brand Boards", tag: "Corporate", color: "#00f5ff", icon: "🚀", image: "/brandboard.jpeg" },
+    { title: "Flex Printing", tag: "Outdoor", color: "#ec4899", icon: "💎", image: "/flexprinting.jpg" },
+    { title: "LED Signage", tag: "Premium", color: "#f97316", icon: "✨", image: "/ledsignage.jpg" },
+    { title: "Brand Boards", tag: "Corporate", color: "#06b6d4", icon: "🚀", image: "/brandboard.jpeg" },
   ];
 
-  // IntersectionObserver for scroll highlight
   useEffect(() => {
     if (!isMobile) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveIndex(Number(entry.target.dataset.index));
-          }
-        });
-      },
+      entries =>
+        entries.forEach(e => e.isIntersecting && setActiveIndex(+e.target.dataset.index)),
       { threshold: 0.6 }
     );
-
-    cardRefs.current.forEach(card => card && observer.observe(card));
-
+    cardRefs.current.forEach(c => c && observer.observe(c));
     return () => observer.disconnect();
   }, [isMobile]);
 
   return (
-    <section style={styles.hero}>
-      <div style={{ ...styles.heroTop, flexDirection: isMobile ? "column" : "row", gap: isMobile ? "64px" : "60px" }}>
-        {/* LEFT */}
-        <div style={{ ...styles.left, textAlign: isMobile ? "center" : "left" }}>
-          <span style={styles.badge}>✨ Trusted Printing Experts</span>
-          <h1 style={{ ...styles.heading, fontSize: isMobile ? "clamp(30px, 8vw, 46px)" : "clamp(42px,6vw,68px)" }}>
-            Make Your <span style={styles.brand}>Brand</span><br />
-            Impossible to <span style={styles.visibility}>Ignore</span>
-          </h1>
-          <p style={{ ...styles.description, margin: isMobile ? "0 auto 36px" : "0 0 40px" }}>
-            We design and print high-impact visuals that turn attention into customers — from storefront branding to premium indoor displays.
-          </p>
-          <div style={{ ...styles.buttons, justifyContent: isMobile ? "center" : "flex-start" }}>
-            <Link to="/services" style={{ textDecoration: "none" }}>
-              <button style={styles.primaryBtn}>Explore Services →</button>
-            </Link>
-            <Link to="/contact" style={{ textDecoration: "none" }}>
-              <button style={styles.outlineBtn}>Get Free Quote</button>
-            </Link>
+    <section style={styles.wrapper}>
+      <div style={{ ...styles.hero, flexDirection: isMobile ? "column" : "row" }}>
+
+        {/* LEFT IMAGE PANEL */}
+        <div style={{ ...styles.left, minHeight: isMobile ? "360px" : "640px" }}>
+          <div style={styles.leftOverlay} />
+
+          <div style={styles.leftContent}>
+            <div style={styles.badge}>
+              <div style={styles.badgeOverlay}></div>
+              <span style={styles.badgeText}>✨ Trusted Printing Experts</span>
+            </div>
+
+            <h1 style={styles.heading}>
+              Make Your <span style={styles.brand}>Brand</span>
+              <br />
+              Shine With <span style={styles.visibility}>Premium Prints</span>
+            </h1>
+
+            <p style={styles.desc}>
+              From stunning flex banners to eye-catching LED signage,
+              we deliver print solutions that leave a lasting impression.
+            </p>
+
+            <div style={styles.btnRow}>
+              <Link to="/services">
+                <button style={styles.primaryBtn}>Explore Services →</button>
+              </Link>
+              <Link to="/portfolio">
+                <button style={styles.outlineBtn}>View Portfolio</button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* RIGHT */}
-        <div style={{ ...styles.rightContainer, width: "100%" }}>
-          <div style={{ ...styles.bentoGrid, gridTemplateColumns: isMobile ? "1fr" : "repeat(2,1fr)" }}>
-            {services.map((item, i) => {
-              const isActive = activeIndex === i;
+        {/* RIGHT WHITE PANEL */}
+        <div style={styles.right}>
+          <div style={{ ...styles.grid, gridTemplateColumns: isMobile ? "1fr" : "repeat(2,1fr)" }}>
+            {services.map((s, i) => {
+              const active = activeIndex === i;
               return (
                 <div
-                  key={item.title}
-                  ref={el => cardRefs.current[i] = el}
+                  key={s.title}
+                  ref={el => (cardRefs.current[i] = el)}
                   data-index={i}
                   onMouseEnter={() => !isMobile && setActiveIndex(i)}
                   onMouseLeave={() => !isMobile && setActiveIndex(null)}
                   style={{
                     ...styles.card,
                     gridColumn: !isMobile && i === 2 ? "1 / -1" : "auto",
-                    border: isActive ? `2px solid ${item.color}` : styles.card.border,
-                    boxShadow: isActive ? `0 0 24px ${item.color}55` : "none",
+                    borderColor: active ? s.color : "#e5e7eb",
+                    boxShadow: active ? `0 20px 50px ${s.color}33` : styles.card.boxShadow,
                   }}
                 >
-                  <div style={styles.cardImageWrapper}>
-                    <img src={item.image} alt={item.title} style={styles.cardImage} loading="lazy" />
-                    <div style={styles.imageOverlay} />
-                  </div>
+                  <img src={s.image} alt={s.title} style={styles.cardImg} />
 
-                  <div style={styles.cardHeader}>
-                    <span style={{
-                      ...styles.cardTag,
-                      color: item.color,
-                      border: `1px solid ${item.color}55`,
-                      background: isActive ? `${item.color}33` : `${item.color}18`,
-                    }}>
-                      {item.tag}
+                  <div style={styles.cardTop}>
+                    <span style={{ ...styles.tag, color: s.color, borderColor: s.color }}>
+                      {s.tag}
                     </span>
-                    <span style={styles.cardIcon}>{item.icon}</span>
+                    <span style={styles.icon}>{s.icon}</span>
                   </div>
 
-                  <h4 style={styles.cardTitle}>{item.title}</h4>
+                  <h4 style={styles.cardTitle}>{s.title}</h4>
                   <p style={styles.cardText}>
-                    Premium {item.title.toLowerCase()} for maximum brand visibility.
+                    Premium {s.title.toLowerCase()} for maximum brand visibility.
                   </p>
 
-                  <div style={styles.cardFooter}>View Project →</div>
+                  <div style={{ color: s.color, fontWeight: 700 }}>
+                    View Project →
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
       </div>
-
-      <div style={styles.divider} />
-
-      {/* STATS */}
-      <div style={{ ...styles.heroStats, gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)" }}>
-        <Stat value="10+" label="Years Experience" />
-        <Stat value="5000+" label="Projects Completed" />
-        <Stat value="500+" label="Happy Clients" />
-        <Stat value="24/7" label="Support Available" />
-      </div>
     </section>
   );
 }
 
-const Stat = ({ value, label }) => (
-  <div>
-    <h3 style={styles.statValue}>{value}</h3>
-    <p style={styles.statLabel}>{label}</p>
-  </div>
-);
-
-/* styles remain exactly the same as your original HeroSection */
-
-/* styles object remains exactly the same */
+/* ================= STYLES ================= */
 
 const styles = {
+ wrapper: {
+    background: "#fafafa",
+    margin: "20px 0 0 0", 
+    padding: "0 4% 80px 4%",
+  },
+
   hero: {
-    minHeight: "100vh",
-    padding: "100px 5% 80px",
-    background: "#050505",
-    color: "#fff",
+    display: "flex",
     maxWidth: "1400px",
     margin: "0 auto",
+    borderRadius: "28px", 
+    overflow: "hidden",
+    boxShadow: "0 40px 80px rgba(0,0,0,0.08)",
   },
 
-  heroTop: {
+  /* LEFT */
+  left: {
+    flex: 1.1,
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=1400&q=80')", // real image
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    position: "relative",
+    color: "#111827",
+    padding: "60px",
     display: "flex",
     alignItems: "center",
+    overflow: "hidden",
+    animation: "zoom 20s ease-in-out infinite",
   },
 
-  left: { flex: 1 },
-
-  rightContainer: {
-    flex: 1.2,
-    padding: "28px",
-    borderRadius: "32px",
+  leftOverlay: {
+    position: "absolute",
+    inset: 0,
     background:
-      "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01))",
-    border: "1px solid rgba(255,255,255,0.14)",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
-    display: "flex",
-    justifyContent: "center",
+      "linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4))",
+    zIndex: 0,
   },
 
-  bentoGrid: {
-    display: "grid",
-    gap: "26px",
-    width: "100%",
+  leftContent: {
+    position: "relative",
     maxWidth: "520px",
+    zIndex: 1,
   },
 
+  /* BADGE */
   badge: {
-    padding: "10px 18px",
+    position: "relative",
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1581090700227-879b0a635d6b?auto=format&fit=crop&w=800&q=80')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     borderRadius: "999px",
-    border: "1px solid rgba(255,255,255,0.12)",
-    background: "rgba(255,255,255,0.06)",
-    marginBottom: "28px",
+    padding: "14px 26px",
+    marginBottom: "24px",
+    overflow: "hidden",
+    display: "inline-flex",
+    alignItems: "center",
+    minHeight: "42px",
+  },
+
+  badgeOverlay: {
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(90deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45))",
+    zIndex: 1,
+  },
+
+  badgeText: {
+    position: "relative",
+    zIndex: 2,
+    fontWeight: 700,
     fontSize: "14px",
-    color: "#ffb703",
-    display: "inline-block",
+    color: "#111827",
   },
 
   heading: {
-    fontWeight: "800",
-    lineHeight: "1.1",
-    marginBottom: "24px",
+    fontSize: "clamp(36px, 5vw, 58px)",
+    fontWeight: 900,
+    lineHeight: 1.1,
+    marginBottom: "20px",
   },
 
   brand: {
-    background: "linear-gradient(90deg,#ff006e,#ff8c00)",
+    background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 
   visibility: {
-    background: "linear-gradient(90deg,#ff8c00,#ffb703)",
+    background: "linear-gradient(90deg,#06b6d4,#8b5cf6)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 
-  description: {
+  desc: {
     fontSize: "18px",
-    color: "#9ca3af",
-    maxWidth: "540px",
-    lineHeight: "1.6",
+    color: "#374151",
+    marginBottom: "36px",
+    lineHeight: 1.7,
   },
 
-  buttons: {
-    display: "flex",
-    gap: "18px",
-    flexWrap: "wrap",
-  },
+  btnRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
 
   primaryBtn: {
-    padding: "16px 34px",
-    borderRadius: "14px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    border: "none",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
     color: "#fff",
-    fontWeight: "700",
+    border: "none",
+    padding: "16px 32px",
+    borderRadius: "12px",
+    fontWeight: 700,
     cursor: "pointer",
   },
 
   outlineBtn: {
-    padding: "16px 34px",
-    borderRadius: "14px",
-    border: "2px solid #ffb703",
-    background: "transparent",
-    color: "#ffb703",
-    fontWeight: "600",
+    background: "#fff",
+    color: "#111827",
+    border: "1px solid #e5e7eb",
+    padding: "16px 32px",
+    borderRadius: "12px",
+    fontWeight: 700,
     cursor: "pointer",
   },
 
+  /* RIGHT */
+  right: {
+    flex: 1,
+    background: "#fff",
+    padding: "40px",
+  },
+
+  grid: { display: "grid", gap: "24px" },
+
   card: {
-    borderRadius: "22px",
-    padding: "22px",
-    background:
-      "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-    border: "1px solid rgba(255,255,255,0.16)",
+    background: "#fff",
+    borderRadius: "20px",
+    padding: "20px",
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+    transition: "0.3s ease",
   },
 
-  cardImageWrapper: {
-    borderRadius: "16px",
-    overflow: "hidden",
-    height: "160px",
-    marginBottom: "16px",
-    position: "relative",
-  },
-
-  cardImage: {
+  cardImg: {
     width: "100%",
-    height: "100%",
+    height: "160px",
     objectFit: "cover",
-  },
-
-  imageOverlay: {
-    position: "absolute",
-    inset: 0,
-    background: "linear-gradient(to top, rgba(0,0,0,0.45), transparent)",
-  },
-
-  cardHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "10px",
-  },
-
-  cardTag: {
-    fontSize: "10px",
-    padding: "4px 10px",
-    borderRadius: "999px",
-    fontWeight: "700",
-    textTransform: "uppercase",
-  },
-
-  cardIcon: { fontSize: "22px" },
-
-  cardTitle: {
-    fontSize: "22px",
-    fontWeight: "700",
-    marginBottom: "6px",
-  },
-
-  cardText: {
-    fontSize: "14px",
-    color: "#9ca3af",
+    borderRadius: "14px",
     marginBottom: "14px",
   },
 
-  cardFooter: {
-    color: "#ffb703",
-    fontWeight: "600",
+  cardTop: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "8px",
   },
 
-  divider: {
-    margin: "80px 0 40px",
-    height: "1px",
-    background: "linear-gradient(90deg, transparent, #222, transparent)",
+  tag: {
+    fontSize: "10px",
+    padding: "4px 10px",
+    borderRadius: "999px",
+    border: "1px solid",
+    fontWeight: 700,
   },
 
-  heroStats: {
-    display: "grid",
-    gap: "20px",
-    textAlign: "center",
-  },
+  icon: { fontSize: "22px" },
+  cardTitle: { fontSize: "20px", fontWeight: 700 },
+  cardText: { fontSize: "14px", color: "#6b7280", marginBottom: "12px" },
 
-  statValue: {
-    fontSize: "38px",
-    fontWeight: "900",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
-
-  statLabel: {
-    fontSize: "12px",
-    color: "#6b7280",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    fontWeight: "700",
+  /* ZOOM ANIMATION */
+  "@keyframes zoom": {
+    "0%": { transform: "scale(1)" },
+    "50%": { transform: "scale(1.05)" },
+    "100%": { transform: "scale(1)" },
   },
 };

@@ -15,7 +15,6 @@ export default function ServicesSection() {
   const [activeIndex, setActiveIndex] = useState(null);
   const cardRefs = useRef([]);
 
-  /* 🔥 Scroll highlight (mobile friendly) */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -37,12 +36,16 @@ export default function ServicesSection() {
       <p style={styles.subTitle}>WHAT WE OFFER</p>
 
       <h2 style={styles.title}>
-        Our <span style={styles.gradient}>Services</span>
+        Our Services
       </h2>
 
       {/* CONTINUOUS CAROUSEL */}
       <div style={styles.carouselWrapper}>
-        <div style={styles.carouselTrack}>
+        <div 
+          style={styles.carouselTrack} 
+          onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
+          onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+        >
           {[...SERVICES, ...SERVICES].map((service, index) => {
             const isActive = activeIndex === index;
 
@@ -56,13 +59,11 @@ export default function ServicesSection() {
                 onMouseLeave={() => setActiveIndex(null)}
                 style={{
                   ...styles.card,
-                  border: isActive
-                    ? "1px solid #ffb703"
-                    : "1px solid rgba(255,255,255,0.1)",
-                  transform: isActive ? "scale(1.08)" : "scale(1)",
-                  boxShadow: isActive
-                    ? "0 0 28px rgba(255,183,3,0.6)"
-                    : "none",
+                  borderColor: isActive ? "#ed4285" : "#e5e7eb",
+                  transform: isActive ? "translateY(-10px)" : "translateY(0)",
+                  boxShadow: isActive 
+                    ? "0 20px 40px rgba(237, 66, 133, 0.15)" 
+                    : "0 4px 20px rgba(0,0,0,0.04)",
                 }}
               >
                 <img
@@ -70,12 +71,13 @@ export default function ServicesSection() {
                   alt={service.title}
                   style={{
                     ...styles.image,
-                    transform: isActive ? "scale(1.12)" : "scale(1)",
+                    transform: isActive ? "scale(1.1)" : "scale(1)",
                   }}
                 />
 
                 <div style={styles.overlay}>
                   <h3 style={styles.cardTitle}>{service.title}</h3>
+                  <span style={{...styles.arrow, opacity: isActive ? 1 : 0}}>→</span>
                 </div>
               </Link>
             );
@@ -84,11 +86,12 @@ export default function ServicesSection() {
       </div>
 
       {/* VIEW ALL */}
-      <Link to="/services" style={styles.viewAll}>
-        View All Services →
-      </Link>
+      <div style={{ textAlign: 'center' }}>
+        <Link to="/services" style={styles.viewAll}>
+          Explore All Services
+        </Link>
+      </div>
 
-      {/* KEYFRAMES */}
       <style>
         {`
           @keyframes scroll {
@@ -104,55 +107,60 @@ export default function ServicesSection() {
 /* ================= STYLES ================= */
 const styles = {
   section: {
-    padding: "100px 20px",
-    background: "radial-gradient(circle at center, #111, #050505)",
-    textAlign: "center",
-    color: "#fff",
+    padding: "80px 0",
+    background: "#fafafa", // Soft white theme
+    color: "#1f2937",
     overflow: "hidden",
   },
 
   subTitle: {
-    color: "#ffb703",
-    fontSize: "13px",
-    letterSpacing: "4px",
+    color: "#ed4285", // Magenta theme color
+    fontSize: "14px",
+    letterSpacing: "3px",
     fontWeight: "700",
-    marginBottom: "10px",
+    textAlign: "center",
+    marginBottom: "12px",
   },
 
   title: {
-    fontSize: "clamp(32px,5vw,48px)",
-    fontWeight: "900",
+    fontSize: "clamp(32px, 5vw, 42px)",
+    fontWeight: "800",        // Makes "Our" bold and professional
+    textAlign: "center",
     marginBottom: "50px",
+    color: "#111827",         // A deep, near-black grey used in modern UI
+    letterSpacing: "-0.02em", // Slightly tighter for a premium look
   },
 
   gradient: {
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
+    background: "linear-gradient(90deg, #ed4285, #ff9d2e)", // Brand Magenta to Orange
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
-
   carouselWrapper: {
     width: "100%",
     overflow: "hidden",
     position: "relative",
+    padding: "20px 0 40px",
   },
 
   carouselTrack: {
     display: "flex",
-    gap: "24px",
+    gap: "30px",
     width: "max-content",
-    animation: "scroll 35s linear infinite",
+    animation: "scroll 40s linear infinite",
   },
 
   card: {
-    width: "260px",
-    height: "320px",
-    borderRadius: "22px",
+    width: "280px",
+    height: "360px",
+    borderRadius: "24px",
+    background: "#fff",
     overflow: "hidden",
     position: "relative",
     textDecoration: "none",
     flexShrink: 0,
-    transition: "all 0.35s ease",
+    border: "1px solid #e5e7eb",
+    transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   },
 
   image: {
@@ -165,9 +173,9 @@ const styles = {
   overlay: {
     position: "absolute",
     inset: 0,
-    background:
-      "linear-gradient(to top, rgba(0,0,0,0.85), transparent 60%)",
+    background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "flex-end",
     padding: "24px",
   },
@@ -176,16 +184,25 @@ const styles = {
     fontSize: "20px",
     fontWeight: "700",
     color: "#fff",
+    margin: 0,
+  },
+
+  arrow: {
+    color: "#fff",
+    fontSize: "20px",
+    transition: "all 0.3s ease",
   },
 
   viewAll: {
     display: "inline-block",
-    marginTop: "40px",
-    padding: "16px 42px",
-    borderRadius: "50px",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    color: "#000",
-    fontWeight: "800",
+    marginTop: "20px",
+    padding: "16px 40px",
+    borderRadius: "12px",
+    background: "linear-gradient(90deg, #ed4285, #ff9d2e)", // Brand Gradient
+    color: "#fff",
+    fontWeight: "700",
     textDecoration: "none",
+    boxShadow: "0 10px 20px rgba(237, 66, 133, 0.2)",
+    transition: "transform 0.3s ease",
   },
 };

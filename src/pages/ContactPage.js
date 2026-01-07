@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
-const BRAND_COLOR = "#ff006e";
-
 export default function ContactPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -21,23 +19,15 @@ export default function ContactPage() {
     >
       {/* HEADER */}
       <div style={styles.header}>
-        <span style={styles.badge}>📞 Contact Us</span>
-        <h1
-          style={{
-            ...styles.heading,
-            fontSize: isMobile ? "clamp(28px, 8vw, 38px)" : styles.heading.fontSize,
-          }}
-        >
+        <span style={styles.badge}>Contact Us</span>
+
+        <h1 style={styles.heading}>
           Let’s Build Your <span style={styles.brand}>Brand</span>
         </h1>
-        <p
-          style={{
-            ...styles.subText,
-            fontSize: isMobile ? "16px" : styles.subText.fontSize,
-          }}
-        >
+
+        <p style={styles.subText}>
           Have a project in mind? Reach out to us and let’s create something
-          powerful together.
+          impactful together.
         </p>
       </div>
 
@@ -46,7 +36,6 @@ export default function ContactPage() {
         style={{
           ...styles.content,
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? "30px" : "60px",
         }}
       >
         {/* LEFT INFO */}
@@ -70,32 +59,15 @@ export default function ContactPage() {
           ].map((item) => (
             <div
               key={item.title}
-              style={{
-                ...styles.infoCard,
-                boxShadow: "0 14px 40px rgba(255,0,110,0.18)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-6px)";
-                e.currentTarget.style.borderColor =
-                  "rgba(255,255,255,0.25)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.borderColor =
-                  "rgba(255,255,255,0.12)";
-              }}
+              style={styles.infoCard}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "translateY(-6px)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "translateY(0)")
+              }
             >
-              <div
-                style={{
-                  ...styles.iconWrap,
-                  background:
-                    "linear-gradient(135deg, rgba(255,0,110,0.25), transparent)",
-                }}
-              >
-                <span style={{ ...styles.icon, color: BRAND_COLOR }}>
-                  {item.icon}
-                </span>
-              </div>
+              <div style={styles.iconWrap}>{item.icon}</div>
 
               <div>
                 <h4 style={styles.infoTitle}>{item.title}</h4>
@@ -106,7 +78,7 @@ export default function ContactPage() {
         </div>
 
         {/* RIGHT FORM */}
-        <form style={{ ...styles.form, padding: isMobile ? "24px" : "32px" }}>
+        <form style={styles.form}>
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />
@@ -116,21 +88,13 @@ export default function ContactPage() {
             style={styles.textarea}
           />
           <button
-            style={{
-              ...styles.submitBtn,
-              padding: isMobile ? "14px" : "16px",
-              fontSize: isMobile ? "14px" : "16px",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 8px 20px rgba(255,183,3,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 6px 16px rgba(255,183,3,0.25)";
-            }}
+            style={styles.submitBtn}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "translateY(-2px)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.transform = "translateY(0)")
+            }
           >
             Send Message →
           </button>
@@ -141,46 +105,59 @@ export default function ContactPage() {
 }
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    background: "linear-gradient(180deg, #050505, #0c0c0c)",
-    color: "#fff",
-    maxWidth: "1300px",
-    margin: "0 auto",
-  },
+ page: {
+  minHeight: "100vh",
+  maxWidth: "1300px",
+  margin: "0 auto",
+  color: "#111",
+
+ background: `
+  linear-gradient(
+    rgba(255,255,255,0.92),
+    rgba(255,255,255,0.92)
+  ),
+  url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80')
+`,
+backgroundSize: "cover",
+backgroundPosition: "center",
+backgroundRepeat: "no-repeat",
+
+},
+
+
 
   header: {
     textAlign: "center",
-    maxWidth: "700px",
+    maxWidth: "720px",
     margin: "0 auto 80px",
   },
 
-  badge: {
-    display: "inline-block",
-    padding: "10px 18px",
-    borderRadius: "999px",
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.12)",
-    fontSize: "14px",
-    marginBottom: "24px",
-    backdropFilter: "blur(8px)",
-  },
+ badge: {
+  display: "inline-block",
+  padding: "12px 26px",      // ⬅ bigger padding
+  borderRadius: "999px",
+  background: "rgba(236,72,153,0.14)",
+  color: "#ec4899",
+  fontSize: "16px",          // ⬅ increased text size
+  fontWeight: "700",
+  letterSpacing: "0.5px",    // ⬅ subtle premium touch
+  marginBottom: "28px",
+},
+
 
   heading: {
-    fontSize: "clamp(38px, 5vw, 56px)",
+    fontSize: "clamp(36px, 5vw, 54px)",
     fontWeight: "800",
     marginBottom: "18px",
   },
 
   brand: {
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
+    color: "#ec4899",
   },
 
   subText: {
     fontSize: "18px",
-    color: "#cfcfcf",
+    color: "#555",
     lineHeight: "1.6",
   },
 
@@ -201,11 +178,10 @@ const styles = {
     gap: "20px",
     padding: "26px",
     borderRadius: "22px",
-    background:
-      "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-    border: "1px solid rgba(255,255,255,0.12)",
-    backdropFilter: "blur(14px)",
-    transition: "all 0.35s ease",
+    background: "#ffffff",
+    border: "1px solid #eee",
+    boxShadow: "0 18px 40px rgba(0,0,0,0.06)",
+    transition: "all 0.3s ease",
     cursor: "pointer",
   },
 
@@ -213,14 +189,13 @@ const styles = {
     width: "56px",
     height: "56px",
     borderRadius: "16px",
+    background: "rgba(236,72,153,0.15)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0,
-  },
-
-  icon: {
     fontSize: "22px",
+    color: "#ec4899",
+    flexShrink: 0,
   },
 
   infoTitle: {
@@ -232,26 +207,27 @@ const styles = {
   infoText: {
     marginTop: "6px",
     fontSize: "14px",
-    color: "#cfcfcf",
+    color: "#666",
     lineHeight: "1.5",
   },
 
   form: {
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "20px",
+    background: "#ffffff",
+    border: "1px solid #eee",
+    borderRadius: "22px",
+    padding: "32px",
     display: "flex",
     flexDirection: "column",
     gap: "18px",
-    backdropFilter: "blur(12px)",
+    boxShadow: "0 18px 40px rgba(0,0,0,0.06)",
   },
 
   input: {
     padding: "14px 16px",
     borderRadius: "12px",
-    border: "1px solid rgba(255,255,255,0.15)",
-    background: "rgba(0,0,0,0.6)",
-    color: "#fff",
+    border: "1px solid #ddd",
+    background: "#fff",
+    color: "#111",
     fontSize: "14px",
     outline: "none",
   },
@@ -259,9 +235,9 @@ const styles = {
   textarea: {
     padding: "14px 16px",
     borderRadius: "12px",
-    border: "1px solid rgba(255,255,255,0.15)",
-    background: "rgba(0,0,0,0.6)",
-    color: "#fff",
+    border: "1px solid #ddd",
+    background: "#fff",
+    color: "#111",
     fontSize: "14px",
     outline: "none",
     resize: "none",
@@ -269,12 +245,14 @@ const styles = {
 
   submitBtn: {
     marginTop: "10px",
-    borderRadius: "14px",
+    padding: "16px",
+    borderRadius: "16px",
     border: "none",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    color: "#000",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
+    color: "#fff",
     fontWeight: "700",
+    fontSize: "16px",
     cursor: "pointer",
-    transition: "transform 0.25s ease, box-shadow 0.25s ease",
+    transition: "transform 0.25s ease",
   },
 };

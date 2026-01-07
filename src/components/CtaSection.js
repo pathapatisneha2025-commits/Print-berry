@@ -15,18 +15,20 @@ export default function CTASection() {
         expert team.
       </p>
 
- <Link to="/contact" style={styles.link}>
+      <Link to="/contact" style={styles.link}>
         <button style={styles.ctaBtn}>Start Your Project →</button>
-      </Link>    </section>
+      </Link>
+    </section>
   );
 }
-    const styles = {
+
+const styles = {
   section: {
     padding: "140px 40px",
     background:
-      "radial-gradient(circle at top, rgba(255,183,3,0.08), transparent 60%), linear-gradient(180deg,#050505,#0b0b0b)",
+      "radial-gradient(circle at top, rgba(236,72,153,0.08), transparent 60%), #fff", // subtle pink glow on white
     textAlign: "center",
-    color: "#fff",
+    color: "#111", // dark text for white theme
   },
 
   heading: {
@@ -37,20 +39,18 @@ export default function CTASection() {
   },
 
   brand: {
-    color: "#ff006e",
+    color: "#ec4899", // pink
   },
 
   shine: {
-    background: "linear-gradient(90deg,#ff8c00,#ffb703)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
+    color: "#111", // same dark color as main text
   },
 
   description: {
     maxWidth: "620px",
     margin: "0 auto 50px",
     fontSize: "18px",
-    color: "#cfcfcf",
+    color: "#555", // dark gray
     lineHeight: "1.6",
   },
 
@@ -58,8 +58,8 @@ export default function CTASection() {
     padding: "18px 44px",
     borderRadius: "18px",
     border: "none",
-    background: "linear-gradient(90deg,#ff006e,#ffb703)",
-    color: "#000",
+    background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", // pink/orange gradient
+    color: "#fff", // white text
     fontSize: "17px",
     fontWeight: "700",
     cursor: "pointer",
