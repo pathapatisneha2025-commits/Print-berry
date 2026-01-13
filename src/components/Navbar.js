@@ -43,26 +43,27 @@ export default function Navbar() {
 
       {/* ===== NAVBAR ===== */}
       <nav style={styles.navbar}>
-        {isMobile ? (
-          <div style={styles.mobileNavWrapper}>
-            {/* Hamburger left */}
-            <button
-              style={styles.menuBtn}
-              onClick={() => setMobileOpen((p) => !p)}
-            >
-              {mobileOpen ? <FiX /> : <FiMenu />}
-            </button>
+       {isMobile ? (
+  <div style={styles.mobileNavWrapper}>
+    {/* Logo LEFT */}
+    <Link to="/" style={styles.logoWrap}>
+      <img
+        src="/logoimage.jpeg"
+        alt="Print Berry"
+        style={{ ...styles.logoImg, height: "90px" }}
+      />
+    </Link>
 
-            {/* Logo centered */}
-            <Link to="/" style={styles.logoWrap}>
-              <img
-                src="/logoimage.jpeg"
-                alt="Print Berry"
-                style={{ ...styles.logoImg, height: "100px" }}
-              />
-            </Link>
-          </div>
-        ) : (
+    {/* Hamburger RIGHT */}
+    <button
+      style={styles.menuBtn}
+      onClick={() => setMobileOpen((p) => !p)}
+    >
+      {mobileOpen ? <FiX /> : <FiMenu />}
+    </button>
+  </div>
+) : (
+
           <>
             {/* Logo left */}
             <Link to="/" style={styles.logoWrap}>
