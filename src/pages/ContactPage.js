@@ -134,16 +134,14 @@ backgroundRepeat: "no-repeat",
 
  badge: {
   display: "inline-block",
-  padding: "12px 26px",      // ⬅ bigger padding
-  borderRadius: "999px",
-  background: "rgba(236,72,153,0.14)",
+  padding: "16px 32px",       // bigger padding for a bolder look
   color: "#ec4899",
-  fontSize: "16px",          // ⬅ increased text size
-  fontWeight: "700",
-  letterSpacing: "0.5px",    // ⬅ subtle premium touch
-  marginBottom: "28px",
+  fontSize: "20px",           // increased text size
+  fontWeight: "800",          // more emphasis
+  letterSpacing: "0.5px",
+  marginBottom: "32px",       // space below the badge
+  textTransform: "uppercase", // makes it stand out
 },
-
 
   heading: {
     fontSize: "clamp(36px, 5vw, 54px)",

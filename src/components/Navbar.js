@@ -46,13 +46,14 @@ export default function Navbar() {
         {/* LOGO */}
         <Link to="/" style={styles.logoWrap}>
 <img
-  src="/printberry.png"
+  src="/logoimage.jpeg"
   alt="Print Berry"
   style={{
     ...styles.logoImg,
-    height: isMobile ? "80px" : "110px", // ⬅ increased
+    height: isMobile ? "120px" : "160px", // bigger on both mobile and desktop
   }}
 />
+
 
         </Link>
 
@@ -155,38 +156,34 @@ const styles = {
     gap: "24px",
   },
 
- /* ===== NAVBAR ===== */
-navbar: {
-  position: "sticky",
-  top: 0,
-  zIndex: 1000,
-  background: "#ffffff",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  // 1. REMOVE minHeight: "120px" and use a smaller height or let padding decide
-  padding: "10px 40px", 
-  width: "100%",
-  boxSizing: "border-box",
-  boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
-  // Ensure there is no bottom margin
-  margin: 0, 
-},
+  /* ===== NAVBAR ===== */
+  navbar: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    background: "#ffffff",
+    display: "flex",
+    alignItems: "flex-start", // logo aligned to top
+    justifyContent: "space-between",
+    padding: "5px 20px", // reduced vertical padding
+    width: "100%",
+    boxSizing: "border-box",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
+    margin: 0,
+  },
 
-logoImg: {
-  height: "90px",        // base fallback
-  maxWidth: "260px",     // ⬅ allow wider logo
-  objectFit: "contain",
-  display: "block",
-},
-
+  logoImg: {
+    height: "120px",       // logo stays big
+    maxWidth: "320px",     // allow wider logo
+    objectFit: "contain",
+    display: "block",
+  },
 
   logoWrap: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
 
- 
   /* ===== MENU ===== */
   menu: {
     display: "flex",
@@ -211,7 +208,7 @@ logoImg: {
 
   navLink: {
     textDecoration: "none",
-    padding: "8px 0",
+    padding: "6px 0", // slightly smaller vertical padding
     display: "inline-block",
     transition: "color 0.2s ease",
   },
@@ -221,7 +218,7 @@ logoImg: {
     bottom: "2px",
     left: 0,
     height: "2px",
-    background: "#ed4285", // Magenta underline
+    background: "#ed4285",
     transition: "width 0.3s ease",
   },
 
@@ -229,11 +226,12 @@ logoImg: {
   actions: {
     display: "flex",
     gap: "12px",
+    alignItems: "center",
   },
 
   outlineBtn: {
-    padding: "10px 24px",
-    borderRadius: "10px",
+    padding: "8px 20px", // smaller vertical padding
+    borderRadius: "8px",
     background: "transparent",
     border: "1.5px solid #ed4285",
     color: "#ed4285",
@@ -243,9 +241,9 @@ logoImg: {
   },
 
   primaryBtn: {
-    padding: "10px 24px",
-    borderRadius: "10px",
-    background: "linear-gradient(90deg, #ed4285, #ff9d2e)", // Magenta to Orange gradient
+    padding: "8px 20px", // smaller vertical padding
+    borderRadius: "8px",
+    background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
     border: "none",
     color: "#ffffff",
     fontWeight: 600,

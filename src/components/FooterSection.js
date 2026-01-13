@@ -48,7 +48,7 @@ export default function Footer() {
       >
         {/* BRAND */}
         <div style={styles.brand}>
-          <img src="/printberry.png" alt="Print Berry" style={styles.logo} />
+          <img src="/logoimage.jpeg" alt="Print Berry" style={styles.logo} />
           <p style={styles.text}>
             Your trusted partner for premium digital printing and signage
             solutions. We bring your brand vision to life with quality and

@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 
 const FeaturedClients = () => {
   const clients = [
-    { name: "Yamaha", logo: "yamaha.png" },
-    { name: "Toni & Guy", logo: "tonyguy.jpeg" },
-    { name: "Lenskart", logo: "Lenskart.png" },
-    { name: "KIMS", logo: "kims.png" },
-    { name: "Kidzee", logo: "Kidzee.png" },
+    { name: "Costa Cofee", logo: "coffeelogo.png" },
+    { name: "FaShionTv", logo: "fashiontv.png" },
+    { name: "KalkiFashion", logo: "kalkifashion.jpg" },
+    { name: "One Golf", logo: "onegolf.png" },
+    { name: "Swadesh", logo: "swadesh.jpg" },
+    { name: "VASAVI Group", logo: "vasavigroup.png" },
+
   ];
 
   const [activeIndex, setActiveIndex] = useState(null);

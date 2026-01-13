@@ -82,7 +82,7 @@ export default function HeroSection() {
                     ...styles.card,
                     gridColumn: !isMobile && i === 2 ? "1 / -1" : "auto",
                     borderColor: active ? s.color : "#e5e7eb",
-                    boxShadow: active ? `0 20px 50px ${s.color}33` : styles.card.boxShadow,
+boxShadow: "none", // no shadow even on hover
                   }}
                 >
                   <img src={s.image} alt={s.title} style={styles.cardImg} />
@@ -134,7 +134,7 @@ const styles = {
   left: {
     flex: 1.1,
     backgroundImage:
-      "url('https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=1400&q=80')", // real image
+      "url('/landingpage.jpeg')", // real image
     backgroundSize: "cover",
     backgroundPosition: "center",
     position: "relative",
@@ -253,9 +253,10 @@ const styles = {
     borderRadius: "20px",
     padding: "20px",
     border: "1px solid #e5e7eb",
-    boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+    boxShadow: "none", // removed shadow
     transition: "0.3s ease",
   },
+
 
   cardImg: {
     width: "100%",

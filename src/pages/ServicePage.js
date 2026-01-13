@@ -114,13 +114,19 @@ export default function ServicesPage() {
           border-radius: 16px;
           overflow: hidden;
           margin-bottom: 18px;
+          
         }
 
-        .service-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+       .service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* 🔥 Zoom in while keeping clear */
+  transform: scale(1.2);       /* zoom in */
+  will-change: transform;       /* optimize for GPU */
+  backface-visibility: hidden;  /* reduces blur on transform */
+}
 
         .service-card h3 {
           font-size: 20px;
