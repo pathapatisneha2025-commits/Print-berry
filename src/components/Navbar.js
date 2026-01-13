@@ -46,25 +46,26 @@ export default function Navbar() {
 <nav style={styles.navbar}>
   {/* MOBILE WRAPPER FOR LOGO + HAMBURGER */}
   {isMobile ? (
-    <div style={styles.mobileNavWrapper}>
-      <button
-        style={styles.menuBtn}
-        onClick={() => setMobileOpen((p) => !p)}
-      >
-        {mobileOpen ? <FiX /> : <FiMenu />}
-      </button>
+  <div style={styles.mobileNavWrapper}>
+  <Link to="/" style={styles.logoWrap}>
+    <img
+      src="/logoimage.jpeg"
+      alt="Print Berry"
+      style={{
+        ...styles.logoImg,
+        height: "120px",
+      }}
+    />
+  </Link>
 
-      <Link to="/" style={styles.logoWrap}>
-        <img
-          src="/logoimage.jpeg"
-          alt="Print Berry"
-          style={{
-            ...styles.logoImg,
-            height: "120px",
-          }}
-        />
-      </Link>
-    </div>
+  <button
+    style={styles.menuBtn}
+    onClick={() => setMobileOpen((p) => !p)}
+  >
+    {mobileOpen ? <FiX /> : <FiMenu />}
+  </button>
+</div>
+
   ) : (
     <Link to="/" style={styles.logoWrap}>
       <img
