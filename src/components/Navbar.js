@@ -199,6 +199,15 @@ const styles = {
     fontSize: "16px",
     fontWeight: 500,
   },
+  menuBtn: {
+  background: "none",
+  border: "none",
+  fontSize: "30px",
+  color: "#333",
+  cursor: "pointer",
+  marginLeft: "10px", // ← moves hamburger slightly left from the edge
+},
+
 
   mobileItem: {
     margin: "18px 0",

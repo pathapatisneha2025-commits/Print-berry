@@ -33,7 +33,7 @@ export default function AboutPage() {
           }
           return newCounters;
         });
-      }, 20);
+      }, 70);
     });
 
     return () => intervals.forEach(clearInterval);
@@ -186,7 +186,7 @@ const styles = {
     color: "#111",
     background: `
       linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
-      url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1950&q=80")
+      url("/about.jpeg")
     `,
     backgroundSize: "cover",
     backgroundPosition: "center",

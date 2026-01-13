@@ -44,13 +44,14 @@ export default function ServicesPage() {
           );
         }
 
-        .services-header h4 {
-          color: #ec4899;
-          font-size: 14px;
-          letter-spacing: 2px;
-          margin-bottom: 10px;
-          font-weight: 600;
-        }
+       .services-header h4 {
+  color: #ec4899;
+  font-size: 20px; /* ↑ increased from 14px to 20px */
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
 
         .services-header h2 {
           font-size: 38px;
@@ -157,6 +158,12 @@ export default function ServicesPage() {
           font-weight: 700;
           cursor: pointer;
         }
+          @media (max-width: 768px) {
+  .services-header h4 {
+    font-size: 18px;
+  }
+}
+
       `}</style>
 
       {/* HEADER */}

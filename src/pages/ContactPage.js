@@ -116,7 +116,7 @@ const styles = {
     rgba(255,255,255,0.92),
     rgba(255,255,255,0.92)
   ),
-  url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80')
+  url('/contact.jpeg')
 `,
 backgroundSize: "cover",
 backgroundPosition: "center",
