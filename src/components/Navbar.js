@@ -42,94 +42,105 @@ export default function Navbar() {
       )}
 
       {/* ===== NAVBAR ===== */}
-      <nav style={styles.navbar}>
-        {/* LOGO */}
-        <Link to="/" style={styles.logoWrap}>
-<img
-  src="/logoimage.jpeg"
-  alt="Print Berry"
-  style={{
-    ...styles.logoImg,
-    height: isMobile ? "120px" : "160px", // bigger on both mobile and desktop
-  }}
-/>
+     {/* ===== NAVBAR ===== */}
+<nav style={styles.navbar}>
+  {/* MOBILE WRAPPER FOR LOGO + HAMBURGER */}
+  {isMobile ? (
+    <div style={styles.mobileNavWrapper}>
+      <button
+        style={styles.menuBtn}
+        onClick={() => setMobileOpen((p) => !p)}
+      >
+        {mobileOpen ? <FiX /> : <FiMenu />}
+      </button>
 
+      <Link to="/" style={styles.logoWrap}>
+        <img
+          src="/logoimage.jpeg"
+          alt="Print Berry"
+          style={{
+            ...styles.logoImg,
+            height: "120px",
+          }}
+        />
+      </Link>
+    </div>
+  ) : (
+    <Link to="/" style={styles.logoWrap}>
+      <img
+        src="/logoimage.jpeg"
+        alt="Print Berry"
+        style={{
+          ...styles.logoImg,
+          height: "160px",
+        }}
+      />
+    </Link>
+  )}
 
-        </Link>
-
-        {/* HAMBURGER (Mobile) */}
-        {isMobile && (
-          <button
-            style={styles.menuBtn}
-            onClick={() => setMobileOpen((p) => !p)}
-          >
-            {mobileOpen ? <FiX /> : <FiMenu />}
-          </button>
-        )}
-
-        {/* ===== DESKTOP MENU ===== */}
-        {!isMobile && (
-          <>
-            <ul style={styles.menu}>
-              {menuItems.map((item) => {
-                const active = location.pathname === item.path;
-                return (
-                  <li
-                    key={item.name}
-                    onMouseEnter={() => setHovered(item.name)}
-                    onMouseLeave={() => setHovered(null)}
-                    style={styles.menuItem}
-                  >
-                    <Link
-                      to={item.path}
-                      style={{
-                        ...styles.navLink,
-                        color: active ? "#ed4285" : "#4b5563", // Magenta if active, Grey if not
-                      }}
-                    >
-                      {item.name}
-                    </Link>
-                    <span
-                      style={{
-                        ...styles.underline,
-                        width:
-                          hovered === item.name || active ? "100%" : "0%",
-                      }}
-                    />
-                  </li>
-                );
-              })}
-            </ul>
-
-            <div style={styles.actions}>
-              <button style={styles.outlineBtn}>Free Quote</button>
-              <button style={styles.primaryBtn}>Get Started</button>
-            </div>
-          </>
-        )}
-
-        {/* ===== MOBILE MENU ===== */}
-        {isMobile && mobileOpen && (
-          <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
-            {menuItems.map((item) => (
-              <li key={item.name} style={styles.mobileItem}>
-                <Link
-                  to={item.path}
-                  style={styles.navLink}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-
-            <li style={{ marginTop: "20px" }}>
-              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-                📞 Call Now
-              </a>
+  {/* ===== DESKTOP MENU ===== */}
+  {!isMobile && (
+    <>
+      <ul style={styles.menu}>
+        {menuItems.map((item) => {
+          const active = location.pathname === item.path;
+          return (
+            <li
+              key={item.name}
+              onMouseEnter={() => setHovered(item.name)}
+              onMouseLeave={() => setHovered(null)}
+              style={styles.menuItem}
+            >
+              <Link
+                to={item.path}
+                style={{
+                  ...styles.navLink,
+                  color: active ? "#ed4285" : "#4b5563",
+                }}
+              >
+                {item.name}
+              </Link>
+              <span
+                style={{
+                  ...styles.underline,
+                  width: hovered === item.name || active ? "100%" : "0%",
+                }}
+              />
             </li>
-          </ul>
-        )}
+          );
+        })}
+      </ul>
+
+      <div style={styles.actions}>
+        <button style={styles.outlineBtn}>Free Quote</button>
+        <button style={styles.primaryBtn}>Get Started</button>
+      </div>
+    </>
+  )}
+
+  {/* ===== MOBILE MENU ===== */}
+  {isMobile && mobileOpen && (
+    <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
+      {menuItems.map((item) => (
+        <li key={item.name} style={styles.mobileItem}>
+          <Link
+            to={item.path}
+            style={styles.navLink}
+            onClick={() => setMobileOpen(false)}
+          >
+            {item.name}
+          </Link>
+        </li>
+      ))}
+
+      <li style={{ marginTop: "20px" }}>
+        <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+          📞 Call Now
+        </a>
+      </li>
+    </ul>
+  )}
+
       </nav>
     </>
   );
@@ -261,13 +272,7 @@ const styles = {
   },
 
   /* ===== MOBILE ===== */
-  menuBtn: {
-    background: "none",
-    border: "none",
-    fontSize: "30px",
-    color: "#333",
-    cursor: "pointer",
-  },
+
 
   menuMobileOpen: {
     position: "absolute",
@@ -290,4 +295,10 @@ const styles = {
     textDecoration: "none",
     display: "inline-block",
   },
+  mobileNavWrapper: {
+  display: "flex",
+  alignItems: "center",
+  gap: "15px",
+},
+
 };
