@@ -4,6 +4,17 @@ export default function ServicesPage() {
   const [activeIndex, setActiveIndex] = useState(null);
   const cardRefs = useRef([]);
 
+  const badge = {
+    display: "inline-block",
+    padding: "16px 32px",
+    color: "#ec4899",
+    fontSize: "20px",
+    fontWeight: "800",
+    letterSpacing: "0.5px",
+    marginBottom: "32px",
+    textTransform: "uppercase",
+  };
+
   /* 🔥 Scroll highlight (mobile-friendly) */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,25 +44,11 @@ export default function ServicesPage() {
           color: #111827;
         }
 
-        /* HEADER */
         .services-header {
           text-align: center;
           padding: 90px 6% 50px;
-          background: radial-gradient(
-            circle at top,
-            rgba(236,72,153,0.08),
-            transparent 60%
-          );
+          background: radial-gradient(circle at top, rgba(236,72,153,0.08), transparent 60%);
         }
-
-       .services-header h4 {
-  color: #ec4899;
-  font-size: 20px; /* ↑ increased from 14px to 20px */
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
 
         .services-header h2 {
           font-size: 38px;
@@ -67,21 +64,15 @@ export default function ServicesPage() {
           line-height: 1.6;
         }
 
-        /* PAGE */
-      .services-page {
-  min-height: 100vh;
-  padding: 40px 6% 100px;
-
-  background: 
-    linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
-    url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
-    
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
+        .services-page {
+          min-height: 100vh;
+          padding: 40px 6% 100px;
+          background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
+            url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
 
         .services-grid {
           display: grid;
@@ -89,7 +80,6 @@ export default function ServicesPage() {
           gap: 30px;
         }
 
-        /* CARD */
         .service-card {
           background: #ffffff;
           border-radius: 22px;
@@ -115,19 +105,16 @@ export default function ServicesPage() {
           border-radius: 16px;
           overflow: hidden;
           margin-bottom: 18px;
-          
         }
 
-       .service-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  /* 🔥 Zoom in while keeping clear */
-  transform: scale(1.2);       /* zoom in */
-  will-change: transform;       /* optimize for GPU */
-  backface-visibility: hidden;  /* reduces blur on transform */
-}
+        .service-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transform: scale(1.2);
+          will-change: transform;
+          backface-visibility: hidden;
+        }
 
         .service-card h3 {
           font-size: 20px;
@@ -158,17 +145,17 @@ export default function ServicesPage() {
           font-weight: 700;
           cursor: pointer;
         }
-          @media (max-width: 768px) {
-  .services-header h4 {
-    font-size: 18px;
-  }
-}
 
+        @media (max-width: 768px) {
+          .services-header h2 {
+            font-size: 32px;
+          }
+        }
       `}</style>
 
       {/* HEADER */}
       <div className="services-header">
-        <h4>Our Services</h4>
+        <span style={badge}>Our Services</span>
         <h2>Complete Digital Printing Solutions</h2>
         <p>
           From concept to completion, we offer a full range of printing and
@@ -180,40 +167,44 @@ export default function ServicesPage() {
       <section className="services-page">
         <div className="services-grid">
           {[
-            {
-              title: "LED Signage",
-              img: "/ledsignage.jpg",
-              desc:
-                "Premium glow sign boards that give your brand maximum visibility.",
-              features: ["✔ Long life LEDs", "✔ Professional installation"],
-            },
-            {
-              title: "Outdoor LED Signage",
-              img: "/outdoorled.jpg",
-              desc: "Weather-resistant LED signboards for outdoor branding.",
-            },
-            {
-              title: "ACP Boards",
-              img: "/acpboards.jpg",
-              desc: "High-quality ACP panels for premium outdoor signage.",
-              features: ["✔ Weather proof", "✔ Premium finish"],
-            },
-            {
-              title: "Flex Printing",
-              img: "/flexprinting.jpg",
-              desc: "Cost-effective flex banners with vibrant colors.",
-            },
-            {
-              title: "Vinyl Printing",
-              img: "/vinylbranding.jpg",
-              desc: "Durable vinyl graphics and sticker branding.",
-            },
-            {
-              title: "Instore Branding",
-              img: "/instorebranding.jpg",
-              desc: "Creative branding solutions for interiors & retail spaces.",
-            },
-          ].map((service, index) => {
+  {
+    title: "LED Signage",
+    img: "/ledsignage.jpg",
+    desc: "Premium glow sign boards that give your brand maximum visibility.",
+    features: ["✔ Long life LEDs", "✔ Professional installation"],
+  },
+  {
+    title: "Outdoor LED Signage",
+    img: "/outdoorled.jpg",
+    desc: "Weather-resistant LED signboards for outdoor branding.",
+    features: ["✔ Long life LEDs", "✔ Professional installation"],
+  },
+  {
+    title: "ACP Boards",
+    img: "/acpboards.jpg",
+    desc: "High-quality ACP panels for premium outdoor signage.",
+    features: ["✔ Weather proof", "✔ Premium finish"],
+  },
+  {
+    title: "Flex Printing",
+    img: "/flexprinting.jpg",
+    desc: "Cost-effective flex banners with vibrant colors.",
+    features: ["✔ Vibrant colors", "✔ Cost-effective"],
+  },
+  {
+    title: "Vinyl Printing",
+    img: "/vinylbranding.jpg",
+    desc: "Durable vinyl graphics and sticker branding.",
+    features: ["✔ Long-lasting vinyl", "✔ Easy application"],
+  },
+  {
+    title: "Instore Branding",
+    img: "/instorebranding.jpg",
+    desc: "Creative branding solutions for interiors & retail spaces.",
+    features: ["✔ Interior branding", "✔ Retail ready"],
+  },
+]
+.map((service, index) => {
             const isActive = activeIndex === index;
 
             return (

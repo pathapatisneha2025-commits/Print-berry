@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
-  /* ===== Mobile detection ===== */
+  // Detect mobile
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
@@ -16,7 +16,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  /* ===== Close mobile menu on route change ===== */
+  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ===== TOP BAR (Desktop only) ===== */}
+      {/* ===== TOP BAR ===== */}
       {!isMobile && (
         <div style={styles.topBar}>
           <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
@@ -42,119 +42,109 @@ export default function Navbar() {
       )}
 
       {/* ===== NAVBAR ===== */}
-     {/* ===== NAVBAR ===== */}
-<nav style={styles.navbar}>
-  {/* MOBILE WRAPPER FOR LOGO + HAMBURGER */}
-  {isMobile ? (
-  <div style={styles.mobileNavWrapper}>
-  <Link to="/" style={styles.logoWrap}>
-    <img
-      src="/logoimage.jpeg"
-      alt="Print Berry"
-      style={{
-        ...styles.logoImg,
-        height: "120px",
-      }}
-    />
-  </Link>
-
-  <button
-    style={styles.menuBtn}
-    onClick={() => setMobileOpen((p) => !p)}
-  >
-    {mobileOpen ? <FiX /> : <FiMenu />}
-  </button>
-</div>
-
-  ) : (
-    <Link to="/" style={styles.logoWrap}>
-      <img
-        src="/logoimage.jpeg"
-        alt="Print Berry"
-        style={{
-          ...styles.logoImg,
-          height: "160px",
-        }}
-      />
-    </Link>
-  )}
-
-  {/* ===== DESKTOP MENU ===== */}
-  {!isMobile && (
-    <>
-      <ul style={styles.menu}>
-        {menuItems.map((item) => {
-          const active = location.pathname === item.path;
-          return (
-            <li
-              key={item.name}
-              onMouseEnter={() => setHovered(item.name)}
-              onMouseLeave={() => setHovered(null)}
-              style={styles.menuItem}
+      <nav style={styles.navbar}>
+        {isMobile ? (
+          <div style={styles.mobileNavWrapper}>
+            {/* Hamburger left */}
+            <button
+              style={styles.menuBtn}
+              onClick={() => setMobileOpen((p) => !p)}
             >
-              <Link
-                to={item.path}
-                style={{
-                  ...styles.navLink,
-                  color: active ? "#ed4285" : "#4b5563",
-                }}
-              >
-                {item.name}
-              </Link>
-              <span
-                style={{
-                  ...styles.underline,
-                  width: hovered === item.name || active ? "100%" : "0%",
-                }}
+              {mobileOpen ? <FiX /> : <FiMenu />}
+            </button>
+
+            {/* Logo centered */}
+            <Link to="/" style={styles.logoWrap}>
+              <img
+                src="/logoimage.jpeg"
+                alt="Print Berry"
+                style={{ ...styles.logoImg, height: "100px" }}
               />
+            </Link>
+          </div>
+        ) : (
+          <>
+            {/* Logo left */}
+            <Link to="/" style={styles.logoWrap}>
+              <img
+                src="/logoimage.jpeg"
+                alt="Print Berry"
+                style={{ ...styles.logoImg, height: "160px" }}
+              />
+            </Link>
+
+            {/* Menu */}
+            <ul style={styles.menu}>
+              {menuItems.map((item) => {
+                const active = location.pathname === item.path;
+                return (
+                  <li
+                    key={item.name}
+                    onMouseEnter={() => setHovered(item.name)}
+                    onMouseLeave={() => setHovered(null)}
+                    style={styles.menuItem}
+                  >
+                    <Link
+                      to={item.path}
+                      style={{
+                        ...styles.navLink,
+                        color: active ? "#ed4285" : "#4b5563",
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                    <span
+                      style={{
+                        ...styles.underline,
+                        width: hovered === item.name || active ? "100%" : "0%",
+                      }}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Actions */}
+            <div style={styles.actions}>
+              <button style={styles.outlineBtn}>Free Quote</button>
+              <button style={styles.primaryBtn}>Get Started</button>
+            </div>
+          </>
+        )}
+
+        {/* Mobile Menu */}
+        {isMobile && mobileOpen && (
+          <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
+            {menuItems.map((item) => (
+              <li key={item.name} style={styles.mobileItem}>
+                <Link
+                  to={item.path}
+                  style={styles.navLink}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+
+            <li style={{ marginTop: "20px" }}>
+              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+                📞 Call Now
+              </a>
             </li>
-          );
-        })}
-      </ul>
-
-      <div style={styles.actions}>
-        <button style={styles.outlineBtn}>Free Quote</button>
-        <button style={styles.primaryBtn}>Get Started</button>
-      </div>
-    </>
-  )}
-
-  {/* ===== MOBILE MENU ===== */}
-  {isMobile && mobileOpen && (
-    <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
-      {menuItems.map((item) => (
-        <li key={item.name} style={styles.mobileItem}>
-          <Link
-            to={item.path}
-            style={styles.navLink}
-            onClick={() => setMobileOpen(false)}
-          >
-            {item.name}
-          </Link>
-        </li>
-      ))}
-
-      <li style={{ marginTop: "20px" }}>
-        <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-          📞 Call Now
-        </a>
-      </li>
-    </ul>
-  )}
-
+          </ul>
+        )}
       </nav>
     </>
   );
 }
 
-/* ================= STYLES ================= */
-
+/* ===== STYLES ===== */
 const styles = {
-  /* ===== TOP BAR ===== */
   topBar: {
     background: "#ffffff",
     color: "#6b7280",
-    padding: "10px 40px",
+    padding: "8px 40px",
     fontSize: "14px",
     display: "flex",
     justifyContent: "space-between",
@@ -162,41 +152,34 @@ const styles = {
     fontWeight: 500,
     borderBottom: "1px solid #f3f4f6",
   },
-
   topRight: {
     display: "flex",
     gap: "24px",
   },
-
-  /* ===== NAVBAR ===== */
   navbar: {
     position: "sticky",
     top: 0,
     zIndex: 1000,
     background: "#ffffff",
     display: "flex",
-    alignItems: "flex-start", // logo aligned to top
+    alignItems: "center",
     justifyContent: "space-between",
-    padding: "5px 20px", // reduced vertical padding
+    padding: "10px 20px",
     width: "100%",
     boxSizing: "border-box",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
-    margin: 0,
+    boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
   },
-
   logoImg: {
-    height: "120px",       // logo stays big
-    maxWidth: "320px",     // allow wider logo
+    height: "120px",
+    maxWidth: "300px",
     objectFit: "contain",
     display: "block",
   },
-
   logoWrap: {
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-  /* ===== MENU ===== */
   menu: {
     display: "flex",
     listStyle: "none",
@@ -205,53 +188,44 @@ const styles = {
     padding: 0,
     alignItems: "center",
   },
-
   menuItem: {
     position: "relative",
     fontSize: "16px",
     fontWeight: 500,
   },
   menuBtn: {
-  background: "none",
-  border: "none",
-  fontSize: "30px",
-  color: "#333",
-  cursor: "pointer",
-  marginLeft: "10px", // ← moves hamburger slightly left from the edge
-},
-
-
+    background: "none",
+    border: "none",
+    fontSize: "30px",
+    color: "#333",
+    cursor: "pointer",
+  },
   mobileItem: {
     margin: "18px 0",
     fontSize: "18px",
     fontWeight: 600,
   },
-
   navLink: {
     textDecoration: "none",
-    padding: "6px 0", // slightly smaller vertical padding
+    padding: "6px 0",
     display: "inline-block",
     transition: "color 0.2s ease",
   },
-
   underline: {
     position: "absolute",
-    bottom: "2px",
+    bottom: "-2px",
     left: 0,
     height: "2px",
     background: "#ed4285",
     transition: "width 0.3s ease",
   },
-
-  /* ===== ACTION BUTTONS ===== */
   actions: {
     display: "flex",
     gap: "12px",
     alignItems: "center",
   },
-
   outlineBtn: {
-    padding: "8px 20px", // smaller vertical padding
+    padding: "8px 20px",
     borderRadius: "8px",
     background: "transparent",
     border: "1.5px solid #ed4285",
@@ -260,9 +234,8 @@ const styles = {
     cursor: "pointer",
     transition: "all 0.3s ease",
   },
-
   primaryBtn: {
-    padding: "8px 20px", // smaller vertical padding
+    padding: "8px 20px",
     borderRadius: "8px",
     background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
     border: "none",
@@ -271,10 +244,6 @@ const styles = {
     cursor: "pointer",
     boxShadow: "0 4px 15px rgba(237, 66, 133, 0.2)",
   },
-
-  /* ===== MOBILE ===== */
-
-
   menuMobileOpen: {
     position: "absolute",
     top: "100%",
@@ -285,8 +254,8 @@ const styles = {
     padding: "30px 0",
     textAlign: "center",
     boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+    display: "flex",
   },
-
   mobileCallBtn: {
     background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
     color: "#ffffff",
@@ -297,9 +266,9 @@ const styles = {
     display: "inline-block",
   },
   mobileNavWrapper: {
-  display: "flex",
-  alignItems: "center",
-  gap: "200px",
-},
-
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
 };
