@@ -299,7 +299,7 @@ const styles = {
   mobileNavWrapper: {
   display: "flex",
   alignItems: "center",
-  gap: "15px",
+  gap: "50px",
 },
 
 };
