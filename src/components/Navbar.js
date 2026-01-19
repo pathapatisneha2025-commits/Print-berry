@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ===== TOP BAR (Always visible, responsive) ===== */}
+      {/* ===== TOP BAR ===== */}
       <div
         style={{
           ...styles.topBar,
@@ -53,7 +53,7 @@ export default function Navbar() {
       </div>
 
       {/* ===== NAVBAR ===== */}
-      <nav style={styles.navbar}>
+      <nav style={{ ...styles.navbar, position: "relative" }}>
         {/* Logo */}
         <Link to="/" style={styles.logoWrap}>
           <img
@@ -113,30 +113,30 @@ export default function Navbar() {
             {mobileOpen ? <FiX /> : <FiMenu />}
           </button>
         )}
-      </nav>
 
-      {/* ===== MOBILE MENU ===== */}
-      {isMobile && mobileOpen && (
-        <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
-          {menuItems.map((item) => (
-            <li key={item.name} style={styles.mobileItem}>
-              <Link
-                to={item.path}
-                style={styles.navLink}
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.name}
-              </Link>
+        {/* ===== MOBILE MENU ===== */}
+        {isMobile && mobileOpen && (
+          <ul style={styles.mobileMenu}>
+            {menuItems.map((item) => (
+              <li key={item.name} style={styles.mobileItem}>
+                <Link
+                  to={item.path}
+                  style={styles.navLink}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+
+            <li style={{ marginTop: "20px" }}>
+              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+                📞 Call Now
+              </a>
             </li>
-          ))}
-
-          <li style={{ marginTop: "20px" }}>
-            <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-              📞 Call Now
-            </a>
-          </li>
-        </ul>
-      )}
+          </ul>
+        )}
+      </nav>
     </>
   );
 }
@@ -156,7 +156,6 @@ const styles = {
     display: "flex",
   },
   navbar: {
-    position: "sticky",
     top: 0,
     zIndex: 1000,
     background: "#ffffff",
@@ -182,7 +181,6 @@ const styles = {
     margin: 0,
     padding: 0,
     alignItems: "center",
-    flexDirection: "row",
   },
   menuItem: {
     position: "relative",
@@ -196,7 +194,11 @@ const styles = {
     color: "#333",
     cursor: "pointer",
   },
-  mobileItem: { margin: "18px 0", fontSize: "18px", fontWeight: 600 },
+  mobileItem: {
+    margin: "18px 0",
+    fontSize: "18px",
+    fontWeight: 600,
+  },
   navLink: {
     textDecoration: "none",
     padding: "6px 0",
@@ -232,14 +234,14 @@ const styles = {
     cursor: "pointer",
     boxShadow: "0 4px 15px rgba(237, 66, 133, 0.2)",
   },
-  menuMobileOpen: {
+  mobileMenu: {
     position: "absolute",
     top: "100%",
     left: 0,
     right: 0,
     flexDirection: "column",
     background: "#ffffff",
-    padding: "30px 0",
+    padding: "20px 0",
     textAlign: "center",
     boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
     display: "flex",
