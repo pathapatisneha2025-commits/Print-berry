@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 
 const FeaturedClients = () => {
   const clients = [
-    { name: "Costa Cofee", logo: "coffeelogo.png" },
-    { name: "FaShionTv", logo: "fashiontv.png" },
-    { name: "KalkiFashion", logo: "kalkifashion.jpg" },
-    { name: "One Golf", logo: "onegolf.png" },
-    { name: "Swadesh", logo: "swadesh.jpg" },
-    { name: "VASAVI Group", logo: "vasavigroup.png" },
-
+    { name: "FaShionTv", logo: "fashiontv.jpeg" },
+    { name: "Costa Cofee", logo: "coffee.jpeg" },
+    { name: "Swadesh", logo: "swadesh.jpeg" },
+    { name: "One Golf", logo: "onegolf.jpeg" },
+    { name: "VASAVI Group", logo: "vasvai.jpeg" },
+    { name: "KalkiFashion", logo: "kalki.jpeg" },
   ];
 
   const [activeIndex, setActiveIndex] = useState(null);
-  const cardRefs = useRef([]);
+  const imgRefs = useRef([]);
 
   /* Scroll highlight for mobile */
   useEffect(() => {
@@ -24,13 +23,11 @@ const FeaturedClients = () => {
           }
         });
       },
-      {
-        threshold: 0.6,
-      }
+      { threshold: 0.6 }
     );
 
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
+    imgRefs.current.forEach((img) => {
+      if (img) observer.observe(img);
     });
 
     return () => observer.disconnect();
@@ -65,13 +62,14 @@ const FeaturedClients = () => {
         Some of the brands that we have worked with.
       </p>
 
+      {/* LOGO GRID */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: "20px",
-          maxWidth: "1200px",
+          gap: "40px",
+          maxWidth: "1300px",
           margin: "0 auto",
         }}
       >
@@ -79,44 +77,30 @@ const FeaturedClients = () => {
           const isActive = activeIndex === index;
 
           return (
-            <div
+            <img
               key={index}
-              ref={(el) => (cardRefs.current[index] = el)}
+              ref={(el) => (imgRefs.current[index] = el)}
               data-index={index}
+              src={client.logo}
+              alt={client.name}
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
               style={{
-                width: "200px",
+                width: "240px",
                 height: "140px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: isActive
-                  ? "2px solid #ec4899"
-                  : "1px solid #E5E7EB",
-                padding: "20px",
-                background: "#F9FAFB",
-                transform: isActive ? "scale(1.08)" : "scale(1)",
-                boxShadow: isActive
-                  ? "0 0 22px rgba(236,72,153,0.4)"
-                  : "0 4px 12px rgba(0,0,0,0.05)",
-                transition: "all 0.3s ease",
+                objectFit: "contain",
+                padding: "10px",
                 cursor: "pointer",
-                borderRadius: "12px",
+
+                /* Highlight effect */
+                transform: isActive ? "scale(1.08)" : "scale(1)",
+                filter: isActive
+                  ? "drop-shadow(0 12px 25px rgba(236,72,153,0.45))"
+                  : "grayscale(25%)",
+
+                transition: "all 0.35s ease",
               }}
-            >
-              <img
-                src={client.logo}
-                alt={client.name}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  objectFit: "contain",
-                  filter: isActive ? "brightness(1.15)" : "brightness(0.95)",
-                  transition: "0.3s",
-                }}
-              />
-            </div>
+            />
           );
         })}
       </div>

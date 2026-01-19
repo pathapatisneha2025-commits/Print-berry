@@ -6,8 +6,8 @@ const SERVICES = [
   { id: "flex-printing", title: "Flex Printing", image: "/flexprinting.jpg" },
   { id: "led-signage", title: "LED Signage", image: "/ledsignage.jpg" },
   { id: "vinyl-printing", title: "Vinyl Printing", image: "/vinylbranding.jpg" },
-  { id: "3d-signage", title: "3D Signage", image: "/ledsignage.jpg" },
-  { id: "acp-boards", title: "ACP Boards", image: "/acpboards.jpg" },
+  { id: "3d-signage", title: "3D Signage", image: "/3Dsignage.jpeg" },
+  { id: "acp-boards", title: "ACP Boards", image: "/acpboards.jpeg" },
 ];
 
 /* ================= COMPONENT ================= */

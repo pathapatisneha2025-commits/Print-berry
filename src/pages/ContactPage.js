@@ -111,13 +111,11 @@ const styles = {
   margin: "0 auto",
   color: "#111",
 
- background: `
-  linear-gradient(
-    rgba(255,255,255,0.92),
-    rgba(255,255,255,0.92)
-  ),
-  url('/contact.jpeg')
+background: `
+  linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+  url("/contact.jpeg")
 `,
+
 backgroundSize: "cover",
 backgroundPosition: "center",
 backgroundRepeat: "no-repeat",

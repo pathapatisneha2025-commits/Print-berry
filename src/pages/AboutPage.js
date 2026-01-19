@@ -184,10 +184,11 @@ const styles = {
     maxWidth: "1300px",
     margin: "0 auto",
     color: "#111",
-    background: `
-      linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
-      url("/about.jpeg")
-    `,
+   background: `
+  linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+  url("/about.jpeg")
+`,
+
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

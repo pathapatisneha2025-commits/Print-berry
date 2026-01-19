@@ -114,27 +114,36 @@ export default function Navbar() {
         )}
 
         {/* Mobile Menu */}
-        {isMobile && mobileOpen && (
-          <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
-            {menuItems.map((item) => (
-              <li key={item.name} style={styles.mobileItem}>
-                <Link
-                  to={item.path}
-                  style={styles.navLink}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+       {isMobile && mobileOpen && (
+  <div style={styles.mobileMenuWrapper}>
+    <ul style={styles.menuMobileOpen}>
+      {menuItems.map((item) => (
+        <li key={item.name} style={styles.mobileItem}>
+          <Link
+            to={item.path}
+            style={styles.navLink}
+            onClick={() => setMobileOpen(false)}
+          >
+            {item.name}
+          </Link>
+        </li>
+      ))}
 
-            <li style={{ marginTop: "20px" }}>
-              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-                📞 Call Now
-              </a>
-            </li>
-          </ul>
-        )}
+      {/* Call & Email buttons */}
+      <li style={{ marginTop: "20px" }}>
+        <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+          📞 Call Now
+        </a>
+      </li>
+      <li style={{ marginTop: "10px" }}>
+        <a href="mailto:printberry.in@gmail.com" style={styles.mobileCallBtn}>
+          ✉️ Email Us
+        </a>
+      </li>
+    </ul>
+  </div>
+)}
+
       </nav>
     </>
   );
@@ -206,6 +215,16 @@ const styles = {
     fontSize: "18px",
     fontWeight: 600,
   },
+  mobileCallBtn: {
+  background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
+  color: "#ffffff",
+  padding: "12px 30px",
+  borderRadius: "10px",
+  fontWeight: 600,
+  textDecoration: "none",
+  display: "inline-block",
+},
+
   navLink: {
     textDecoration: "none",
     padding: "6px 0",
