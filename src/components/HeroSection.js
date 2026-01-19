@@ -181,6 +181,28 @@ const styles = {
     gap: "12px",
     flexWrap: "wrap",
   },
+primaryBtn: {
+  background: "linear-gradient(90deg,#ec4899,#f97316)",
+  color: "#fff",
+  border: "none",
+  padding: "14px 28px",
+  borderRadius: "12px",
+  fontWeight: 700,
+  fontSize: "15px",
+  cursor: "pointer",
+  boxShadow: "0 6px 18px rgba(236,72,153,0.25)",
+},
+
+outlineBtn: {
+  background: "#ffffff",
+  border: "1.5px solid #e5e7eb",
+  color: "#111827",
+  padding: "14px 28px",
+  borderRadius: "12px",
+  fontWeight: 700,
+  fontSize: "15px",
+  cursor: "pointer",
+},
 
   rightHeader: {
     marginBottom: "24px",
