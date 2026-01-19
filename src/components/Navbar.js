@@ -114,27 +114,15 @@ export default function Navbar() {
         )}
 
         {/* Mobile Menu */}
-        {isMobile && mobileOpen && (
-          <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
-            {menuItems.map((item) => (
-              <li key={item.name} style={styles.mobileItem}>
-                <Link
-                  to={item.path}
-                  style={styles.navLink}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-
-            <li style={{ marginTop: "20px" }}>
-              <a href="tel:+919010099111" style={styles.mobileCallBtn}>
-                📞 Call Now
-              </a>
-            </li>
-          </ul>
-        )}
+      {/* ===== TOP BAR ===== */}
+<div style={styles.topBar}>
+  <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
+  {/* Wrap the contact info so we can hide just those on mobile if they don't fit */}
+  <div style={{...styles.topRight, display: isMobile ? 'none' : 'flex'}}>
+    <span>📞 +91 9010099111</span>
+    <span>✉️ printberry.in@gmail.com</span>
+  </div>
+</div>
       </nav>
     </>
   );
@@ -142,17 +130,7 @@ export default function Navbar() {
 
 /* ===== STYLES ===== */
 const styles = {
-  topBar: {
-    background: "#ffffff",
-    color: "#6b7280",
-    padding: "8px 40px",
-    fontSize: "14px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontWeight: 500,
-    borderBottom: "1px solid #f3f4f6",
-  },
+ 
   topRight: {
     display: "flex",
     gap: "24px",
@@ -272,4 +250,15 @@ const styles = {
     justifyContent: "space-between",
     width: "100%",
   },
+  topBar: {
+  background: "#ffffff",
+  color: "#6b7280",
+  padding: "8px 20px", // Reduced padding for mobile
+  fontSize: "13px",    // Slightly smaller font
+  display: "flex",
+  justifyContent: "center", // Center the content on mobile
+  alignItems: "center",
+  fontWeight: 500,
+  borderBottom: "1px solid #f3f4f6",
+},
 };
