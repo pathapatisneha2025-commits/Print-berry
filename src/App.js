@@ -12,42 +12,35 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import FeaturedClients from "./components/FeaturedClients";
 
-
-// OPTIONAL PAGES (if you create them later)
-// import AboutPage from "./pages/AboutPage";
-// import ServicesPage from "./pages/ServicesPage";
-// import ContactPage from "./pages/ContactPage";
-
 export default function App() {
   return (
     <Router>
-      <>
-        {/* COMMON NAVBAR */}
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Navbar />
 
-        <Routes>
-          {/* HOME PAGE */}
-          <Route
-            path="/"
-            element={
-              <>
-                <HeroSection />
-                <ServicesSection/>
-                <FeaturedClients/>
-                
-                <CTASection />
-             
-              </>
-            }
-          />
+        {/* MAIN CONTENT */}
+        <div style={{ flexGrow: 1 }}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <HeroSection />
+                  <ServicesSection />
+                  <FeaturedClients />
+                  <CTASection />
+                </>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </div>
 
-          {/* OPTIONAL ROUTES */}
-          <Route path="/about" element={<AboutPage/>} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
-        <Footer/>
-      </>
+        {/* FOOTER */}
+        <Footer />
+      </div>
     </Router>
   );
 }

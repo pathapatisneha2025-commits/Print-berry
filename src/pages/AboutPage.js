@@ -186,7 +186,7 @@ const styles = {
     color: "#111",
    background: `
   linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-  url("/about.jpeg")
+  url("/3Dsignage.jpeg")
 `,
 
     backgroundSize: "cover",

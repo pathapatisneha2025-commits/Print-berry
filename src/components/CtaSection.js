@@ -24,43 +24,48 @@ export default function CTASection() {
 
 const styles = {
   section: {
-    padding: "140px 40px",
+    padding: "clamp(80px, 10vw, 120px) 6%", // responsive top/bottom
     background:
-      "radial-gradient(circle at top, rgba(236,72,153,0.08), transparent 60%), #fff", // subtle pink glow on white
+      "radial-gradient(circle at top, rgba(236,72,153,0.08), transparent 60%), #fff",
     textAlign: "center",
-    color: "#111", // dark text for white theme
+    color: "#111",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "20px",
+    boxSizing: "border-box",
   },
 
   heading: {
-    fontSize: "clamp(40px,6vw,64px)",
+    fontSize: "clamp(32px, 5vw, 56px)", // responsive
     fontWeight: "800",
     lineHeight: "1.15",
-    marginBottom: "26px",
+    margin: "0 0 16px 0", // reduce bottom margin
   },
 
   brand: {
-    color: "#ec4899", // pink
+    color: "#ec4899",
   },
 
   shine: {
-    color: "#111", // same dark color as main text
+    color: "#111",
   },
 
   description: {
     maxWidth: "620px",
-    margin: "0 auto 50px",
-    fontSize: "18px",
-    color: "#555", // dark gray
-    lineHeight: "1.6",
+    fontSize: "clamp(16px, 2.5vw, 18px)", // responsive
+    color: "#555",
+    lineHeight: "1.5",
+    margin: "0 0 24px 0", // reduce bottom margin
   },
 
   ctaBtn: {
-    padding: "18px 44px",
+    padding: "clamp(14px, 1.5vw, 18px) clamp(28px, 3vw, 44px)", // responsive
     borderRadius: "18px",
     border: "none",
-    background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", // pink/orange gradient
-    color: "#fff", // white text
-    fontSize: "17px",
+    background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)",
+    color: "#fff",
+    fontSize: "clamp(15px, 2vw, 17px)",
     fontWeight: "700",
     cursor: "pointer",
     transition: "0.3s ease",

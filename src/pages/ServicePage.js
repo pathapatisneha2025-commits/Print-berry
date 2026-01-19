@@ -44,11 +44,18 @@ export default function ServicesPage() {
           color: #111827;
         }
 
-        .services-header {
-          text-align: center;
-          padding: 90px 6% 50px;
-          background: radial-gradient(circle at top, rgba(236,72,153,0.08), transparent 60%);
-        }
+       .services-header {
+  text-align: center;
+  padding: 90px 6% 50px;
+  background: 
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)),
+    url('/flexprinting.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 28px;
+}
+
 
         .services-header h2 {
           font-size: 38px;

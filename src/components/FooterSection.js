@@ -104,7 +104,7 @@ export default function Footer() {
       </div>
 
       <div style={styles.bottom}>
-        © 2025 Print Berry. All rights reserved. For All Your Digital Needs.
+        © 2026 Print Berry. All rights reserved. For All Your Digital Needs.
       </div>
     </footer>
   );
