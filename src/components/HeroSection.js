@@ -127,71 +127,103 @@ export default function HeroSection() {
 
 /* ================= STYLES (same as before) ================= */
 const styles = {
-wrapper: {
-  background: "#fafafa",
-  padding: "0 4% 80px",
-  paddingTop: "110px", // ✅ space for fixed navbar (mobile)
-},
-hero: {
-  display: "flex",
-  flexDirection: "column",
-  gap: "40px",
-  maxWidth: "1400px",
-  margin: "0 auto",
-  borderRadius: "28px",
-  boxShadow: "0 40px 80px rgba(0,0,0,0.08)",
-  overflow: "visible", // ✅ key fix
-},
+  wrapper: {
+    background: "#fafafa",
+    padding: "0 16px 60px",
+    paddingTop: "80px", // ✅ smaller for mobile
+    overflowX: "hidden",
+  },
 
-left: {
-  width: "100%",
-  minHeight: "520px",        // ✅ IMPORTANT
-  backgroundImage: "url('/landingpage.jpeg')",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  position: "relative",
-  padding: "clamp(32px, 6vw, 60px)",
-  display: "flex",
-  alignItems: "center",
-  overflow: "visible",      // ✅ prevents clipping
-},
+  hero: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "32px",
+    maxWidth: "1400px",
+    margin: "0 auto",
+    borderRadius: "24px",
+    boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
+    overflow: "hidden", // ✅ FIX
+  },
 
-  leftOverlay: { position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4))" },
-leftContent: {
-  position: "relative",
-  maxWidth: "520px",
-  width: "100%",
-},
-  badge: { position: "relative", backgroundImage: "url('https://images.unsplash.com/photo-1581090700227-879b0a635d6b?auto=format&fit=crop&w=800&q=80')", backgroundSize: "cover", borderRadius: "999px", padding: "14px 26px", marginBottom: "24px", overflow: "hidden", display: "inline-flex", alignItems: "center" },
-  badgeOverlay: { position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45))" },
-  badgeText: { position: "relative", fontWeight: 700, fontSize: "14px" },
-  heading: { fontSize: "clamp(36px, 5vw, 58px)", fontWeight: 900, lineHeight: 1.1, marginBottom: "20px" },
-  brand: { background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
-  visibility: { background: "linear-gradient(90deg,#06b6d4,#8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
-desc: {
-  fontSize: "clamp(14px, 4vw, 16px)",
-  marginBottom: "28px",
-  lineHeight: 1.7,
-  maxWidth: "100%",
-  wordBreak: "break-word",
-},
+  left: {
+    width: "100%",
+    minHeight: "clamp(360px, 70vh, 520px)", // ✅ responsive
+    backgroundImage: "url('/landingpage.jpeg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    position: "relative",
+    padding: "clamp(24px, 6vw, 48px)",
+    display: "flex",
+    alignItems: "center",
+  },
 
-  btnRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
-  primaryBtn: { background: "linear-gradient(90deg,#ec4899,#f97316)", color: "#fff", border: "none", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
-  outlineBtn: { background: "#fff", border: "1px solid #e5e7eb", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
-  rightHeader: { marginBottom: "32px", textAlign: "center" },
-  rightTitle: { fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 900, marginBottom: "10px", color: "#111827" },
-  rightSub: { fontSize: "16px", color: "#6b7280", maxWidth: "560px", margin: "0 auto", lineHeight: 1.6 },
-  card: { background: "#ffffff", borderRadius: "22px", border: "1px solid #e5e7eb", overflow: "hidden", cursor: "pointer" },
-  cardImgWrap: { position: "relative", overflow: "hidden" },
-  cardImg: { width: "100%", height: "500px", overflow: "hidden",
- transition: "transform 0.4s ease" },
-  cardBody: { padding: "22px" },
-  cardTop: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" },
-  cardTitle: { fontSize: "22px", fontWeight: 800, marginBottom: "8px", color: "#111827" },
-  cardText: { fontSize: "14px", color: "#6b7280", lineHeight: 1.6, marginBottom: "18px" },
-  cardAction: { fontSize: "15px", fontWeight: 700 },
-  grid: { display: "grid", gap: "24px" },
-  tag: { fontSize: "10px", padding: "4px 10px", borderRadius: "999px", border: "1px solid", fontWeight: 700 },
-  icon: { fontSize: "22px" },
+  leftOverlay: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.6))",
+  },
+
+  leftContent: {
+    position: "relative",
+    maxWidth: "520px",
+    width: "100%",
+  },
+
+  desc: {
+    fontSize: "15px",
+    marginBottom: "24px",
+    lineHeight: 1.6,
+  },
+
+  btnRow: {
+    display: "flex",
+    gap: "12px",
+    flexWrap: "wrap",
+  },
+
+  rightHeader: {
+    marginBottom: "24px",
+    textAlign: "center",
+    padding: "0 12px",
+  },
+
+  grid: {
+    display: "grid",
+    gap: "20px",
+  },
+
+  card: {
+    background: "#fff",
+    borderRadius: "20px",
+    border: "1px solid #e5e7eb",
+    overflow: "hidden",
+  },
+
+  cardImgWrap: {
+    width: "100%",
+    overflow: "hidden",
+  },
+
+  cardImg: {
+    width: "100%",
+    height: "clamp(200px, 50vw, 280px)", // ✅ BIG FIX
+    objectFit: "cover",
+    display: "block",
+  },
+
+  cardBody: {
+    padding: "18px",
+  },
+
+  cardTitle: {
+    fontSize: "20px",
+    fontWeight: 800,
+  },
+
+  cardText: {
+    fontSize: "14px",
+    lineHeight: 1.6,
+  },
 };
+

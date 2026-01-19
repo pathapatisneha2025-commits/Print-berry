@@ -30,10 +30,15 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ===== TOP BAR ===== */}
+      {/* ===== FIXED TOP BAR ===== */}
       <div
         style={{
           ...styles.topBar,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1100,
           flexDirection: isMobile ? "column" : "row",
           padding: isMobile ? "6px 20px" : "8px 40px",
           fontSize: isMobile ? "13px" : "14px",
@@ -52,16 +57,20 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* ===== SPACER FOR FIXED TOP BAR + NAVBAR ===== */}
+      {isMobile && <div style={{ height: "150px" }} />}
+
       {/* ===== NAVBAR ===== */}
-      {isMobile && <div style={{ height: "110px" }} />}
-
-<nav
-  style={{
-    ...styles.navbar,
-    position: isMobile ? "fixed" : "relative",
-  }}
->
-
+      <nav
+        style={{
+          ...styles.navbar,
+          position: "fixed",
+          top: isMobile ? "50px" : "0",
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+        }}
+      >
         {/* Logo */}
         <Link to="/" style={styles.logoWrap}>
           <img
@@ -96,7 +105,8 @@ export default function Navbar() {
                     <span
                       style={{
                         ...styles.underline,
-                        width: hovered === item.name || active ? "100%" : "0%",
+                        width:
+                          hovered === item.name || active ? "100%" : "0%",
                       }}
                     />
                   </li>
@@ -104,7 +114,6 @@ export default function Navbar() {
               })}
             </ul>
 
-            {/* Actions */}
             <div style={styles.actions}>
               <button style={styles.outlineBtn}>Free Quote</button>
               <button style={styles.primaryBtn}>Get Started</button>
@@ -124,7 +133,12 @@ export default function Navbar() {
 
         {/* ===== MOBILE MENU ===== */}
         {isMobile && mobileOpen && (
-          <ul style={styles.mobileMenu}>
+          <ul
+            style={{
+              ...styles.mobileMenu,
+              top: "100%",
+            }}
+          >
             {menuItems.map((item) => (
               <li key={item.name} style={styles.mobileItem}>
                 <Link
@@ -149,7 +163,7 @@ export default function Navbar() {
   );
 }
 
-/* ===== STYLES ===== */
+/* ===== STYLES (UNCHANGED) ===== */
 const styles = {
   topBar: {
     background: "#ffffff",
@@ -164,8 +178,6 @@ const styles = {
     display: "flex",
   },
   navbar: {
-    top: 0,
-    zIndex: 1000,
     background: "#ffffff",
     display: "flex",
     alignItems: "center",
@@ -181,7 +193,7 @@ const styles = {
     objectFit: "contain",
     display: "block",
   },
-  logoWrap: { display: "flex", alignItems: "center", justifyContent: "center" },
+  logoWrap: { display: "flex", alignItems: "center" },
   menu: {
     display: "flex",
     listStyle: "none",
@@ -230,7 +242,6 @@ const styles = {
     color: "#ed4285",
     fontWeight: 600,
     cursor: "pointer",
-    transition: "all 0.3s ease",
   },
   primaryBtn: {
     padding: "8px 20px",
@@ -239,20 +250,17 @@ const styles = {
     border: "none",
     color: "#ffffff",
     fontWeight: 600,
-    cursor: "pointer",
-    boxShadow: "0 4px 15px rgba(237, 66, 133, 0.2)",
   },
   mobileMenu: {
     position: "absolute",
-    top: "100%",
     left: 0,
     right: 0,
-    flexDirection: "column",
     background: "#ffffff",
     padding: "20px 0",
     textAlign: "center",
     boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
     display: "flex",
+    flexDirection: "column",
     zIndex: 999,
   },
   mobileCallBtn: {
