@@ -128,17 +128,44 @@ export default function HeroSection() {
 /* ================= STYLES (same as before) ================= */
 const styles = {
   wrapper: { background: "#fafafa", marginTop: "20px", padding: "0 4% 80px" },
-  hero: { display: "flex", flexDirection: "column", gap: "40px", maxWidth: "1400px", margin: "0 auto", borderRadius: "28px", overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,0.08)" },
-  left: { width: "100%", backgroundImage: "url('/landingpage.jpeg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative", padding: "60px", display: "flex", alignItems: "center", overflow: "hidden" },
+hero: {
+  display: "flex",
+  flexDirection: "column",
+  gap: "40px",
+  maxWidth: "1400px",
+  margin: "0 auto",
+  borderRadius: "28px",
+ overflow: "hidden",
+  boxShadow: "0 40px 80px rgba(0,0,0,0.08)",
+},
+left: {
+  width: "100%",
+  backgroundImage: "url('/landingpage.jpeg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  position: "relative",
+  padding: "clamp(32px, 6vw, 60px)", // 🔥 responsive padding
+  display: "flex",
+  alignItems: "center",
+},
   leftOverlay: { position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4))" },
-  leftContent: { position: "relative", maxWidth: "520px" },
+leftContent: {
+  position: "relative",
+  maxWidth: "520px",
+  width: "100%",
+},
   badge: { position: "relative", backgroundImage: "url('https://images.unsplash.com/photo-1581090700227-879b0a635d6b?auto=format&fit=crop&w=800&q=80')", backgroundSize: "cover", borderRadius: "999px", padding: "14px 26px", marginBottom: "24px", overflow: "hidden", display: "inline-flex", alignItems: "center" },
   badgeOverlay: { position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45))" },
   badgeText: { position: "relative", fontWeight: 700, fontSize: "14px" },
   heading: { fontSize: "clamp(36px, 5vw, 58px)", fontWeight: 900, lineHeight: 1.1, marginBottom: "20px" },
   brand: { background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   visibility: { background: "linear-gradient(90deg,#06b6d4,#8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
-  desc: { fontSize: "15px", marginBottom: "36px", lineHeight: 1.7 },
+desc: {
+  fontSize: "clamp(14px, 4vw, 16px)", // responsive
+  marginBottom: "28px",
+  lineHeight: 1.7,
+  maxWidth: "100%",
+},
   btnRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
   primaryBtn: { background: "linear-gradient(90deg,#ec4899,#f97316)", color: "#fff", border: "none", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
   outlineBtn: { background: "#fff", border: "1px solid #e5e7eb", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
