@@ -8,6 +8,13 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
+
   // Detect mobile
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -21,60 +28,44 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
-  ];
-
   return (
     <>
-      {/* ===== TOP BAR ===== */}
-      {!isMobile && (
-        <div style={styles.topBar}>
-          <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
-          <div style={styles.topRight}>
-            <span>📞 +91 9010099111</span>
-            <span>✉️ printberry.in@gmail.com</span>
-          </div>
+      {/* ===== TOP BAR (Always visible, responsive) ===== */}
+      <div
+        style={{
+          ...styles.topBar,
+          flexDirection: isMobile ? "column" : "row",
+          padding: isMobile ? "6px 20px" : "8px 40px",
+          fontSize: isMobile ? "13px" : "14px",
+        }}
+      >
+        <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
+        <div
+          style={{
+            ...styles.topRight,
+            gap: isMobile ? "12px" : "24px",
+            marginTop: isMobile ? "4px" : "0",
+          }}
+        >
+          <span>📞 +91 9010099111</span>
+          <span>✉️ printberry.in@gmail.com</span>
         </div>
-      )}
+      </div>
 
       {/* ===== NAVBAR ===== */}
       <nav style={styles.navbar}>
-       {isMobile ? (
-  <div style={styles.mobileNavWrapper}>
-    {/* Logo LEFT */}
-    <Link to="/" style={styles.logoWrap}>
-      <img
-        src="/logoimage.jpeg"
-        alt="Print Berry"
-        style={{ ...styles.logoImg, height: "90px" }}
-      />
-    </Link>
+        {/* Logo */}
+        <Link to="/" style={styles.logoWrap}>
+          <img
+            src="/logoimage.jpeg"
+            alt="Print Berry"
+            style={{ ...styles.logoImg, height: isMobile ? "90px" : "160px" }}
+          />
+        </Link>
 
-    {/* Hamburger RIGHT */}
-    <button
-      style={styles.menuBtn}
-      onClick={() => setMobileOpen((p) => !p)}
-    >
-      {mobileOpen ? <FiX /> : <FiMenu />}
-    </button>
-  </div>
-) : (
-
+        {/* Desktop Menu */}
+        {!isMobile && (
           <>
-            {/* Logo left */}
-            <Link to="/" style={styles.logoWrap}>
-              <img
-                src="/logoimage.jpeg"
-                alt="Print Berry"
-                style={{ ...styles.logoImg, height: "160px" }}
-              />
-            </Link>
-
-            {/* Menu */}
             <ul style={styles.menu}>
               {menuItems.map((item) => {
                 const active = location.pathname === item.path;
@@ -113,27 +104,56 @@ export default function Navbar() {
           </>
         )}
 
-        {/* Mobile Menu */}
-      {/* ===== TOP BAR ===== */}
-<div style={styles.topBar}>
-  <span style={{ color: "#ed4285" }}>✨ For All Your Digital Needs</span>
-  {/* Wrap the contact info so we can hide just those on mobile if they don't fit */}
-  <div style={{...styles.topRight, display: isMobile ? 'none' : 'flex'}}>
-    <span>📞 +91 9010099111</span>
-    <span>✉️ printberry.in@gmail.com</span>
-  </div>
-</div>
+        {/* Mobile Hamburger */}
+        {isMobile && (
+          <button
+            style={styles.menuBtn}
+            onClick={() => setMobileOpen((p) => !p)}
+          >
+            {mobileOpen ? <FiX /> : <FiMenu />}
+          </button>
+        )}
       </nav>
+
+      {/* ===== MOBILE MENU ===== */}
+      {isMobile && mobileOpen && (
+        <ul style={{ ...styles.menu, ...styles.menuMobileOpen }}>
+          {menuItems.map((item) => (
+            <li key={item.name} style={styles.mobileItem}>
+              <Link
+                to={item.path}
+                style={styles.navLink}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
+
+          <li style={{ marginTop: "20px" }}>
+            <a href="tel:+919010099111" style={styles.mobileCallBtn}>
+              📞 Call Now
+            </a>
+          </li>
+        </ul>
+      )}
     </>
   );
 }
 
 /* ===== STYLES ===== */
 const styles = {
- 
+  topBar: {
+    background: "#ffffff",
+    color: "#6b7280",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontWeight: 500,
+    borderBottom: "1px solid #f3f4f6",
+  },
   topRight: {
     display: "flex",
-    gap: "24px",
   },
   navbar: {
     position: "sticky",
@@ -154,11 +174,7 @@ const styles = {
     objectFit: "contain",
     display: "block",
   },
-  logoWrap: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  logoWrap: { display: "flex", alignItems: "center", justifyContent: "center" },
   menu: {
     display: "flex",
     listStyle: "none",
@@ -166,6 +182,7 @@ const styles = {
     margin: 0,
     padding: 0,
     alignItems: "center",
+    flexDirection: "row",
   },
   menuItem: {
     position: "relative",
@@ -179,11 +196,7 @@ const styles = {
     color: "#333",
     cursor: "pointer",
   },
-  mobileItem: {
-    margin: "18px 0",
-    fontSize: "18px",
-    fontWeight: 600,
-  },
+  mobileItem: { margin: "18px 0", fontSize: "18px", fontWeight: 600 },
   navLink: {
     textDecoration: "none",
     padding: "6px 0",
@@ -198,11 +211,7 @@ const styles = {
     background: "#ed4285",
     transition: "width 0.3s ease",
   },
-  actions: {
-    display: "flex",
-    gap: "12px",
-    alignItems: "center",
-  },
+  actions: { display: "flex", gap: "12px", alignItems: "center" },
   outlineBtn: {
     padding: "8px 20px",
     borderRadius: "8px",
@@ -234,6 +243,7 @@ const styles = {
     textAlign: "center",
     boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
     display: "flex",
+    zIndex: 999,
   },
   mobileCallBtn: {
     background: "linear-gradient(90deg, #ed4285, #ff9d2e)",
@@ -244,21 +254,4 @@ const styles = {
     textDecoration: "none",
     display: "inline-block",
   },
-  mobileNavWrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  topBar: {
-  background: "#ffffff",
-  color: "#6b7280",
-  padding: "8px 20px", // Reduced padding for mobile
-  fontSize: "13px",    // Slightly smaller font
-  display: "flex",
-  justifyContent: "center", // Center the content on mobile
-  alignItems: "center",
-  fontWeight: 500,
-  borderBottom: "1px solid #f3f4f6",
-},
 };
