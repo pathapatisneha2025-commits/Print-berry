@@ -127,7 +127,11 @@ export default function HeroSection() {
 
 /* ================= STYLES (same as before) ================= */
 const styles = {
-  wrapper: { background: "#fafafa", marginTop: "20px", padding: "0 4% 80px" },
+wrapper: {
+  background: "#fafafa",
+  padding: "0 4% 80px",
+  paddingTop: "110px", // ✅ space for fixed navbar (mobile)
+},
 hero: {
   display: "flex",
   flexDirection: "column",
@@ -136,17 +140,22 @@ hero: {
   margin: "0 auto",
   borderRadius: "28px",
   boxShadow: "0 40px 80px rgba(0,0,0,0.08)",
+  overflow: "visible", // ✅ key fix
 },
+
 left: {
   width: "100%",
+  minHeight: "520px",        // ✅ IMPORTANT
   backgroundImage: "url('/landingpage.jpeg')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   position: "relative",
-  padding: "clamp(32px, 6vw, 60px)", // 🔥 responsive padding
+  padding: "clamp(32px, 6vw, 60px)",
   display: "flex",
   alignItems: "center",
+  overflow: "visible",      // ✅ prevents clipping
 },
+
   leftOverlay: { position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4))" },
 leftContent: {
   position: "relative",
@@ -160,11 +169,13 @@ leftContent: {
   brand: { background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   visibility: { background: "linear-gradient(90deg,#06b6d4,#8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
 desc: {
-  fontSize: "clamp(14px, 4vw, 16px)", // responsive
+  fontSize: "clamp(14px, 4vw, 16px)",
   marginBottom: "28px",
   lineHeight: 1.7,
   maxWidth: "100%",
+  wordBreak: "break-word",
 },
+
   btnRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
   primaryBtn: { background: "linear-gradient(90deg,#ec4899,#f97316)", color: "#fff", border: "none", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
   outlineBtn: { background: "#fff", border: "1px solid #e5e7eb", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },

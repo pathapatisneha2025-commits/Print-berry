@@ -53,7 +53,14 @@ export default function Navbar() {
       </div>
 
       {/* ===== NAVBAR ===== */}
-      <nav style={{ ...styles.navbar, position: "relative" }}>
+      {isMobile && <div style={{ height: "110px" }} />}
+
+<nav
+  style={{
+    ...styles.navbar,
+    position: isMobile ? "fixed" : "relative",
+  }}
+>
 
         {/* Logo */}
         <Link to="/" style={styles.logoWrap}>
