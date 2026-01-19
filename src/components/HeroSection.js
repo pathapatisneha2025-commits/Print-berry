@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const cardRefs = useRef([]);
 
   const services = [
@@ -11,29 +12,43 @@ export default function HeroSection() {
     { title: "Brand Boards", tag: "Corporate", color: "#06b6d4", icon: "🚀", image: "/acpboards.jpeg" },
   ];
 
+  // Mobile resize detection
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Intersection Observer for active cards
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Number(entry.target.dataset.index);
             setActiveIndex(index);
           }
         });
       },
-      { threshold: 0.5 } // 50% of card visible
+      { threshold: 0.5 }
     );
 
-    cardRefs.current.forEach(card => card && observer.observe(card));
+    cardRefs.current.forEach((card) => card && observer.observe(card));
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section style={styles.wrapper}>
+    <section style={{ ...styles.wrapper, padding: isMobile ? "0 3% 60px" : "0 4% 80px" }}>
       <div style={styles.hero}>
         {/* HERO IMAGE */}
-        <div style={{ ...styles.left, minHeight: "360px" }}>
+        <div
+          style={{
+            ...styles.left,
+            minHeight: isMobile ? "280px" : "360px",
+            padding: isMobile ? "20px" : "60px",
+          }}
+        >
           <div style={styles.leftOverlay} />
           <div style={styles.leftContent}>
             <div style={styles.badge}>
@@ -41,23 +56,27 @@ export default function HeroSection() {
               <span style={styles.badgeText}>✨ Trusted Printing Experts</span>
             </div>
 
-            <h1 style={styles.heading}>
+            <h1 style={{ ...styles.heading, fontSize: isMobile ? "clamp(24px,5vw,36px)" : "clamp(36px,5vw,58px)" }}>
               Make Your <span style={styles.brand}>Brand</span>
               <br />
               Shine With <span style={styles.visibility}>Premium Prints</span>
             </h1>
 
-            <p style={styles.desc}>
+            <p style={{ ...styles.desc, fontSize: isMobile ? "16px" : "18px", marginBottom: isMobile ? "24px" : "36px" }}>
               From stunning flex banners to eye-catching LED signage,
               we deliver print solutions that leave a lasting impression.
             </p>
 
-            <div style={styles.btnRow}>
+            <div style={{ ...styles.btnRow, flexDirection: isMobile ? "column" : "row", gap: isMobile ? "12px" : "16px" }}>
               <Link to="/services">
-                <button style={styles.primaryBtn}>Explore Services →</button>
+                <button style={{ ...styles.primaryBtn, padding: isMobile ? "12px 24px" : "16px 32px" }}>
+                  Explore Services →
+                </button>
               </Link>
               <Link to="/portfolio">
-                <button style={styles.outlineBtn}>View Portfolio</button>
+                <button style={{ ...styles.outlineBtn, padding: isMobile ? "12px 24px" : "16px 32px" }}>
+                  View Portfolio
+                </button>
               </Link>
             </div>
           </div>
@@ -66,19 +85,27 @@ export default function HeroSection() {
         {/* SERVICES SECTION */}
         <div style={styles.right}>
           <div style={styles.rightHeader}>
-            <h2 style={styles.rightTitle}>Our Printing Services</h2>
-            <p style={styles.rightSub}>
+            <h2 style={{ ...styles.rightTitle, fontSize: isMobile ? "clamp(20px,5vw,28px)" : "clamp(26px,3vw,36px)" }}>
+              Our Printing Services
+            </h2>
+            <p style={{ ...styles.rightSub, fontSize: isMobile ? "14px" : "16px", maxWidth: isMobile ? "100%" : "560px" }}>
               High-impact printing solutions designed to boost your brand visibility
             </p>
           </div>
 
-          <div style={{ ...styles.grid, gridTemplateColumns: "1fr" }}>
+          <div
+            style={{
+              ...styles.grid,
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit,minmax(300px,1fr))",
+              gap: isMobile ? "16px" : "24px",
+            }}
+          >
             {services.map((s, i) => {
               const isActive = i === activeIndex;
               return (
                 <div
                   key={s.title}
-                  ref={el => (cardRefs.current[i] = el)}
+                  ref={(el) => (cardRefs.current[i] = el)}
                   data-index={i}
                   style={{
                     ...styles.card,
@@ -91,14 +118,19 @@ export default function HeroSection() {
                   }}
                 >
                   <div style={styles.cardImgWrap}>
-                    <img src={s.image} alt={s.title} style={styles.cardImg} />
+                    <img
+                      src={s.image}
+                      alt={s.title}
+                      style={{
+                        ...styles.cardImg,
+                        height: isMobile ? "250px" : "500px",
+                      }}
+                    />
                   </div>
 
                   <div style={styles.cardBody}>
                     <div style={styles.cardTop}>
-                      <span style={{ ...styles.tag, color: s.color, borderColor: s.color }}>
-                        {s.tag}
-                      </span>
+                      <span style={{ ...styles.tag, color: s.color, borderColor: s.color }}>{s.tag}</span>
                       <span style={styles.icon}>{s.icon}</span>
                     </div>
 
@@ -107,9 +139,7 @@ export default function HeroSection() {
                       Premium {s.title.toLowerCase()} designed for maximum brand impact and durability.
                     </p>
 
-                    <div style={{ ...styles.cardAction, color: s.color }}>
-                      View Details →
-                    </div>
+                    <div style={{ ...styles.cardAction, color: s.color }}>View Details →</div>
                   </div>
                 </div>
               );
@@ -121,35 +151,35 @@ export default function HeroSection() {
   );
 }
 
-/* ================= STYLES (same as before) ================= */
+/* ================= STYLES ================= */
 const styles = {
-  wrapper: { background: "#fafafa", marginTop: "20px", padding: "0 4% 80px" },
+  wrapper: { background: "#fafafa", marginTop: "20px" },
   hero: { display: "flex", flexDirection: "column", gap: "40px", maxWidth: "1400px", margin: "0 auto", borderRadius: "28px", overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,0.08)" },
-  left: { width: "100%", backgroundImage: "url('/landingpage.jpeg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative", padding: "60px", display: "flex", alignItems: "center", overflow: "hidden" },
+  left: { width: "100%", backgroundImage: "url('/landingpage.jpeg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative", display: "flex", alignItems: "center", overflow: "hidden" },
   leftOverlay: { position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4))" },
   leftContent: { position: "relative", maxWidth: "520px" },
   badge: { position: "relative", backgroundImage: "url('https://images.unsplash.com/photo-1581090700227-879b0a635d6b?auto=format&fit=crop&w=800&q=80')", backgroundSize: "cover", borderRadius: "999px", padding: "14px 26px", marginBottom: "24px", overflow: "hidden", display: "inline-flex", alignItems: "center" },
   badgeOverlay: { position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45))" },
   badgeText: { position: "relative", fontWeight: 700, fontSize: "14px" },
-  heading: { fontSize: "clamp(36px, 5vw, 58px)", fontWeight: 900, lineHeight: 1.1, marginBottom: "20px" },
+  heading: { fontWeight: 900, lineHeight: 1.1, marginBottom: "20px" },
   brand: { background: "linear-gradient(90deg,#ec4899,#f97316,#facc15)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   visibility: { background: "linear-gradient(90deg,#06b6d4,#8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
-  desc: { fontSize: "18px", marginBottom: "36px", lineHeight: 1.7 },
+  desc: { lineHeight: 1.7, marginBottom: "36px" },
   btnRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
-  primaryBtn: { background: "linear-gradient(90deg,#ec4899,#f97316)", color: "#fff", border: "none", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
-  outlineBtn: { background: "#fff", border: "1px solid #e5e7eb", padding: "16px 32px", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
+  primaryBtn: { background: "linear-gradient(90deg,#ec4899,#f97316)", color: "#fff", border: "none", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
+  outlineBtn: { background: "#fff", border: "1px solid #e5e7eb", borderRadius: "12px", fontWeight: 700, cursor: "pointer" },
   rightHeader: { marginBottom: "32px", textAlign: "center" },
-  rightTitle: { fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 900, marginBottom: "10px", color: "#111827" },
-  rightSub: { fontSize: "16px", color: "#6b7280", maxWidth: "560px", margin: "0 auto", lineHeight: 1.6 },
+  rightTitle: { fontWeight: 900, marginBottom: "10px", color: "#111827" },
+  rightSub: { color: "#6b7280", lineHeight: 1.6 },
   card: { background: "#ffffff", borderRadius: "22px", border: "1px solid #e5e7eb", overflow: "hidden", cursor: "pointer" },
   cardImgWrap: { position: "relative", overflow: "hidden" },
-  cardImg: { width: "100%", height: "500px", objectFit: "cover", transition: "transform 0.4s ease" },
+  cardImg: { width: "100%", objectFit: "cover", transition: "transform 0.4s ease" },
   cardBody: { padding: "22px" },
   cardTop: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" },
   cardTitle: { fontSize: "22px", fontWeight: 800, marginBottom: "8px", color: "#111827" },
   cardText: { fontSize: "14px", color: "#6b7280", lineHeight: 1.6, marginBottom: "18px" },
   cardAction: { fontSize: "15px", fontWeight: 700 },
-  grid: { display: "grid", gap: "24px" },
+  grid: { display: "grid" },
   tag: { fontSize: "10px", padding: "4px 10px", borderRadius: "999px", border: "1px solid", fontWeight: 700 },
   icon: { fontSize: "22px" },
 };
