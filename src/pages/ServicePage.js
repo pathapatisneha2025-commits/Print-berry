@@ -181,7 +181,7 @@ export default function ServicesPage() {
   },
   {
     title: "ACP Boards",
-    img: "/acpboards.jpg",
+    img: "/acpboards.jpeg",
     desc: "High-quality ACP panels for premium outdoor signage.",
     features: ["✔ Weather proof", "✔ Premium finish"],
   },
