@@ -135,7 +135,6 @@ hero: {
   maxWidth: "1400px",
   margin: "0 auto",
   borderRadius: "28px",
- overflow: "hidden",
   boxShadow: "0 40px 80px rgba(0,0,0,0.08)",
 },
 left: {
@@ -174,7 +173,8 @@ desc: {
   rightSub: { fontSize: "16px", color: "#6b7280", maxWidth: "560px", margin: "0 auto", lineHeight: 1.6 },
   card: { background: "#ffffff", borderRadius: "22px", border: "1px solid #e5e7eb", overflow: "hidden", cursor: "pointer" },
   cardImgWrap: { position: "relative", overflow: "hidden" },
-  cardImg: { width: "100%", height: "500px", objectFit: "cover", transition: "transform 0.4s ease" },
+  cardImg: { width: "100%", height: "500px", overflow: "hidden",
+ transition: "transform 0.4s ease" },
   cardBody: { padding: "22px" },
   cardTop: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" },
   cardTitle: { fontSize: "22px", fontWeight: 800, marginBottom: "8px", color: "#111827" },

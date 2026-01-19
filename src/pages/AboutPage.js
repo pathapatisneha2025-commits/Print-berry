@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaLightbulb, FaRocket, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function AboutPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -171,7 +172,9 @@ export default function AboutPage() {
         <p style={styles.workText}>
           Let’s turn your ideas into impactful visuals.
         </p>
-        <button style={styles.primaryBtn}>Get In Touch →</button>
+<Link to="/contact">
+  <button style={styles.primaryBtn}>Get In Touch →</button>
+</Link>
       </div>
     </section>
   );
