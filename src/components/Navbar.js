@@ -65,7 +65,7 @@ export default function Navbar() {
         style={{
           ...styles.navbar,
           position: "fixed",
-          top: isMobile ? "50px" : "0",
+          top: isMobile ? "0px" : "0",
           left: 0,
           right: 0,
           zIndex: 1000,
@@ -204,7 +204,7 @@ const styles = {
   },
   menuItem: {
     position: "relative",
-    fontSize: "16px",
+    fontSize: "19px",
     fontWeight: 500,
   },
   menuBtn: {
