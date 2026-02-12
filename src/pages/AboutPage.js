@@ -187,6 +187,7 @@ const styles = {
     // maxWidth: "1300px",
     margin: "0 auto",
     color: "#111",
+    overflowX: "hidden", // Prevents side-to-side movement
    background: `
   linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
   url("/3Dsignage.jpeg")

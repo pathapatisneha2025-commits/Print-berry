@@ -83,6 +83,8 @@ export default function ServicesPage() {
   width: 100%;             /* Force full width */
   padding: 40px 6% 100px;  /* Keep content padding here */
   margin: 0;
+      overflowX: "hidden", // Prevents side-to-side movement
+
   background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
     url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
   background-size: cover;

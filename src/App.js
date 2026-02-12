@@ -23,8 +23,13 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop/>
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Navbar />
+<div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        minHeight: "100vh", 
+        width: "100%", 
+        overflowX: "hidden" 
+      }}>        <Navbar />
 <div 
           style={{ 
             height: isMobile ? "0px" : "180px", // Shorter gap on mobile

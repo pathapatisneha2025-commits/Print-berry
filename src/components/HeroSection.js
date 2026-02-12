@@ -142,7 +142,7 @@ const styles = {
     // margin: "0 auto",
     borderRadius: "24px",
     boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
-    overflow: "hidden", // ✅ FIX
+    overflowX: "hidden", // Prevents side-to-side movement
   },
 
   left: {
