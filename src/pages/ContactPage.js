@@ -108,7 +108,7 @@ const styles = {
  page: {
   minHeight: "100vh",
   // maxWidth: "1300px",
-  margin: "0 auto",
+  // margin: "0 auto",
   color: "#111",
 
 background: `
