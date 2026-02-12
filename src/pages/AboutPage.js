@@ -25,7 +25,7 @@ export default function AboutPage() {
   // Animate counters
   useEffect(() => {
     const intervals = statsData.map((stat, idx) => {
-      const increment = Math.ceil(stat.value / 100); // adjust speed
+      const increment = Math.ceil(stat.value / 300); // adjust speed
       return setInterval(() => {
         setCounters((prev) => {
           const newCounters = [...prev];
@@ -44,7 +44,7 @@ export default function AboutPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "90px 20px 70px" : styles.page.padding,
+        padding: isMobile ? "20px 20px 60px" : styles.page.padding,
       }}
     >
       {/* HEADER */}
@@ -183,8 +183,8 @@ export default function AboutPage() {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "120px 40px 80px",
-    maxWidth: "1300px",
+    padding: "20px 20px 60px",
+    // maxWidth: "1300px",
     margin: "0 auto",
     color: "#111",
    background: `
@@ -192,9 +192,9 @@ const styles = {
   url("/3Dsignage.jpeg")
 `,
 
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
+backgroundRepeat: "no-repeat", 
+backgroundPosition: "top center",
   },
   header: { textAlign: "center", maxWidth: "820px", margin: "0 auto 90px" },
   badge: {
@@ -214,16 +214,19 @@ const styles = {
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
-  subText: { fontSize: "18px", color: "#555", lineHeight: "1.7" },
-  cardsContainer: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", marginBottom: "70px" },
+subText: { fontSize: "18px", color: "#555", lineHeight: "1.7", fontWeight: "700" },  cardsContainer: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", marginBottom: "70px" },
   card: { background: "#fff", border: "1px solid #eee", borderRadius: "22px", padding: "36px 28px", textAlign: "center", transition: "all 0.35s ease", boxShadow: "0 20px 40px rgba(0,0,0,0.06)" },
   iconWrap: { width: "64px", height: "64px", margin: "0 auto 18px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(236,72,153,0.12)", fontSize: "26px", color: "#ec4899" },
   cardTitle: { fontSize: "20px", fontWeight: "700", marginBottom: "12px" },
   cardText: { fontSize: "15px", color: "#666", lineHeight: "1.6" },
   statsContainer: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "32px", marginBottom: "80px", textAlign: "center" },
   statValue: { fontSize: "34px", fontWeight: "800", background: "linear-gradient(90deg,#ec4899,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
-  statLabel: { marginTop: "6px", fontSize: "14px", color: "#777" },
-  story: { marginBottom: "80px" },
+statLabel: { 
+    marginTop: "6px", 
+    fontSize: "14px", 
+    color: "#777", 
+    fontWeight: "700" // Added this to make it bold
+  },  story: { marginBottom: "80px" },
   storyTitle: { textAlign: "center", fontSize: "32px", marginBottom: "40px", background: "linear-gradient(90deg,#ec4899,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   storyContent: { display: "flex", gap: "40px" },
   storyCard: { flex: 1, background: "#fff", borderRadius: "22px", padding: "32px", boxShadow: "0 20px 40px rgba(0,0,0,0.06)" },

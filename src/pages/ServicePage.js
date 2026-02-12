@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ServicesPage() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -63,24 +64,32 @@ export default function ServicesPage() {
           font-weight: 800;
         }
 
-        .services-header p {
-          font-size: 16px;
-          color: #6b7280;
-          max-width: 700px;
-          margin: auto;
-          line-height: 1.6;
-        }
+    .services-header {
+  text-align: center;
+  padding: 90px 20px 50px; /* Reduced side padding */
+  width: 100%;             /* Ensure it takes full width */
+  background: 
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)),
+    url('/flexprinting.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Removed border-radius if it's causing the gap at the edges */
+  border-radius: 0; 
+}
 
-        .services-page {
-          min-height: 100vh;
-          padding: 40px 6% 100px;
-          background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
-            url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-        }
-
+.services-page {
+  min-height: 100vh;
+  width: 100%;             /* Force full width */
+  padding: 40px 6% 100px;  /* Keep content padding here */
+  margin: 0;
+  background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
+    url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional: makes it look more premium */
+}
         .services-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -243,8 +252,9 @@ export default function ServicesPage() {
                   </div>
                 )}
 
-                <span className="quote">Get Quote →</span>
-              </div>
+<Link to="/contact" style={{ textDecoration: 'none' }}>
+  <span className="quote">Get Quote →</span>
+</Link>              </div>
             );
           })}
         </div>

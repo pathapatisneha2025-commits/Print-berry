@@ -229,7 +229,7 @@ outlineBtn: {
 
   cardImg: {
     width: "100%",
-    height: "clamp(200px, 50vw, 280px)", // ✅ BIG FIX
+    // height: "clamp(200px, 50vw, 280px)", // ✅ BIG FIX
     objectFit: "cover",
     display: "block",
   },

@@ -14,8 +14,8 @@ export default function ContactPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "80px 20px 60px" : "120px 40px 80px",
-      }}
+// Changed 120px to 40px and 80px to 20px
+padding: isMobile ? "20px 20px 60px" : "40px 40px 80px",      }}
     >
       {/* HEADER */}
       <div style={styles.header}>
@@ -107,18 +107,18 @@ export default function ContactPage() {
 const styles = {
  page: {
   minHeight: "100vh",
-  maxWidth: "1300px",
+  // maxWidth: "1300px",
   margin: "0 auto",
   color: "#111",
 
 background: `
   linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-  url("/contact.jpeg")
+  url("/kalki.jpeg")
 `,
 
-backgroundSize: "cover",
-backgroundPosition: "center",
-backgroundRepeat: "no-repeat",
+backgroundSize: "contain",
+backgroundRepeat: "no-repeat", 
+backgroundPosition: "top center",
 
 },
 

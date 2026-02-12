@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <>
       {/* ===== FIXED TOP BAR ===== */}
-      <div
+      {/* <div
         style={{
           ...styles.topBar,
           position: "fixed",
@@ -55,7 +55,7 @@ export default function Navbar() {
           <span>📞 +91 9010099111</span>
           <span>✉️ printberry.in@gmail.com</span>
         </div>
-      </div>
+      </div> */}
 
       {/* ===== SPACER FOR FIXED TOP BAR + NAVBAR ===== */}
       {isMobile && <div style={{ height: "150px" }} />}
