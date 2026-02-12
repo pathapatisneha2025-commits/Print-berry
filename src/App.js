@@ -28,8 +28,10 @@ export default function App() {
         flexDirection: "column", 
         minHeight: "100vh", 
         width: "100%", 
-        overflowX: "hidden" 
-      }}>        <Navbar />
+        overflowX: "hidden",
+        position: "relative" // Keeps everything contained
+      }}>
+              <Navbar />
 <div 
           style={{ 
             height: isMobile ? "0px" : "180px", // Shorter gap on mobile
