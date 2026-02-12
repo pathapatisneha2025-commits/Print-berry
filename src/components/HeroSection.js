@@ -82,15 +82,17 @@ export default function HeroSection() {
                   key={s.title}
                   ref={el => (cardRefs.current[i] = el)}
                   data-index={i}
-                  style={{
-                    ...styles.card,
-                    borderColor: isActive ? s.color : "#e5e7eb",
-                    transform: isActive ? "scale(1.02)" : "scale(1)",
-                    boxShadow: isActive
-                      ? "0 20px 40px rgba(0,0,0,0.12)"
-                      : "0 10px 25px rgba(0,0,0,0.06)",
-                    transition: "all 0.35s ease",
-                  }}
+             style={{
+  ...styles.card,
+  borderColor: isActive ? s.color : "#e5e7eb",
+  // CHANGE THIS: Instead of scale, use a subtle border or shadow change
+  // If you MUST use scale, ensure the parent has a fixed height/width
+  transform: isActive ? "translateY(-5px)" : "translateY(0)", 
+  boxShadow: isActive
+    ? "0 20px 40px rgba(0,0,0,0.12)"
+    : "0 10px 25px rgba(0,0,0,0.06)",
+  transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)", // Smoother transition
+}}
                 >
                   <div style={styles.cardImgWrap}>
                     <img src={s.image} alt={s.title} style={styles.cardImg} />
