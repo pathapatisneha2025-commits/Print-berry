@@ -11,12 +11,14 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <section
-      style={{
-        ...styles.page,
-// Changed 120px to 40px and 80px to 20px
-padding: isMobile ? "20px 20px 60px" : "40px 40px 80px",      }}
-    >
+  <section
+  style={{
+    ...styles.page,
+    padding: isMobile 
+      ? "120px 20px 60px"  // Top (120), Left/Right (20), Bottom (60)
+      : "250px 40px 80px", // Top (250), Left/Right (40), Bottom (80)
+  }}
+>
       {/* HEADER */}
       <div style={styles.header}>
         <span style={styles.badge}>Contact Us</span>

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 const FeaturedClients = () => {
   const clients = [
     { name: "FaShionTv", logo: "fashiontv.jpeg" },
-    { name: "Costa Cofee", logo: "coffee.jpeg" },
+    { name: "Costa Cofee", logo: "costacoffee.jpeg" },
     { name: "Swadesh", logo: "swadesh.jpeg" },
     { name: "One Golf", logo: "onegolf.jpeg" },
     { name: "VASAVI Group", logo: "vasvai.jpeg" },
