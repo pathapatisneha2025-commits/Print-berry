@@ -193,16 +193,17 @@ navbar: {
   boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
   height: "100px",
 },
+logoWrap: { 
+  display: "flex", 
+  alignItems: "center",
+  height: "100%",
+  margin: 0,
+  padding: 0,
+  textDecoration: "none",
+  background: "#000000",
+  flexShrink: 0,   // Important
+},
 
-  logoWrap: { 
-    display: "flex", 
-    alignItems: "center",
-    height: "100%",           /* Fills the 100px navbar height */
-    margin: 0,
-    padding: 0,
-    textDecoration: "none",
-    background: "#000000",    /* Ensures the area behind the logo stays black */
-  },
   logoImg: {
     /* REMOVED mix-blend-mode to keep your black background */
     display: "block",         /* Removes the bottom ghost gap */
