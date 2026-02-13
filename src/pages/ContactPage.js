@@ -35,7 +35,7 @@ useEffect(() => {
         : device === "tablet"
         ? "180px 30px 70px"
         : device === "laptop"
-        ? "220px 35px 75px"
+        ? "400px 35px 75px"
         : "250px 40px 80px", // desktop
   }}
 >
