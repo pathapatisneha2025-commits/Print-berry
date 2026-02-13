@@ -18,20 +18,21 @@ export default function ContactPage() {
       }}
     >
       {/* HEADER */}
-      <div
-        style={{
-          ...styles.header,
-          background: `
-            linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-            url("/kalki.jpeg")
-          `,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          borderRadius: "20px",
-          padding: isMobile ? "60px 20px" : "100px 40px",
-        }}
-      >
+     <div
+  style={{
+    ...styles.header,
+    background: `
+      linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+      url("/kalki.jpeg")
+    `,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: isMobile ? "top center" : "center",
+    backgroundSize: isMobile ? "contain" : "cover", // contain on mobile
+    borderRadius: "20px",
+    padding: isMobile ? "120px 20px 60px" : "100px 40px 80px",
+  }}
+>
+
         <span style={styles.badge}></span>
 
         <h1 style={styles.heading}>
