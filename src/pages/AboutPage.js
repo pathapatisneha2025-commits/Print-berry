@@ -40,19 +40,21 @@ export default function AboutPage() {
   }, []);
 
   // Dynamic header style
-  const headerStyle = {
-    width: "100%",
-    padding: isMobile
-      ? "200px 0px 40px" // Mobile: top 80px, sides 20px, bottom 40px
-      : "500px 60px 100px", // Desktop: top 160px, sides 60px, bottom 100px
-    backgroundImage: `
-      linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.75)),
-      url("/3Dsignage.jpeg")
-    `,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  };
+ // Dynamic header style
+const headerStyle = {
+  width: "100%",
+  padding: isMobile
+    ? "200px 20px 40px" // Mobile: more top padding to show image fully
+    : "500px 60px 100px", // Desktop
+  backgroundImage: `
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.75)),
+    url("/3Dsignage.jpeg")
+  `,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: isMobile ? "top center" : "center",
+  backgroundSize: isMobile ? "contain" : "cover", // CONTAIN for mobile
+};
+
 
   return (
     <section style={styles.page}>
