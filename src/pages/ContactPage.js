@@ -17,7 +17,7 @@ export default function ContactPage() {
   }
 
   const paddingMap = {
-    mobile: "100px 20px 40px",
+    mobile: "100px 0px 40px",
     tablet: "80px 30px 60px",
     desktop: "0px 40px 80px",
   };
