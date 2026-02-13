@@ -45,8 +45,7 @@ export default function AboutPage() {
       style={{
         ...styles.page,
         padding: isMobile ? "0px 20px 60px" : styles.page.padding,
-            backgroundSize: isMobile ? "cover" : "contain", // 👈 here
-
+        
       }}
     >
       {/* HEADER */}
@@ -195,6 +194,7 @@ const styles = {
   url("/3Dsignage.jpeg")
 `,
 
+    backgroundSize: "contain",
 backgroundRepeat: "no-repeat", 
 backgroundPosition: "top center",
   },
@@ -216,7 +216,7 @@ backgroundPosition: "top center",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
-subText: { fontSize: "18px", color: "#555", lineHeight: "1.7", fontWeight: "900" },  cardsContainer: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", marginBottom: "70px" },
+subText: { fontSize: "18px", color: "#555", lineHeight: "1.7", fontWeight: "700" },  cardsContainer: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", marginBottom: "70px" },
   card: { background: "#fff", border: "1px solid #eee", borderRadius: "22px", padding: "36px 28px", textAlign: "center", transition: "all 0.35s ease", boxShadow: "0 20px 40px rgba(0,0,0,0.06)" },
   iconWrap: { width: "64px", height: "64px", margin: "0 auto 18px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(236,72,153,0.12)", fontSize: "26px", color: "#ec4899" },
   cardTitle: { fontSize: "20px", fontWeight: "700", marginBottom: "12px" },
