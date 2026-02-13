@@ -198,23 +198,29 @@ memorable advertising campaigns.            </p>
 }
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    padding: "200px 20px 60px",
-    // maxWidth: "1300px",
-    margin: "0 auto",
-    color: "#111",
-    overflowX: "hidden", // Prevents side-to-side movement
-   background: `
-  linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-  url("/3Dsignage.jpeg")
-`,
+page: {
+  minHeight: "100vh",
+  // padding: "0px 20px 60px",
+  margin: "0 auto",
+  color: "#111",
+  overflowX: "hidden",
+},
 
-    backgroundSize: "contain",
-backgroundRepeat: "no-repeat", 
-backgroundPosition: "top center",
-  },
-  header: { textAlign: "center", maxWidth: "820px", margin: "0 auto 90px" },
+header: {
+  textAlign: "center",
+  maxWidth: "100%",
+  margin: "0 auto 90px",
+  padding: "300px 20px 120px",
+  color: "#111",
+
+  backgroundImage: `
+    linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+    url("/3Dsignage.jpeg")
+  `,
+  backgroundSize: "cover",          // prevents cut weirdness
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",     // keeps image centered
+},
   badge: {
     display: "inline-block",
     padding: "16px 32px",
