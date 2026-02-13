@@ -115,9 +115,9 @@ export default function Navbar() {
             </ul>
 
         <div style={{ ...styles.btnRow, gap: "20px" }}>
-  <Link to="/contact">
+  {/* <Link to="/contact">
     <button style={styles.outlineBtn}>Free Quote</button>
-  </Link>
+  </Link> */}
 
   <Link to="/contact">
     <button style={styles.primaryBtn}>Get Started</button>
