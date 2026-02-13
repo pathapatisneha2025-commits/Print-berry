@@ -58,7 +58,7 @@ export default function Navbar() {
       </div> */}
 
       {/* ===== SPACER FOR FIXED TOP BAR + NAVBAR ===== */}
-      {isMobile && <div style={{ height: "60px" }} />}
+      {/* {isMobile && <div style={{ height: "60px" }} />} */}
 
       {/* ===== NAVBAR ===== */}
       <nav
