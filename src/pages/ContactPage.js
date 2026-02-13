@@ -17,7 +17,7 @@ export default function ContactPage() {
   }
 
   const paddingMap = {
-    mobile: "10px 0px 40px",
+    mobile: "100px 0px 40px",
     tablet: "80px 30px 60px",
     desktop: "0px 40px 80px",
   };
@@ -56,8 +56,8 @@ export default function ContactPage() {
           backgroundPosition: headerBgPos[device],
           backgroundSize: headerBgSize[device],
           borderRadius: "20px",
-padding: device === "mobile" ? "40px 20px" : paddingMap[device], // Custom padding for mobile
-    margin: "0 auto 60px",
+          padding: paddingMap[device],
+    margin: "4px auto 60px", // <-- added 4px top margin (mt-1)
         }}
       >
         <span style={styles.badge}></span>
