@@ -168,7 +168,8 @@ const styles = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     position: "relative",
-padding: "40px 20px", // Standardize padding for mobile safety    display: "flex",
+    padding: "clamp(24px, 6vw, 48px)",
+    display: "flex",
     alignItems: "center",
   },
 

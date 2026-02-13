@@ -191,7 +191,7 @@ navbar: {
   padding: "0 20px",
   width: "100%",
   boxSizing: "border-box",
-  // boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
   height: "100px",
 },
 logoWrap: { 
