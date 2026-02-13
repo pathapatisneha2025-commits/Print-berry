@@ -14,7 +14,7 @@ export default function ContactPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "120px 20px 60px" : "100px 40px 80px",
+        padding: isMobile ? "120px 20px 60px" : "0px 40px 80px",
       }}
     >
       {/* HEADER */}
