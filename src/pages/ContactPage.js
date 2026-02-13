@@ -83,12 +83,12 @@ export default function ContactPage() {
         {/* LEFT INFO */}
         <div style={styles.info}>
           {[
-            { icon: <FaPhoneAlt />, title: "Call Us", text: "+91 98765 43210" },
-            { icon: <FaEnvelope />, title: "Email", text: "info@yourbrand.com" },
+            { icon: <FaPhoneAlt />, title: "Call Us", text: "+91 90100 99111" },
+            { icon: <FaEnvelope />, title: "Email", text: "printberry.in@gmail.com" },
             {
               icon: <FaMapMarkerAlt />,
               title: "Location",
-              text: "Hyderabad, Telangana, India",
+              text: "1st Floor, C-Block, Uptown Cyberabad Building, 100ft Road,Madhapur, Hyderabad. 500081  ",
             },
           ].map((item) => (
             <div
@@ -107,18 +107,43 @@ export default function ContactPage() {
         </div>
 
         {/* RIGHT FORM */}
-        <form style={{ ...styles.form, width: "100%", maxWidth: device === "mobile" ? "100%" : "480px", margin: "0 auto" }}>
+<form
+  style={styles.form}
+  onSubmit={(e) => {
+    e.preventDefault();
+
+    const name = e.target[0].value;
+    const email = e.target[1].value;
+    const phone = e.target[2].value;
+    const message = e.target[3].value;
+
+    const whatsappNumber = "+91 90100 99111"; // your number with country code
+
+    const text = `
+Hello, I have a new enquiry:
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Message: ${message}
+    `;
+
+    const encodedText = encodeURIComponent(text);
+
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodedText}`,
+      "_blank"
+    );
+  }}
+>
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />
           <textarea placeholder="Tell us about your project" rows={4} style={styles.textarea} />
-          <button
-            style={styles.submitBtn}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-          >
-            Send Message →
-          </button>
+          <button type="submit" style={styles.submitBtn}>
+  Send on WhatsApp →
+</button>
+
         </form>
       </div>
     </section>
@@ -140,7 +165,8 @@ const styles = {
   },
   heading: { fontSize: "clamp(36px, 5vw, 54px)", fontWeight: "800", marginBottom: "18px" },
   brand: { color: "#ec4899" },
-  subText: { fontSize: "18px", color: "#555", lineHeight: "1.6" },
+  subText: { fontSize: "18px", color: "#555", lineHeight: "1.6",  fontWeight: "bold"   // <-- add this
+ },
   content: { display: "grid" },
   info: { display: "flex", flexDirection: "column", gap: "26px" },
   infoCard: {

@@ -41,10 +41,9 @@ export default function AboutPage() {
 
   // Dynamic header style
   const headerStyle = {
-    width: "100%",
     padding: isMobile
-      ? "170px 0px 40px" // Mobile: top 80px, sides 20px, bottom 40px
-      : "500px 60px 100px", // Desktop: top 160px, sides 60px, bottom 100px
+      ? "150px 0px 40px" // Mobile: top 80px, sides 20px, bottom 40px
+      : "350px 60px 100px", // Desktop: top 160px, sides 60px, bottom 100px
     backgroundImage: `
       linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.75)),
       url("/3Dsignage.jpeg")

@@ -89,51 +89,53 @@ export default function HeroSection() {
 <div style={{ 
             ...styles.grid, 
             gridTemplateColumns: isDesktop ? "repeat(3, 1fr)" : "1fr" 
-          }}>            {services.map((s, i) => {
-              const isActive = i === activeIndex;
-              return (
-                <div
-                  key={s.title}
-                  ref={el => (cardRefs.current[i] = el)}
-                  data-index={i}
-             style={{
-  ...styles.card,
-  borderColor: isActive ? s.color : "#e5e7eb",
-  // CHANGE THIS: Instead of scale, use a subtle border or shadow change
-  // If you MUST use scale, ensure the parent has a fixed height/width
-  transform: isActive ? "translateY(-5px)" : "translateY(0)", 
-  boxShadow: isActive
-    ? "0 20px 40px rgba(0,0,0,0.12)"
-    : "0 10px 25px rgba(0,0,0,0.06)",
-  transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)", // Smoother transition
-}}
-                >
-                  <div style={styles.cardImgWrap}>
-                    <img src={s.image} alt={s.title} style={styles.cardImg} />
-                  </div>
+          }}>   {services.map((s, i) => {
+  const isActive = i === activeIndex;
+  return (
+    <div
+      key={s.title}
+      ref={el => (cardRefs.current[i] = el)}
+      data-index={i}
+      onMouseEnter={() => setActiveIndex(i)} // Hover highlight
+      onMouseLeave={() => setActiveIndex(null)}
+      style={{
+        ...styles.card,
+        borderColor: isActive ? s.color : "#e5e7eb",
+        transform: isActive ? "translateY(-5px)" : "translateY(0)",
+        boxShadow: isActive
+          ? "0 20px 40px rgba(0,0,0,0.12)"
+          : "0 10px 25px rgba(0,0,0,0.06)",
+        transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+        cursor: "pointer",
+      }}
+    >
+      <div style={styles.cardImgWrap}>
+        <img src={s.image} alt={s.title} style={styles.cardImg} />
+      </div>
 
-                  <div style={styles.cardBody}>
-                    <div style={styles.cardTop}>
-                      <span style={{ ...styles.tag, color: s.color, borderColor: s.color }}>
-                        {s.tag}
-                      </span>
-                      <span style={styles.icon}>{s.icon}</span>
-                    </div>
+      <div style={styles.cardBody}>
+        <div style={styles.cardTop}>
+          <span style={{ ...styles.tag, color: s.color, borderColor: s.color }}>
+            {s.tag}
+          </span>
+          <span style={styles.icon}>{s.icon}</span>
+        </div>
 
-                    <h4 style={styles.cardTitle}>{s.title}</h4>
-                    <p style={styles.cardText}>
-                      Premium {s.title.toLowerCase()} designed for maximum brand impact and durability.
-                    </p>
+        <h4 style={styles.cardTitle}>{s.title}</h4>
+        <p style={styles.cardText}>
+          Premium {s.title.toLowerCase()} designed for maximum brand impact and durability.
+        </p>
 
-                     <Link to="/services" style={{ textDecoration: "none" }}>
-    <div style={{ ...styles.cardAction, color: s.color, cursor: "pointer" }}>
-      View Details →
+        <Link to="/services" style={{ textDecoration: "none" }}>
+          <div style={{ ...styles.cardAction, color: s.color, cursor: "pointer" }}>
+            View Details →
+          </div>
+        </Link>
+      </div>
     </div>
-  </Link>
-                  </div>
-                </div>
-              );
-            })}
+  );
+})}
+
           </div>
         </div>
       </div>
