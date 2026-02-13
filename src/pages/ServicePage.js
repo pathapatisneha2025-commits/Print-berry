@@ -247,8 +247,7 @@ export default function ServicesPage() {
 
 <Link to="/contact" style={{ textDecoration: "none" }}>
   <span className="quote">Get Quote →</span>
-</Link>
-              </div>
+</Link>              </div>
             );
           })}
         </div>

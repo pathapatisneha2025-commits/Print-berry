@@ -14,9 +14,7 @@ export default function ContactPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile
-          ? "120px 20px 60px" // Top, sides, bottom
-          : "100px 40px 80px",
+        padding: isMobile ? "120px 20px 60px" : "100px 40px 80px",
       }}
     >
       {/* HEADER */}
@@ -29,9 +27,9 @@ export default function ContactPage() {
           `,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
-          padding: isMobile ? "60px 20px" : "80px 40px",
-          borderRadius: "22px",
+          backgroundPosition: "center",
+          borderRadius: "20px",
+          padding: isMobile ? "60px 20px" : "100px 40px",
         }}
       >
         <span style={styles.badge}></span>
@@ -56,34 +54,17 @@ export default function ContactPage() {
         {/* LEFT INFO */}
         <div style={styles.info}>
           {[
-            {
-              icon: <FaPhoneAlt />,
-              title: "Call Us",
-              text: "+91 98765 43210",
-            },
-            {
-              icon: <FaEnvelope />,
-              title: "Email",
-              text: "info@yourbrand.com",
-            },
-            {
-              icon: <FaMapMarkerAlt />,
-              title: "Location",
-              text: "Hyderabad, Telangana, India",
-            },
+            { icon: <FaPhoneAlt />, title: "Call Us", text: "+91 98765 43210" },
+            { icon: <FaEnvelope />, title: "Email", text: "info@yourbrand.com" },
+            { icon: <FaMapMarkerAlt />, title: "Location", text: "Hyderabad, Telangana, India" },
           ].map((item) => (
             <div
               key={item.title}
               style={styles.infoCard}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "translateY(-6px)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "translateY(0)")
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
               <div style={styles.iconWrap}>{item.icon}</div>
-
               <div>
                 <h4 style={styles.infoTitle}>{item.title}</h4>
                 <p style={styles.infoText}>{item.text}</p>
@@ -97,19 +78,11 @@ export default function ContactPage() {
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />
-          <textarea
-            placeholder="Tell us about your project"
-            rows={4}
-            style={styles.textarea}
-          />
+          <textarea placeholder="Tell us about your project" rows={4} style={styles.textarea} />
           <button
             style={styles.submitBtn}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "translateY(-2px)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.transform = "translateY(0)")
-            }
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
           >
             Send Message →
           </button>
@@ -123,13 +96,13 @@ const styles = {
   page: {
     minHeight: "100vh",
     color: "#111",
-    background: "#fff", // page is plain now
   },
 
   header: {
     textAlign: "center",
     maxWidth: "720px",
-    margin: "0 auto 100px",
+    margin: "0 auto 60px",
+    borderRadius: "20px",
   },
 
   badge: {
@@ -196,18 +169,8 @@ const styles = {
     flexShrink: 0,
   },
 
-  infoTitle: {
-    margin: 0,
-    fontSize: "17px",
-    fontWeight: "600",
-  },
-
-  infoText: {
-    marginTop: "6px",
-    fontSize: "14px",
-    color: "#666",
-    lineHeight: "1.5",
-  },
+  infoTitle: { margin: 0, fontSize: "17px", fontWeight: "600" },
+  infoText: { marginTop: "6px", fontSize: "14px", color: "#666", lineHeight: "1.5" },
 
   form: {
     background: "#ffffff",
