@@ -157,7 +157,7 @@ const styles = {
     gap: "32px",
     margin: "0 auto",
     borderRadius: "24px",
-    boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
+    // boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
     overflowX: "hidden", // Prevents side-to-side movement
   },
 
