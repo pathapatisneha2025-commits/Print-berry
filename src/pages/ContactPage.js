@@ -2,37 +2,64 @@ import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function ContactPage() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [device, setDevice] = useState(getDeviceType(window.innerWidth));
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setDevice(getDeviceType(window.innerWidth));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
-    <section
-      style={{
-        ...styles.page,
-        padding: isMobile ? "120px 20px 60px" : "0px 40px 80px",
-      }}
-    >
-      {/* HEADER */}
-    <div
-  style={{
-    ...styles.header,
-    background: `
-      linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-      url("/kalki.jpeg")
-    `,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: isMobile ? "top center" : "center",
-    backgroundSize: isMobile ? "contain" : "cover", // contain on mobile
-    borderRadius: "20px",
-    padding: isMobile ? "120px 20px 60px" : "0px 40px 80px",
-  }}
->
+  function getDeviceType(width) {
+    if (width < 768) return "mobile";
+    if (width < 1024) return "tablet";
+    return "desktop";
+  }
 
+  const paddingMap = {
+    mobile: "100px 20px 40px",
+    tablet: "80px 30px 60px",
+    desktop: "0px 40px 80px",
+  };
+
+  const headerBgSize = {
+    mobile: "contain",
+    tablet: "cover",
+    desktop: "cover",
+  };
+
+  const headerBgPos = {
+    mobile: "top center",
+    tablet: "center",
+    desktop: "center",
+  };
+
+  const gridColumns = {
+    mobile: "1fr",
+    tablet: "1fr 1fr",
+    desktop: "1fr 1fr",
+  };
+
+  return (
+    <section style={{ ...styles.page, padding: paddingMap[device] }}>
+      {/* HEADER */}
+      <div
+        style={{
+          ...styles.header,
+          width: "100%",
+          maxWidth: device === "mobile" ? "100%" : "720px",
+          background: `
+            linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+            url("/kalki.jpeg")
+          `,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: headerBgPos[device],
+          backgroundSize: headerBgSize[device],
+          borderRadius: "20px",
+          padding: paddingMap[device],
+          margin: "0 auto 60px",
+        }}
+      >
         <span style={styles.badge}></span>
 
         <h1 style={styles.heading}>
@@ -49,7 +76,8 @@ export default function ContactPage() {
       <div
         style={{
           ...styles.content,
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gridTemplateColumns: gridColumns[device],
+          gap: device === "mobile" ? "30px" : "60px",
         }}
       >
         {/* LEFT INFO */}
@@ -57,7 +85,11 @@ export default function ContactPage() {
           {[
             { icon: <FaPhoneAlt />, title: "Call Us", text: "+91 98765 43210" },
             { icon: <FaEnvelope />, title: "Email", text: "info@yourbrand.com" },
-            { icon: <FaMapMarkerAlt />, title: "Location", text: "Hyderabad, Telangana, India" },
+            {
+              icon: <FaMapMarkerAlt />,
+              title: "Location",
+              text: "Hyderabad, Telangana, India",
+            },
           ].map((item) => (
             <div
               key={item.title}
@@ -75,7 +107,7 @@ export default function ContactPage() {
         </div>
 
         {/* RIGHT FORM */}
-        <form style={styles.form}>
+        <form style={{ ...styles.form, width: "100%", maxWidth: device === "mobile" ? "100%" : "480px", margin: "0 auto" }}>
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />
@@ -94,18 +126,8 @@ export default function ContactPage() {
 }
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    color: "#111",
-  },
-
-  header: {
-    textAlign: "center",
-    maxWidth: "720px",
-    margin: "0 auto 60px",
-    borderRadius: "20px",
-  },
-
+  page: { minHeight: "100vh", color: "#111" },
+  header: { textAlign: "center", borderRadius: "20px" },
   badge: {
     display: "inline-block",
     padding: "16px 32px",
@@ -116,34 +138,11 @@ const styles = {
     marginBottom: "32px",
     textTransform: "uppercase",
   },
-
-  heading: {
-    fontSize: "clamp(36px, 5vw, 54px)",
-    fontWeight: "800",
-    marginBottom: "18px",
-  },
-
-  brand: {
-    color: "#ec4899",
-  },
-
-  subText: {
-    fontSize: "18px",
-    color: "#555",
-    lineHeight: "1.6",
-  },
-
-  content: {
-    display: "grid",
-    gap: "60px",
-  },
-
-  info: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "26px",
-  },
-
+  heading: { fontSize: "clamp(36px, 5vw, 54px)", fontWeight: "800", marginBottom: "18px" },
+  brand: { color: "#ec4899" },
+  subText: { fontSize: "18px", color: "#555", lineHeight: "1.6" },
+  content: { display: "grid" },
+  info: { display: "flex", flexDirection: "column", gap: "26px" },
   infoCard: {
     display: "flex",
     alignItems: "center",
@@ -156,7 +155,6 @@ const styles = {
     transition: "all 0.3s ease",
     cursor: "pointer",
   },
-
   iconWrap: {
     width: "56px",
     height: "56px",
@@ -169,10 +167,8 @@ const styles = {
     color: "#ec4899",
     flexShrink: 0,
   },
-
   infoTitle: { margin: 0, fontSize: "17px", fontWeight: "600" },
   infoText: { marginTop: "6px", fontSize: "14px", color: "#666", lineHeight: "1.5" },
-
   form: {
     background: "#ffffff",
     border: "1px solid #eee",
@@ -183,7 +179,6 @@ const styles = {
     gap: "18px",
     boxShadow: "0 18px 40px rgba(0,0,0,0.06)",
   },
-
   input: {
     padding: "14px 16px",
     borderRadius: "12px",
@@ -193,7 +188,6 @@ const styles = {
     fontSize: "14px",
     outline: "none",
   },
-
   textarea: {
     padding: "14px 16px",
     borderRadius: "12px",
@@ -204,7 +198,6 @@ const styles = {
     outline: "none",
     resize: "none",
   },
-
   submitBtn: {
     marginTop: "10px",
     padding: "16px",
