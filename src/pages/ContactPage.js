@@ -21,7 +21,7 @@ export default function ContactPage() {
 >
       {/* HEADER */}
       <div style={styles.header}>
-        <span style={styles.badge}>Contact Us</span>
+        <span style={styles.badge}></span>
 
         <h1 style={styles.heading}>
           Let’s Build Your <span style={styles.brand}>Brand</span>
@@ -129,7 +129,7 @@ backgroundPosition: "top center",
   header: {
     textAlign: "center",
     maxWidth: "720px",
-    margin: "0 auto 80px",
+    margin: "0 auto 100px",
   },
 
  badge: {

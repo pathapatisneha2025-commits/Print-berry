@@ -58,7 +58,7 @@ export default function Navbar() {
       </div> */}
 
       {/* ===== SPACER FOR FIXED TOP BAR + NAVBAR ===== */}
-      {isMobile && <div style={{ height: "150px" }} />}
+      {isMobile && <div style={{ height: "80px" }} />}
 
       {/* ===== NAVBAR ===== */}
       <nav
@@ -76,7 +76,7 @@ export default function Navbar() {
           <img
             src="/logoimage.jpeg"
             alt="Print Berry"
-            style={{ ...styles.logoImg, height: isMobile ? "90px" : "160px" }}
+            style={{ ...styles.logoImg, height: isMobile ? "90px" : "100px" }}
           />
         </Link>
 
@@ -114,10 +114,15 @@ export default function Navbar() {
               })}
             </ul>
 
-            <div style={styles.actions}>
-              <button style={styles.outlineBtn}>Free Quote</button>
-              <button style={styles.primaryBtn}>Get Started</button>
-            </div>
+          <div style={styles.btnRow}>
+  <Link to="/contact">
+    <button style={styles.outlineBtn}>Free Quote</button>
+  </Link>
+  
+  <Link to="/contact">
+    <button style={styles.primaryBtn}>Get Started</button>
+  </Link>
+</div>
           </>
         )}
 
@@ -187,13 +192,20 @@ const styles = {
     boxSizing: "border-box",
     boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
   },
-  logoImg: {
-    height: "120px",
-    maxWidth: "400px",
+ logoImg: {
+    // This blend mode removes white backgrounds from JPEGs
+    mixBlendMode: "multiply", 
+    height: "auto",
+    maxWidth: "100%",
     objectFit: "contain",
     display: "block",
   },
-  logoWrap: { display: "flex", alignItems: "center" },
+  logoWrap: { 
+    display: "flex", 
+    alignItems: "center",
+    // Adding a slight transition for a premium feel
+    transition: "transform 0.3s ease",
+  },
   menu: {
     display: "flex",
     listStyle: "none",

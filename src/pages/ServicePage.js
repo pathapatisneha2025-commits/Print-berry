@@ -47,7 +47,7 @@ export default function ServicesPage() {
 
        .services-header {
   text-align: center;
-  padding: 90px 6% 50px;
+  padding: 40px 6% 50px;
   background: 
     linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)),
     url('/flexprinting.jpg');
@@ -64,34 +64,25 @@ export default function ServicesPage() {
           font-weight: 800;
         }
 
-    .services-header {
-  text-align: center;
-  padding: 90px 20px 50px; /* Reduced side padding */
-  width: 100%;             /* Ensure it takes full width */
-  background: 
-    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)),
-    url('/flexprinting.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* Removed border-radius if it's causing the gap at the edges */
-  border-radius: 0; 
-}
+       .services-header p {
+          font-size: clamp(14px, 2.5vw, 17px);
+          color: #4b5563;
+          max-width: 700px;
+          margin: auto;
+          line-height: 1.6;
+          font-weight: 700;
+        }
 
-.services-page {
-  min-height: 100vh;
-  width: 100%;             /* Force full width */
-  padding: 40px 6% 100px;  /* Keep content padding here */
-  margin: 0;
-      overflowX: "hidden", // Prevents side-to-side movement
+        .services-page {
+          min-height: 100vh;
+          padding: 40px 6% 100px;
+          background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
+            url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
 
-  background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
-    url('https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&w=1950&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Optional: makes it look more premium */
-}
         .services-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -173,7 +164,7 @@ export default function ServicesPage() {
 
       {/* HEADER */}
       <div className="services-header">
-        <span style={badge}>Our Services</span>
+        <span style={badge}></span>
         <h2>Complete Digital Printing Solutions</h2>
         <p>
           From concept to completion, we offer a full range of printing and
@@ -254,9 +245,10 @@ export default function ServicesPage() {
                   </div>
                 )}
 
-<Link to="/contact" style={{ textDecoration: 'none' }}>
+<Link to="/contact" style={{ textDecoration: "none" }}>
   <span className="quote">Get Quote →</span>
-</Link>              </div>
+</Link>
+              </div>
             );
           })}
         </div>

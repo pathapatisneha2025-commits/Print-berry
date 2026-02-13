@@ -34,7 +34,7 @@ export default function App() {
               <Navbar />
 <div 
           style={{ 
-            height: isMobile ? "0px" : "180px", // Shorter gap on mobile
+            height: isMobile ? "0px" : "100px", // Shorter gap on mobile
             transition: "height 0.3s ease"        // Smooth transition
           }} 
         />        {/* MAIN CONTENT */}

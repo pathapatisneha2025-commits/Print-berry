@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
   const cardRefs = useRef([]);
 
   const services = [
@@ -11,23 +12,32 @@ export default function HeroSection() {
     { title: "Brand Boards", tag: "Corporate", color: "#06b6d4", icon: "🚀", image: "/acpboards.jpeg" },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.dataset.index);
-            setActiveIndex(index);
-          }
-        });
-      },
-      { threshold: 0.5 } // 50% of card visible
-    );
+ useEffect(() => {
+  // 1. Handle Resize
+  const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+  window.addEventListener("resize", handleResize);
 
-    cardRefs.current.forEach(card => card && observer.observe(card));
+  // 2. Intersection Observer (your existing code)
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.dataset.index);
+          setActiveIndex(index);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
 
-    return () => observer.disconnect();
-  }, []);
+  cardRefs.current.forEach(card => card && observer.observe(card));
+
+  // Cleanup
+  return () => {
+    window.removeEventListener("resize", handleResize);
+    observer.disconnect();
+  };
+}, []);
 
   return (
     <section style={styles.wrapper}>
@@ -74,8 +84,10 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <div style={{ ...styles.grid, gridTemplateColumns: "1fr" }}>
-            {services.map((s, i) => {
+<div style={{ 
+            ...styles.grid, 
+            gridTemplateColumns: isDesktop ? "repeat(3, 1fr)" : "1fr" 
+          }}>            {services.map((s, i) => {
               const isActive = i === activeIndex;
               return (
                 <div
@@ -131,8 +143,6 @@ export default function HeroSection() {
 const styles = {
   wrapper: {
     background: "#fafafa",
-    padding: "0 16px 60px",
-    paddingTop: "80px", // ✅ smaller for mobile
     overflowX: "hidden",
   },
 
@@ -224,15 +234,19 @@ outlineBtn: {
     overflow: "hidden",
   },
 
+ /* ... inside your styles object ... */
+
   cardImgWrap: {
     width: "100%",
+    height: "200px", // Set a fixed height for consistency
     overflow: "hidden",
+    position: "relative", // Keeps everything contained
   },
 
   cardImg: {
     width: "100%",
-    // height: "clamp(200px, 50vw, 280px)", // ✅ BIG FIX
-    objectFit: "cover",
+    height: "100%", // Force image to fill the wrapper height
+    objectFit: "cover", // This is the secret sauce: it crops instead of stretching
     display: "block",
   },
 

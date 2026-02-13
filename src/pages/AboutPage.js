@@ -49,7 +49,7 @@ export default function AboutPage() {
     >
       {/* HEADER */}
       <div style={styles.header}>
-        <span style={styles.badge}>About Us</span>
+        <span style={styles.badge}></span>
 
         <h1 style={styles.heading}>
           We Make Your <span style={styles.brand}>Brand</span>{" "}
@@ -183,7 +183,7 @@ export default function AboutPage() {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "20px 20px 60px",
+    padding: "150px 20px 60px",
     // maxWidth: "1300px",
     margin: "0 auto",
     color: "#111",
