@@ -2,21 +2,29 @@ import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function ContactPage() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+const [device, setDevice] = useState("desktop"); // "mobile", "tablet", "desktop"
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+ useEffect(() => {
+  const handleResize = () => {
+    const width = window.innerWidth;
+    if (width < 768) setDevice("mobile");
+    else if (width < 1024) setDevice("tablet");
+    else setDevice("desktop");
+  };
+  handleResize();
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   return (
   <section
   style={{
     ...styles.page,
-    padding: isMobile 
-      ? "120px 20px 60px"  // Top (120), Left/Right (20), Bottom (60)
-      : "250px 40px 80px", // Top (250), Left/Right (40), Bottom (80)
+   padding: device === "mobile" ? "120px 20px 60px"
+       : device === "tablet" ? "180px 30px 70px"
+       : "250px 40px 80px",
+
+
   }}
 >
       {/* HEADER */}
@@ -37,7 +45,7 @@ export default function ContactPage() {
       <div
         style={{
           ...styles.content,
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+gridTemplateColumns: device === "mobile" ? "1fr" : "1fr 1fr",
         }}
       >
         {/* LEFT INFO */}
