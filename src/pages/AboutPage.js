@@ -44,7 +44,7 @@ export default function AboutPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "20px 20px 60px" : styles.page.padding,
+        padding: isMobile ? "0px 20px 60px" : styles.page.padding,
       }}
     >
       {/* HEADER */}
@@ -183,7 +183,7 @@ export default function AboutPage() {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "150px 20px 60px",
+    padding: "200px 20px 60px",
     // maxWidth: "1300px",
     margin: "0 auto",
     color: "#111",
