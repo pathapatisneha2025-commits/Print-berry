@@ -57,7 +57,7 @@ export default function ContactPage() {
           backgroundSize: headerBgSize[device],
           borderRadius: "20px",
           padding: paddingMap[device],
-          margin: "0 auto 60px",
+    margin: "4px auto 60px", // <-- added 4px top margin (mt-1)
         }}
       >
         <span style={styles.badge}></span>
