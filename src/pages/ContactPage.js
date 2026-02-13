@@ -18,7 +18,7 @@ export default function ContactPage() {
       }}
     >
       {/* HEADER */}
-     <div
+    <div
   style={{
     ...styles.header,
     background: `
@@ -29,7 +29,7 @@ export default function ContactPage() {
     backgroundPosition: isMobile ? "top center" : "center",
     backgroundSize: isMobile ? "contain" : "cover", // contain on mobile
     borderRadius: "20px",
-    padding: isMobile ? "120px 20px 60px" : "100px 40px 80px",
+    padding: isMobile ? "120px 20px 60px" : "0px 40px 80px",
   }}
 >
 
