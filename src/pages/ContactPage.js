@@ -4,27 +4,39 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 export default function ContactPage() {
 const [device, setDevice] = useState("desktop"); // "mobile", "tablet", "desktop"
 
- useEffect(() => {
+useEffect(() => {
   const handleResize = () => {
     const width = window.innerWidth;
-    if (width < 768) setDevice("mobile");
-    else if (width < 1024) setDevice("tablet");
-    else setDevice("desktop");
+
+    if (width < 768) {
+      setDevice("mobile");
+    } else if (width >= 768 && width <= 1024) {
+      setDevice("tablet");
+    } else if (width > 1024 && width <= 1440) {
+      setDevice("laptop");
+    } else if (width > 1440) {
+      setDevice("desktop");
+    }
   };
-  handleResize();
+
+  handleResize(); // Set initial device on mount
   window.addEventListener("resize", handleResize);
+
   return () => window.removeEventListener("resize", handleResize);
 }, []);
 
   return (
-  <section
+ <section
   style={{
     ...styles.page,
-   padding: device === "mobile" ? "120px 20px 60px"
-       : device === "tablet" ? "180px 30px 70px"
-       : "250px 40px 80px",
-
-
+    padding:
+      device === "mobile"
+        ? "120px 20px 60px"
+        : device === "tablet"
+        ? "180px 30px 70px"
+        : device === "laptop"
+        ? "220px 35px 75px"
+        : "250px 40px 80px", // desktop
   }}
 >
       {/* HEADER */}
