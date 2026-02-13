@@ -1,8 +1,138 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function ContactPage() {
-  const badge = {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <section
+      style={{
+        ...styles.page,
+        padding: isMobile
+          ? "120px 20px 60px" // Top, sides, bottom
+          : "100px 40px 80px",
+      }}
+    >
+      {/* HEADER */}
+      <div
+        style={{
+          ...styles.header,
+          background: `
+            linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+            url("/kalki.jpeg")
+          `,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "top center",
+          padding: isMobile ? "60px 20px" : "80px 40px",
+          borderRadius: "22px",
+        }}
+      >
+        <span style={styles.badge}></span>
+
+        <h1 style={styles.heading}>
+          Let’s Build Your <span style={styles.brand}>Brand</span>
+        </h1>
+
+        <p style={styles.subText}>
+          Have a project in mind? Reach out to us and let’s create something
+          impactful together.
+        </p>
+      </div>
+
+      {/* CONTENT */}
+      <div
+        style={{
+          ...styles.content,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        }}
+      >
+        {/* LEFT INFO */}
+        <div style={styles.info}>
+          {[
+            {
+              icon: <FaPhoneAlt />,
+              title: "Call Us",
+              text: "+91 98765 43210",
+            },
+            {
+              icon: <FaEnvelope />,
+              title: "Email",
+              text: "info@yourbrand.com",
+            },
+            {
+              icon: <FaMapMarkerAlt />,
+              title: "Location",
+              text: "Hyderabad, Telangana, India",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              style={styles.infoCard}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "translateY(-6px)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "translateY(0)")
+              }
+            >
+              <div style={styles.iconWrap}>{item.icon}</div>
+
+              <div>
+                <h4 style={styles.infoTitle}>{item.title}</h4>
+                <p style={styles.infoText}>{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* RIGHT FORM */}
+        <form style={styles.form}>
+          <input type="text" placeholder="Your Name" style={styles.input} />
+          <input type="email" placeholder="Email Address" style={styles.input} />
+          <input type="text" placeholder="Phone Number" style={styles.input} />
+          <textarea
+            placeholder="Tell us about your project"
+            rows={4}
+            style={styles.textarea}
+          />
+          <button
+            style={styles.submitBtn}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "translateY(-2px)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.transform = "translateY(0)")
+            }
+          >
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    color: "#111",
+    background: "#fff", // page is plain now
+  },
+
+  header: {
+    textAlign: "center",
+    maxWidth: "720px",
+    margin: "0 auto 100px",
+  },
+
+  badge: {
     display: "inline-block",
     padding: "16px 32px",
     color: "#ec4899",
@@ -11,200 +141,116 @@ export default function ContactPage() {
     letterSpacing: "0.5px",
     marginBottom: "32px",
     textTransform: "uppercase",
-  };
+  },
 
-  const contactInfo = [
-    { icon: <FaPhoneAlt />, title: "Call Us", text: "+91 90100 99111" },
-    { icon: <FaEnvelope />, title: "Email", text: "printberry.in@gmail.com" },
-    {
-      icon: <FaMapMarkerAlt />,
-      title: "Location",
-      text: "1st Floor, C-Block, Uptown Cyberabad Building, 100ft Road, Madhapur, Hyderabad. 500081",
-    },
-  ];
+  heading: {
+    fontSize: "clamp(36px, 5vw, 54px)",
+    fontWeight: "800",
+    marginBottom: "18px",
+  },
 
-  return (
-    <>
-      <style>{`
-        * { box-sizing: border-box; margin:0; padding:0; font-family: 'Poppins', sans-serif;}
-        body { background: #fff; color: #111827; }
+  brand: {
+    color: "#ec4899",
+  },
 
-        .contact-page {
-          min-height: 100vh;
-          padding: 250px 40px 80px;
-          background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-                      url('/kalki.jpeg');
-          background-size: contain;
-                    background-repeat: no-repeat;
+  subText: {
+    fontSize: "18px",
+    color: "#555",
+    lineHeight: "1.6",
+  },
 
-          background-position: top center;
-          color: #111;
-        }
+  content: {
+    display: "grid",
+    gap: "60px",
+  },
 
-        .contact-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 100px;
-        }
+  info: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "26px",
+  },
 
-        .contact-header h1 {
-          font-size: clamp(36px, 5vw, 54px);
-          font-weight: 800;
-          margin-bottom: 18px;
-        }
+  infoCard: {
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+    padding: "26px",
+    borderRadius: "22px",
+    background: "#ffffff",
+    border: "1px solid #eee",
+    boxShadow: "0 18px 40px rgba(0,0,0,0.06)",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+  },
 
-        .contact-header .brand { color: #ec4899; }
+  iconWrap: {
+    width: "56px",
+    height: "56px",
+    borderRadius: "16px",
+    background: "rgba(236,72,153,0.15)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "22px",
+    color: "#ec4899",
+    flexShrink: 0,
+  },
 
-        .contact-header p {
-          font-size: 18px;
-          color: #555;
-          line-height: 1.6;
-        }
+  infoTitle: {
+    margin: 0,
+    fontSize: "17px",
+    fontWeight: "600",
+  },
 
-       .contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-}
+  infoText: {
+    marginTop: "6px",
+    fontSize: "14px",
+    color: "#666",
+    lineHeight: "1.5",
+  },
 
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 26px; /* space between contact info cards */
-}
+  form: {
+    background: "#ffffff",
+    border: "1px solid #eee",
+    borderRadius: "22px",
+    padding: "32px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "18px",
+    boxShadow: "0 18px 40px rgba(0,0,0,0.06)",
+  },
 
+  input: {
+    padding: "14px 16px",
+    borderRadius: "12px",
+    border: "1px solid #ddd",
+    background: "#fff",
+    color: "#111",
+    fontSize: "14px",
+    outline: "none",
+  },
 
-        .info-card {
-          display: flex;
-          align-items: center;
-          gap: 26px;
-          padding: 26px;
-          border-radius: 22px;
-          background: #fff;
-          border: 1px solid #eee;
-          box-shadow: 0 18px 40px rgba(0,0,0,0.06);
-          transition: all 0.3s ease;
-          cursor: pointer;
-        }
+  textarea: {
+    padding: "14px 16px",
+    borderRadius: "12px",
+    border: "1px solid #ddd",
+    background: "#fff",
+    color: "#111",
+    fontSize: "14px",
+    outline: "none",
+    resize: "none",
+  },
 
-        .info-card:hover {
-          transform: translateY(-6px);
-        }
-
-        .icon-wrap {
-          width: 56px;
-          height: 56px;
-          border-radius: 16px;
-          background: rgba(236,72,153,0.15);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 22px;
-          color: #ec4899;
-          flex-shrink: 0;
-        }
-
-        .info-title { margin: 0; font-size: 17px; font-weight: 600; }
-        .info-text { margin-top: 6px; font-size: 14px; color: #666; line-height: 1.5; }
-
-        .contact-form {
-          background: #fff;
-          border: 1px solid #eee;
-          border-radius: 22px;
-          padding: 32px;
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-          box-shadow: 0 18px 40px rgba(0,0,0,0.06);
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-          padding: 14px 16px;
-          border-radius: 12px;
-          border: 1px solid #ddd;
-          font-size: 14px;
-          outline: none;
-        }
-
-        .contact-form button {
-          margin-top: 10px;
-          padding: 16px;
-          border-radius: 16px;
-          border: none;
-          background: linear-gradient(90deg,#ec4899,#f97316);
-          color: #fff;
-          font-weight: 700;
-          font-size: 16px;
-          cursor: pointer;
-          transition: transform 0.25s ease;
-        }
-
-        .contact-form button:hover {
-          transform: translateY(-2px);
-        }
-
-        @media (max-width: 1440px) {
-          .contact-page { padding: 300px 35px 75px; }
-        }
-
-        @media (max-width: 1024px) {
-          .contact-page { padding: 300px 30px 70px; }
-        }
-
-        @media (max-width: 768px) {
-          .contact-page { padding: 120px 20px 60px; }
-          .contact-content { grid-template-columns: 1fr; }
-          .contact-header h1 { font-size: 32px; }
-        }
-      `}</style>
-
-      <section className="contact-page">
-        <div className="contact-header">
-          <span style={badge}></span>
-          <h1>
-            Let’s Build Your <span className="brand">Brand</span>
-          </h1>
-          <p>
-            Have a project in mind? Reach out to us and let’s create something impactful together.
-          </p>
-        </div>
-
-        <div className="contact-content">
-          <div className="info">
-            {contactInfo.map((item) => (
-              <div key={item.title} className="info-card">
-                <div className="icon-wrap">{item.icon}</div>
-                <div>
-                  <h4 className="info-title">{item.title}</h4>
-                  <p className="info-text">{item.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <form
-            className="contact-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const name = e.target[0].value;
-              const email = e.target[1].value;
-              const phone = e.target[2].value;
-              const message = e.target[3].value;
-              const whatsappNumber = "+91 90100 99111";
-              const text = `Hello, I have a new enquiry:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
-              const encodedText = encodeURIComponent(text);
-              window.open(`https://wa.me/${whatsappNumber}?text=${encodedText}`, "_blank");
-            }}
-          >
-            <input type="text" placeholder="Your Name" />
-            <input type="email" placeholder="Email Address" />
-            <input type="text" placeholder="Phone Number" />
-            <textarea placeholder="Tell us about your project" rows={4} />
-            <button type="submit">Send Message →</button>
-          </form>
-        </div>
-      </section>
-    </>
-  );
-}
+  submitBtn: {
+    marginTop: "10px",
+    padding: "16px",
+    borderRadius: "16px",
+    border: "none",
+    background: "linear-gradient(90deg,#ec4899,#f97316)",
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: "16px",
+    cursor: "pointer",
+    transition: "transform 0.25s ease",
+  },
+};
