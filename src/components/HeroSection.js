@@ -43,7 +43,7 @@ export default function HeroSection() {
     <section style={styles.wrapper}>
       <div style={styles.hero}>
         {/* HERO IMAGE */}
-        <div style={{ ...styles.left, minHeight: "360px" }}>
+        <div style={{ ...styles.left }}>
           <div style={styles.leftOverlay} />
           <div style={styles.leftContent}>
             <div style={styles.badge}>
