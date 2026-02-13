@@ -151,7 +151,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "32px",
-    maxWidth: "1400px",
     margin: "0 auto",
     borderRadius: "24px",
     boxShadow: "0 30px 60px rgba(0,0,0,0.08)",
