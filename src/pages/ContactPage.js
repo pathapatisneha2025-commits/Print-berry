@@ -46,17 +46,17 @@ export default function ContactPage() {
             {
               icon: <FaPhoneAlt />,
               title: "Call Us",
-              text: "+91 98765 43210",
+              text: "+91 90100 99111",
             },
             {
               icon: <FaEnvelope />,
               title: "Email",
-              text: "info@yourbrand.com",
+              text: "printberry.in@gmail.com",
             },
             {
               icon: <FaMapMarkerAlt />,
               title: "Location",
-              text: "Hyderabad, Telangana, India",
+              text: "1st Floor, C-Block, Uptown Cyberabad Building, 100ft Road,Madhapur, Hyderabad. 500081  ",
             },
           ].map((item) => (
             <div
@@ -80,7 +80,35 @@ export default function ContactPage() {
         </div>
 
         {/* RIGHT FORM */}
-        <form style={styles.form}>
+<form
+  style={styles.form}
+  onSubmit={(e) => {
+    e.preventDefault();
+
+    const name = e.target[0].value;
+    const email = e.target[1].value;
+    const phone = e.target[2].value;
+    const message = e.target[3].value;
+
+    const whatsappNumber = "919490727583"; // your number with country code
+
+    const text = `
+Hello, I have a new enquiry:
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Message: ${message}
+    `;
+
+    const encodedText = encodeURIComponent(text);
+
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodedText}`,
+      "_blank"
+    );
+  }}
+>
           <input type="text" placeholder="Your Name" style={styles.input} />
           <input type="email" placeholder="Email Address" style={styles.input} />
           <input type="text" placeholder="Phone Number" style={styles.input} />

@@ -44,7 +44,7 @@ export default function AboutPage() {
     <section
       style={{
         ...styles.page,
-        padding: isMobile ? "20px 20px 60px" : styles.page.padding,
+        padding: isMobile ? "0px 20px 60px" : styles.page.padding,
         
       }}
     >
@@ -138,12 +138,28 @@ export default function AboutPage() {
             <p style={styles.storyText}>
               <strong style={styles.gradientText}>A Decade of Excellence</strong>
               <br />
-              From small beginnings to a trusted printing partner — our journey
-              is built on passion and precision.
+            At “Print Berry”, we are more than just 
+an advertising agency – we are      
+creative 
+storytellers, 
+strategic       
+thinkers, and brand builders. Our  
+passion lies in helping businesses of 
+all sizes thrive in today's dynamic and 
+competitive market
             </p>
             <p style={styles.storyText}>
-              We create visual solutions that leave lasting impressions.
-            </p>
+Our mission is simple yet powerful: To 
+transform your brand's vision into 
+captivating stories that resonate with 
+your target audience. We believe that 
+every brand has a unique story to tell, 
+and we're here to bring that story to 
+life 
+through 
+innovative 
+and            
+memorable advertising campaigns.            </p>
           </div>
 
           <div style={styles.storyCard}>
