@@ -183,17 +183,17 @@ const styles = {
     display: "flex",
   },
 navbar: {
-    background: "#ffffff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "0 20px",        
-    width: "100%",
-    boxSizing: "border-box",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-    overflow: "hidden", 
-    height: "100px",           /* Fixed height to contain the logo */
-  },
+  background: "#ffffff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "0 20px",
+  width: "100%",
+  boxSizing: "border-box",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  height: "100px",
+},
+
   logoWrap: { 
     display: "flex", 
     alignItems: "center",
