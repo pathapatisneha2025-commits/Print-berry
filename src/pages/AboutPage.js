@@ -43,7 +43,7 @@ export default function AboutPage() {
   const headerStyle = {
     width: "100%",
     padding: isMobile
-      ? "120px 20px 40px" // Mobile: top 80px, sides 20px, bottom 40px
+      ? "200px 20px 40px" // Mobile: top 80px, sides 20px, bottom 40px
       : "500px 60px 100px", // Desktop: top 160px, sides 60px, bottom 100px
     backgroundImage: `
       linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.75)),
