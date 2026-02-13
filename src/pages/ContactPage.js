@@ -35,6 +35,8 @@ export default function ContactPage() {
           background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
                       url('/kalki.jpeg');
           background-size: contain;
+                    background-repeat: no-repeat;
+
           background-position: top center;
           color: #111;
         }
@@ -59,16 +61,23 @@ export default function ContactPage() {
           line-height: 1.6;
         }
 
-        .contact-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-        }
+       .contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 26px; /* space between contact info cards */
+}
+
 
         .info-card {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 26px;
           padding: 26px;
           border-radius: 22px;
           background: #fff;
