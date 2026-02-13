@@ -66,9 +66,11 @@ export default function HeroSection() {
               <Link to="/services">
                 <button style={styles.primaryBtn}>Explore Services →</button>
               </Link>
-              <Link to="/portfolio">
-                <button style={styles.outlineBtn}>View Portfolio</button>
-              </Link>
+             {/* Open PDF in a new tab */}
+<a href="/portfolio.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+  <button style={styles.outlineBtn}>View Portfolio</button>
+</a>
+
             </div>
           </div>
         </div>

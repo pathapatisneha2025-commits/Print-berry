@@ -114,15 +114,16 @@ export default function Navbar() {
               })}
             </ul>
 
-          <div style={styles.btnRow}>
+        <div style={{ ...styles.btnRow, gap: "20px" }}>
   <Link to="/contact">
     <button style={styles.outlineBtn}>Free Quote</button>
   </Link>
-  
+
   <Link to="/contact">
     <button style={styles.primaryBtn}>Get Started</button>
   </Link>
 </div>
+
           </>
         )}
 
@@ -291,4 +292,10 @@ logoWrap: {
     textDecoration: "none",
     display: "inline-block",
   },
+    btnRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px", // <-- this creates the space between buttons
+  },
+
 };
