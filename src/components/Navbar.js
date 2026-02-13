@@ -182,29 +182,35 @@ const styles = {
   topRight: {
     display: "flex",
   },
-  navbar: {
+navbar: {
     background: "#ffffff",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "10px 20px",
+    padding: "0 20px",        
     width: "100%",
     boxSizing: "border-box",
     boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-  },
- logoImg: {
-    // This blend mode removes white backgrounds from JPEGs
-    mixBlendMode: "multiply", 
-    height: "auto",
-    maxWidth: "100%",
-    objectFit: "contain",
-    display: "block",
+    overflow: "hidden", 
+    height: "100px",           /* Fixed height to contain the logo */
   },
   logoWrap: { 
     display: "flex", 
     alignItems: "center",
-    // Adding a slight transition for a premium feel
-    transition: "transform 0.3s ease",
+    height: "100%",           /* Fills the 100px navbar height */
+    margin: 0,
+    padding: 0,
+    textDecoration: "none",
+    background: "#000000",    /* Ensures the area behind the logo stays black */
+  },
+  logoImg: {
+    /* REMOVED mix-blend-mode to keep your black background */
+    display: "block",         /* Removes the bottom ghost gap */
+    width: "auto",
+    height: "100%",           /* Stretches to fill the 100px height */
+    border: "none",
+    outline: "none",
+    objectFit: "contain",     /* Maintains logo proportions within the black block */
   },
   menu: {
     display: "flex",

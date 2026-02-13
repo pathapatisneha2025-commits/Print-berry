@@ -90,7 +90,7 @@ export default function ContactPage() {
     const phone = e.target[2].value;
     const message = e.target[3].value;
 
-    const whatsappNumber = "919490727583"; // your number with country code
+    const whatsappNumber = "+91 90100 99111"; // your number with country code
 
     const text = `
 Hello, I have a new enquiry:
